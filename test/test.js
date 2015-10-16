@@ -15,6 +15,7 @@ tape('setup', function(t){
     });
 });
 
+require('./test-open.js');
 require('./test-write.js');
 require('./test-read.js');
 require('./test-stats.js');

@@ -13,7 +13,8 @@ tape('mkdir', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });
 
@@ -26,6 +27,7 @@ tape('rmdir', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });

@@ -13,7 +13,8 @@ tape('unlink', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });
 
@@ -22,7 +23,8 @@ tape('unlink non-existing file', function(t){
 
     file.unlink(path)
     .then(function(stats){
-        t.fail(data);
+        t.error(stats, 'should return no stats');
+        t.end();
     })
     .catch(function(error){
         t.equal(error.path, path);

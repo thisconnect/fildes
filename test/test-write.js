@@ -13,7 +13,8 @@ tape('writeFile', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });
 
@@ -27,7 +28,8 @@ tape('writeFile JSON', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });
 
@@ -41,7 +43,8 @@ tape('writeFile Buffer', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });
 
@@ -55,7 +58,8 @@ tape('write', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });
 
@@ -69,7 +73,8 @@ tape('write JSON', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });
 
@@ -86,7 +91,8 @@ tape('write buffer', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });
 
@@ -104,7 +110,8 @@ tape('write buffer at position', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });
 

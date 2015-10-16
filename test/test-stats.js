@@ -14,7 +14,8 @@ tape('fstat', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });
 
@@ -23,7 +24,8 @@ tape('fstat non-existing file', function(t){
 
     file.fstat(path)
     .then(function(stats){
-        t.fail(stats);
+        t.error(stats, 'should have no stats');
+        t.end();
     })
     .catch(function(error){
         t.equal(error.path, path);

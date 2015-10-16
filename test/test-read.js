@@ -16,7 +16,8 @@ tape('readFile', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });
 
@@ -31,7 +32,8 @@ tape('readFile utf8', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });
 
@@ -40,7 +42,8 @@ tape('readFile non-existing file', function(t){
 
     file.readFile(path)
     .then(function(data){
-        t.fail(data);
+        t.error(data, 'should have no data');
+        t.end();
     })
     .catch(function(error){
         t.equal(error.path, path);
@@ -63,7 +66,8 @@ tape('read', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });
 
@@ -83,6 +87,7 @@ tape('read partly', function(t){
         t.end();
     })
     .catch(function(error){
-        t.fail(error);
+        t.error(error, error.message);
+        t.end();
     });
 });

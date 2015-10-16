@@ -4,13 +4,12 @@ var tape = require('tape');
 var resolve = require('path').resolve;
 
 
-tape('fstat', function(t){
-    var path = resolve(__dirname, './data/hi.txt');
+tape('unlink', function(t){
+    var path = resolve(__dirname, './data/file.txt');
 
-    file.fstat(path)
-    .then(function(stats){
-        t.equal(stats.size, 3, 'stats.size is 3');
-        t.pass('stats received');
+    file.unlink(path)
+    .then(function(data){
+        t.pass('file deleted');
         t.end();
     })
     .catch(function(error){
@@ -18,12 +17,12 @@ tape('fstat', function(t){
     });
 });
 
-tape('fstat non-existing file', function(t){
+tape('unlink non-existing file', function(t){
     var path = resolve(__dirname, './data/nothing-here.txt');
 
-    file.fstat(path)
+    file.unlink(path)
     .then(function(stats){
-        t.fail(stats);
+        t.fail(data);
     })
     .catch(function(error){
         t.equal(error.path, path);

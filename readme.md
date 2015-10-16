@@ -95,4 +95,47 @@ fildes.write('./path/to/file.txt', buffer, {
 ```
 
 
+
+### fildes.readFile(path)
+
+…
+
 ### fildes.read(path)
+
+…
+
+### fildes.stats(path)
+
+…
+
+### fildes.unlink(path)
+
+Just a promisdified `fs.unlink`.
+
+…
+
+### fildes.mkdir(path)
+
+Just a promisdified `mkdirp`.
+
+
+…
+
+### fildes.rmdir(path)
+
+Just a promisdified `rimraf`.
+
+…
+
+### fildes.copy(path)
+
+Just a promisdified `cpy`.
+
+…
+
+
+## TODO
+
+- Use graceful-fs but test
+- Test for copy
+- Docs

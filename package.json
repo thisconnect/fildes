@@ -33,7 +33,6 @@
   "homepage": "https://github.com/thisconnect/fildes#readme",
   "dependencies": {
     "cpy": "^3.4.1",
-    "graceful-fs": "^4.1.2",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.4.3"
   },

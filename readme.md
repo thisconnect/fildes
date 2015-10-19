@@ -17,7 +17,7 @@ npm i --save fildes
 
 ### Use
 
-`fildes` always return a new native [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)!
+`fildes` always returns a new native [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)!
 
 ```javascript
 var fildes = require('fildes');
@@ -29,6 +29,31 @@ fildes.write('./path/to/file.txt', 'The quick green fix')
 .catch(function(err){
     console.error(err.stack);
 });
+```
+
+##### Manually open and close
+
+```javascript
+fildes.open(path)
+.then(function(fd){
+    // write first time
+    return fildes.write(fd, 'Hi there!')
+    .then(function(){
+        // write second time on the same fd
+        return fildes.write(fd, new Buffer('again'), {
+            'offset': 0,
+            'length': 5,
+            'position': 3
+        });
+    })
+    .then(function(){
+        // manually close fd
+        return fildes.close(fd);
+    });
+})
+.catch(function(error){
+    console.error(err.stack);
+})
 ```
 
 
@@ -62,7 +87,7 @@ fildes.writeFile('./path/to/file.json', { data: 1 })
 
 ### fildes.write(path, data[, options])
 
-- `path` String
+- `path` String | File descriptor (Number > 0)
 - `data` String | Object | Buffer
 - `options` Object
   - If data is of type String or Object,
@@ -139,3 +164,5 @@ Just a promisdified `cpy`.
 - Use graceful-fs but test
 - Test for copy
 - Docs
+- lsof -i -n -P | grep node
+- https://github.com/sindresorhus/trash ?

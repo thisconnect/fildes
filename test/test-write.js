@@ -4,51 +4,6 @@ var tape = require('tape');
 var resolve = require('path').resolve;
 
 
-tape('writeFile', function(t){
-    var path = resolve(__dirname, './data/file.txt');
-
-    file.writeFile(path, 'Hello File!')
-    .then(function(){
-        t.pass('file written');
-        t.end();
-    })
-    .catch(function(error){
-        t.error(error, error.message);
-        t.end();
-    });
-});
-
-
-tape('writeFile JSON', function(t){
-    var path = resolve(__dirname, './data/file.json');
-
-    file.writeFile(path, {data: 1})
-    .then(function(){
-        t.pass('JSON written');
-        t.end();
-    })
-    .catch(function(error){
-        t.error(error, error.message);
-        t.end();
-    });
-});
-
-
-tape('writeFile Buffer', function(t){
-    var path = resolve(__dirname, './data/buffer.txt');
-
-    file.writeFile(path, new Buffer('I\'m a buffer'))
-    .then(function(){
-        t.pass('Buffer written');
-        t.end();
-    })
-    .catch(function(error){
-        t.error(error, error.message);
-        t.end();
-    });
-});
-
-
 tape('write', function(t){
     var path = resolve(__dirname, './data/foo.txt');
 
@@ -58,7 +13,7 @@ tape('write', function(t){
         t.end();
     })
     .catch(function(error){
-        t.error(error, error.message);
+        t.error(error);
         t.end();
     });
 });
@@ -73,7 +28,7 @@ tape('write JSON', function(t){
         t.end();
     })
     .catch(function(error){
-        t.error(error, error.message);
+        t.error(error);
         t.end();
     });
 });
@@ -91,7 +46,7 @@ tape('write buffer', function(t){
         t.end();
     })
     .catch(function(error){
-        t.error(error, error.message);
+        t.error(error);
         t.end();
     });
 });
@@ -110,16 +65,83 @@ tape('write buffer at position', function(t){
         t.end();
     })
     .catch(function(error){
-        t.error(error, error.message);
+        t.error(error);
         t.end();
     });
 });
 
 
-// by now files contain
-// data/file.txt = Hello File!
-// data/file.json = {"data":1}
-// data/buffer.txt = I'm a buffer
-// data/data.json = {"data":1}
-// data/foo.txt = foo bar bOz
-// data/hi.txt  = Hi!
+tape('open fd then write twice and close', function(t){
+    var path = resolve(__dirname, './data/manual.txt');
+
+    file.open(path)
+    .then(function(fd){
+        return file.write(fd, 'Hi there!')
+        .then(function(){
+            return file.write(fd, new Buffer('again'), {
+                'offset': 0,
+                'length': 5,
+                'position': 3
+            });
+        })
+        .then(function(){
+            return file.close(fd);
+        });
+    })
+    .then(function(){
+        t.pass('file written');
+        t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
+
+
+tape('write with invalid offset', function(t){
+    var path = resolve(__dirname, './data/err.txt');
+
+    file.write(path, new Buffer(0), {
+        'offset': -1
+    })
+    .then(function(){
+        t.fail('file written');
+        t.end();
+    })
+    .catch(function(error){
+        t.ok(error, error);
+        t.ok(error instanceof RangeError, 'is RangeError');
+        t.end();
+    });
+});
+
+
+tape('write buffer fd error', function(t){
+    file.write(-1, new Buffer(0))
+    .then(function(data){
+        t.fail('should have no data');
+        t.end();
+    })
+    .catch(function(error){
+        t.ok(error, error);
+        t.equal(error.syscall, 'write', 'error.syscall is write');
+        t.equal(error.code, 'EBADF', 'error.code is EBADF');
+        t.end();
+    });
+});
+
+
+tape('write fd error', function(t){
+    file.write(-1)
+    .then(function(data){
+        t.fail('should have no data');
+        t.end();
+    })
+    .catch(function(error){
+        t.ok(error, error);
+        t.equal(error.syscall, 'write', 'error.syscall is write');
+        t.equal(error.code, 'EBADF', 'error.code is EBADF');
+        t.end();
+    });
+});

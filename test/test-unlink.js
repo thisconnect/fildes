@@ -5,7 +5,7 @@ var resolve = require('path').resolve;
 
 
 tape('unlink', function(t){
-    var path = resolve(__dirname, './data/file.txt');
+    var path = resolve(__dirname, './data/open.txt');
 
     file.unlink(path)
     .then(function(data){
@@ -13,7 +13,7 @@ tape('unlink', function(t){
         t.end();
     })
     .catch(function(error){
-        t.error(error, error.message);
+        t.error(error);
         t.end();
     });
 });
@@ -23,10 +23,11 @@ tape('unlink non-existing file', function(t){
 
     file.unlink(path)
     .then(function(stats){
-        t.error(stats, 'should return no stats');
+        t.fail(stats, 'should return no stats');
         t.end();
     })
     .catch(function(error){
+        t.equal(error.syscall, 'unlink', 'error.syscall is unlink');
         t.equal(error.path, path);
         t.ok(error, 'has Error');
         t.end();

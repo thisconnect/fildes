@@ -31,6 +31,7 @@ tape('read partly', function(t){
 
     var buffer = new Buffer(3);
     file.read(path, buffer, {
+        'flags': 'r',
         'offset': 0,
         'length': 3,
         'position': 8

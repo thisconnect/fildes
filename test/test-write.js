@@ -1,5 +1,6 @@
 var file = require('../');
 
+var readFileSync = require('fs').readFileSync;
 var tape = require('tape');
 var resolve = require('path').resolve;
 
@@ -10,6 +11,28 @@ tape('write', function(t){
     file.write(path, 'foo bar baz')
     .then(function(){
         t.pass('file written');
+        t.equal(readFileSync(path, 'utf8'), 'foo bar baz');
+        t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
+
+
+tape('write buffer at position', function(t){
+    var path = resolve(__dirname, './data/foo.txt');
+
+    file.write(path, new Buffer('bOz'), {
+        'flags': 'a',
+        'offset': 0,
+        'length': 3,
+        'position': 8
+    })
+    .then(function(){
+        t.pass('file written');
+        t.equal(readFileSync(path, 'utf8'), 'foo bar bOz');
         t.end();
     })
     .catch(function(error){
@@ -25,6 +48,7 @@ tape('write JSON', function(t){
     file.write(path, {'data': 1})
     .then(function(){
         t.pass('file written');
+        t.equal(readFileSync(path, 'utf8'), '{"data":1}');
         t.end();
     })
     .catch(function(error){
@@ -43,25 +67,7 @@ tape('write buffer', function(t){
     })
     .then(function(){
         t.pass('file written');
-        t.end();
-    })
-    .catch(function(error){
-        t.error(error);
-        t.end();
-    });
-});
-
-
-tape('write buffer at position', function(t){
-    var path = resolve(__dirname, './data/foo.txt');
-
-    file.write(path, new Buffer('bOz'), {
-        'offset': 0,
-        'length': 3,
-        'position': 8
-    })
-    .then(function(){
-        t.pass('file written');
+        t.equal(readFileSync(path, 'utf8'), 'Hi!');
         t.end();
     })
     .catch(function(error){
@@ -90,6 +96,7 @@ tape('open fd then write twice and close', function(t){
     })
     .then(function(){
         t.pass('file written');
+        t.equal(readFileSync(path, 'utf8'), 'Hi again!');
         t.end();
     })
     .catch(function(error){

@@ -10,7 +10,7 @@ Provides native promises for all file system methods involving fd, basically `fs
 
 ### Install
 
-```javascript
+```bash
 npm i --save fildes
 ```
 
@@ -53,7 +53,7 @@ fildes.open(path)
 })
 .catch(function(error){
     console.error(err.stack);
-})
+});
 ```
 
 
@@ -67,29 +67,61 @@ Because A) I needed an API that returns Promises and B) a very popular module us
 
 ## API
 
+- [open](#open-path-options)
+- [close](#close-fd)
+- [write](#write-path-data-options)
+- [read](#read-path-data-options)
+- [stats](#stats-path-options)
 
-### fildes.writeFile(path, data[, options])
+### open(path[, options])
 
-Just a promisdified `fs.writeFile`.
+Opens a file descriptor. If `flags` is 'w', 'w+', 'a' or 'a+' open will try to mkdir on 'ENOENT: no such file or directory' error. `fildes.open` is used internally for write, read and fstat.
 
 - `path` String
-- `data` String | Object | Buffer
-- `options` Object (optional)
-  - `encoding`, `mode`, `flag`  [fs.writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_filename_data_options_callback) (Node.js File System API)
-
-
-##### Example writing JSON
+- `options` Object
+  - `flags` String defaults to 'w+'
+  - `mode` String defaults to '0666'
 
 ```javascript
-fildes.writeFile('./path/to/file.json', { data: 1 })
+fildes.open('./no/file/here.txt', {
+    'flags': 'r'
+})
+.then(function(fd){})
+.catch(function(error){
+    // returns  { [Error: ENOENT: no such file or directory..
+    console.log(error);
+});
 ```
 
 
-### fildes.write(path, data[, options])
+### close(fd)
+
+Closes a file descriptor.
+
+```javascript
+fildes.open('./file.txt')
+.then(function(fd){
+    // do stuff
+    return fildes.close(fd)
+})
+.then(function(){
+    console.log('done!');
+});
+```
+
+
+### write(path, data[, options])
+
+Promise to open a file descriptor, write data to it and close it.
+Keeps fd open if path was a fd, only closes if path is a string.
+
+If data is type of `Object` it will be converted to JSON.
 
 - `path` String | File descriptor (Number > 0)
 - `data` String | Object | Buffer
 - `options` Object
+  - `flags` String defaults to 'w', see also [open](#open)
+  - `mode` String, see [open](#open)
   - If data is of type String or Object,
     [fs.write](https://nodejs.org/api/fs.html#fs_fs_write_fd_data_position_encoding_callback) (Node.js File System API)
     - `position`
@@ -101,10 +133,22 @@ fildes.writeFile('./path/to/file.json', { data: 1 })
     - `position` (optional)
 
 
+##### Example writing a String
+
+```javascript
+fildes.write('./path/to/file.txt', 'some data')
+.then(function(){
+    console.log('done');
+});
+```
+
+
 ##### Example writing JSON
 
 ```javascript
-fildes.write('./path/to/file.json', { some: 'data' })
+fildes.write('./path/to/file.json', {
+    'some': 'data'
+});
 ```
 
 
@@ -116,53 +160,145 @@ var buffer = new Buffer('Hello World!');
 fildes.write('./path/to/file.txt', buffer, {
     'offset': 0,
     'length': buffer.length
-})
+});
 ```
 
 
-
-### fildes.readFile(path)
-
-…
-
-### fildes.read(path)
-
-…
-
-### fildes.stats(path)
-
-…
-
-### fildes.unlink(path)
-
-Just a promisdified `fs.unlink`.
-
-…
-
-### fildes.mkdir(path)
-
-Just a promisdified `mkdirp`.
+See also [writeFile](#writeFile-path-data-options)
 
 
-…
+### read(path, buffer[, options])
 
-### fildes.rmdir(path)
+Promise to read a file to a buffer.
 
-Just a promisdified `rimraf`.
+- `path` String | File descriptor (Number > 0)
+- `buffer` Buffer
+- `options` Object
+  - `flags` String defaults to 'r', see also [open](#open)
+  - `offset` Number
+  - `length` Number
+  - `position` Number
 
-…
 
-### fildes.copy(path)
+```javascript
+var buffer = new Buffer(8);
 
-Just a promisdified `cpy`.
+fildes.read('./path/to/file.txt', buffer, {
+  'offset': 0,
+  'length': 8,
+  'position': 0
+})
+.then(function(){
+    console.log(buffer.toString());
+})
+```
 
-…
+See also [readFile](#readFile-path-options)
+
+
+### stats(path[, options])
+
+Promise file stats. alias for `fildes.fstat`.
+
+- `path` String | File descriptor (Number > 0)
+- `options` Object
+  - `flags` String defaults to 'r', see also [open](#open)
+
+
+```javascript
+fildes.stats('./path/to/file.txt')
+.then(function(stats){
+  console.log(stats);
+})
+```
+
+See also [fs.fstat](https://nodejs.org/api/fs.html#fs_fs_fstat_fd_callback) (Node.js File System API)
+
+
+### writeFile(path, data[, options])
+
+Promise uses `fs.writeFile`.
+
+- `path` String
+- `data` String | Object | Buffer
+- `options` Object (optional)
+  - `encoding`, `mode`, `flag`
+
+
+##### Example writing JSON
+
+```javascript
+fildes.writeFile('./path/to/file.json', { 'data': 1 })
+```
+
+See also [fs.writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_filename_data_options_callback) (Node.js File System API)
+
+
+### readFile(path[, options])
+
+Promise uses `fs.readFile`.
+
+```javascript
+fildes.readFile('./path/to/file.json')
+.then(function(buffer){
+    console.log('got', buffer.toString());
+});
+```
+
+See also [fs.readFile](https://nodejs.org/api/fs.html#fs_fs_readfile_filename_options_callback) (Node.js File System API)
+
+
+### unlink(path)
+
+Promise uses [fs.unlink](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback) (Node.js File System API).
+
+```javascript
+fildes.unlink('./path/to/file.txt')
+.then(function(){
+    console.log('file removed!');
+});
+```
+
+
+### mkdir(path)
+
+Promise uses [mkdirp](https://www.npmjs.com/package/mkdirp) (NPM Documentation).
+
+```javascript
+fildes.mkdir('./path/to/dir')
+.then(function(){
+    console.log('directory created!');
+});
+```
+
+
+### rmdir(path)
+
+Promise uses [rimraf](https://www.npmjs.com/package/rimraf) (NPM Documentation).
+
+```javascript
+fildes.rmdir('./path/to/dir')
+.then(function(){
+    console.log('directory removed!');
+});
+```
+
+
+### copy(path)
+
+Promise `fildes.cp` alias `fildes.copy` uses [cpy](https://www.npmjs.com/package/cpy) (NPM Documentation).
+
+```javascript
+fildes.cp(['./data/*.txt'], './destination')
+.then(function(){
+    console.log('directory copied!');
+});
+```
 
 
 ## TODO
 
-- Use graceful-fs but test
-- Test for copy
 - Docs
 - lsof -i -n -P | grep node
+- Test graceful-fs for ulimit
 - https://github.com/sindresorhus/trash ?

@@ -19,10 +19,30 @@ tape('open', function(t){
     });
 });
 
+tape('open error', function(t){
+    var path = resolve(__dirname, './data/not/here.txt');
+
+    file.open(path, {
+        'flags': 'wx+' // reading and writing, fails if path exists
+    })
+    .then(function(fd){
+        t.fail(fd, 'should not return fd');
+        t.end();
+    })
+    .catch(function(error){
+        t.equal(error.syscall, 'open', 'error.syscall is open');
+        t.equal(error.path, path);
+        t.ok(error, 'has Error');
+        t.end();
+    });
+});
+
 tape('open wx (fails if path exists)', function(t){
     var path = resolve(__dirname, './data/open.txt');
 
-    file.open(path, { flags: 'wx'})
+    file.open(path, {
+        'flags': 'wx' // writing, fails if path exists
+    })
     .then(function(fd){
         t.ok(fd, 'has file descriptor');
         t.equal(typeof fd, 'number', 'fd is Number');

@@ -65,6 +65,7 @@ Because A) I needed an API that returns Promises and B) a very popular module us
 
 [fs.exists Stability: 0 - Deprecated](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback) (Node.js v4.2.1 File System API)
 
+
 ## API
 
 - [open](#open-path-options)
@@ -72,6 +73,14 @@ Because A) I needed an API that returns Promises and B) a very popular module us
 - [write](#write-path-data-options)
 - [read](#read-path-data-options)
 - [stats](#stats-path-options)
+- [writeFile](#writefile-path-data-options)
+- [readFile](#readfile-path-options)
+- [unlink](#unlink-path)
+- [mkdir](#mkdir-path)
+- [rmdir](#rmdir-path)
+- [cp](#copy-files-destination-options)
+
+
 
 ### open(path[, options])
 
@@ -284,7 +293,7 @@ fildes.rmdir('./path/to/dir')
 ```
 
 
-### copy(path)
+### copy(files, destination, [options])
 
 Promise `fildes.cp` alias `fildes.copy` uses [cpy](https://www.npmjs.com/package/cpy) (NPM Documentation).
 

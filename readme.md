@@ -80,6 +80,7 @@ Because A) I needed an API that returns Promises and B) a very popular module us
 - [rmdir](#rmdir-path)
 - [cp](#copy-files-destination-options)
 
+(GitHub uses a sligthly different anchor ID than NPM, this list only works on https://www.npmjs.com/package/fildes)
 
 
 ### open(path[, options])
@@ -307,7 +308,5 @@ fildes.cp(['./data/*.txt'], './destination')
 
 ## TODO
 
-- Docs
-- lsof -i -n -P | grep node
-- Test graceful-fs for ulimit
+- Test graceful-fs for ulimit, but include multiple child process
 - https://github.com/sindresorhus/trash ?

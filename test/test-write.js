@@ -1,8 +1,8 @@
 var file = require('../');
 
-var readFileSync = require('fs').readFileSync;
 var tape = require('tape');
 var resolve = require('path').resolve;
+var readFileSync = require('fs').readFileSync;
 
 
 tape('write', function(t){

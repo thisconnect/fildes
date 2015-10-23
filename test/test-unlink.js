@@ -28,6 +28,7 @@ tape('unlink non-existing file', function(t){
     })
     .catch(function(error){
         t.ok(error, error);
+        t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
         t.equal(error.syscall, 'unlink', 'error.syscall is unlink');
         t.equal(error.path, path);
         t.end();

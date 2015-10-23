@@ -132,8 +132,8 @@ tape('write buffer fd error', function(t){
     })
     .catch(function(error){
         t.ok(error, error);
-        t.equal(error.syscall, 'write', 'error.syscall is write');
         t.equal(error.code, 'EBADF', 'error.code is EBADF');
+        t.equal(error.syscall, 'write', 'error.syscall is write');
         t.end();
     });
 });
@@ -147,8 +147,8 @@ tape('write fd error', function(t){
     })
     .catch(function(error){
         t.ok(error, error);
-        t.equal(error.syscall, 'write', 'error.syscall is write');
         t.equal(error.code, 'EBADF', 'error.code is EBADF');
+        t.equal(error.syscall, 'write', 'error.syscall is write');
         t.end();
     });
 });

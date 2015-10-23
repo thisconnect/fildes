@@ -75,8 +75,8 @@ tape('read fd error', function(t){
     })
     .catch(function(error){
         t.ok(error, error);
-        t.equal(error.syscall, 'read', 'error.syscall is read');
         t.equal(error.code, 'EBADF', 'error.code is EBADF');
+        t.equal(error.syscall, 'read', 'error.syscall is read');
         t.end();
     });
 });

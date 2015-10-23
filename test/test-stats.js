@@ -30,6 +30,7 @@ tape('fstat non-existing file', function(t){
     })
     .catch(function(error){
         t.ok(error, error);
+        t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
         t.equal(error.syscall, 'open', 'error.syscall is open');
         t.equal(error.path, path);
         t.end();
@@ -47,8 +48,8 @@ tape('fstat wrong fd', function(t){
     })
     .catch(function(error){
         t.ok(error, error);
-        t.equal(error.syscall, 'fstat', 'error.syscall is fstat');
         t.equal(error.code, 'EBADF', 'error.code is EBADF');
+        t.equal(error.syscall, 'fstat', 'error.syscall is fstat');
         t.end();
     });
 });

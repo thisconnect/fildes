@@ -63,6 +63,7 @@ tape('writeFile error', function(t){
     })
     .catch(function(error){
         t.ok(error, error);
+        t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
         t.equal(error.syscall, 'open', 'error.syscall is open');
         t.equal(error.path, path);
         t.end();

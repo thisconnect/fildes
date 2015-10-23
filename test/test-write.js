@@ -20,7 +20,7 @@ tape('write', function(t){
     });
 });
 
-
+/*
 tape('write buffer at position', function(t){
     var path = resolve(__dirname, './data/foo.txt');
 
@@ -40,7 +40,7 @@ tape('write buffer at position', function(t){
         t.end();
     });
 });
-
+*/
 
 tape('write JSON', function(t){
     var path = resolve(__dirname, './data/data.json');

@@ -25,7 +25,7 @@ tape('read', function(t){
     });
 });
 
-
+/*
 tape('read partly', function(t){
     var path = resolve(__dirname, './data/foo.txt');
 
@@ -46,7 +46,7 @@ tape('read partly', function(t){
         t.end();
     });
 });
-
+*/
 
 tape('read path error', function(t){
     var path = resolve(__dirname, './data/foo.txt');

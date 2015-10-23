@@ -6,7 +6,10 @@ var resolve = require('path').resolve;
 tape('setup', function(t){
     var path = resolve(__dirname, './data');
 
-    file.mkdir(path)
+    file.rmdir(path)
+    .then(function(){
+        return file.mkdir(path);
+    })
     .then(function(){
         t.end();
     })
@@ -25,18 +28,3 @@ require('./test-stats.js');
 require('./test-unlink.js');
 require('./test-dir.js');
 // require('./test-functions.js');
-
-/*
-tape('end', function(t){
-    var path = resolve(__dirname, './data');
-
-    file.rmdir(path)
-    .then(function(){
-        t.end();
-    })
-    .catch(function(error){
-        t.error(error);
-        t.end();
-    });
-});
-*/

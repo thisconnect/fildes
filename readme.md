@@ -84,7 +84,7 @@ Because A) I needed an API that returns Promises and B) a very popular module us
 
 ### open(path[, options])
 
- `fildes.open` is used internally for write, read and fstat.
+Opens a file descriptor. If `flags` is 'w', 'w+', 'a' or 'a+' open will try to mkdir on 'ENOENT: no such file or directory' error. `fildes.open` is used internally for write, read and fstat.
 
 - `path` String
 - `options` Object

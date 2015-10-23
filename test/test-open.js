@@ -4,6 +4,26 @@ var tape = require('tape');
 var resolve = require('path').resolve;
 
 
+tape('open w file and dir created', function(t){
+    var path = resolve(__dirname, './data/dir/sub/file.txt');
+
+    file.open(path, {
+        'flags': 'w' // writing, file is created if it does not exist
+    })
+    .then(function(fd){
+        t.ok(fd, 'has file descriptor');
+        t.equal(typeof fd, 'number', 'fd is Number');
+        // manually close fd
+        require('fs').close(fd);
+        t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
+
+
 tape('open wx (fails if path exists)', function(t){
     var path = resolve(__dirname, './data/open.txt');
 

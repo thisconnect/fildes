@@ -74,7 +74,7 @@ Because A) I needed an API that returns Promises and B) a very popular module us
 - [open](#open-path-options)
 - [close](#close-fd)
 - [write](#write-path-data-options)
-- [read](#read-path-data-options)
+- [read](#read-path-buffer-options)
 - [stats](#stats-path-options)
 - [writeFile](#writefile-path-data-options)
 - [readFile](#readfile-path-options)

@@ -133,8 +133,8 @@ If data is type of `Object` it will be converted to JSON.
 - `path` String | File descriptor (Number > 0)
 - `data` String | Object | Buffer
 - `options` Object
-  - `flags` String defaults to 'w', see also [open](#open)
-  - `mode` String, see [open](#open)
+  - `flags` String defaults to 'w', see also [open](#open-path-options)
+  - `mode` String, see [open](#open-path-options)
   - If data is of type String or Object,
     [fs.write](https://nodejs.org/api/fs.html#fs_fs_write_fd_data_position_encoding_callback) (Node.js File System API)
     - `position`
@@ -187,7 +187,7 @@ Promise to read a file to a buffer.
 - `path` String | File descriptor (Number > 0)
 - `buffer` Buffer
 - `options` Object
-  - `flags` String defaults to 'r', see also [open](#open)
+  - `flags` String defaults to 'r', see also [open](#open-path-options)
   - `offset` Number
   - `length` Number
   - `position` Number
@@ -215,7 +215,7 @@ Promise file stats. alias for `fildes.fstat`.
 
 - `path` String | File descriptor (Number > 0)
 - `options` Object
-  - `flags` String defaults to 'r', see also [open](#open)
+  - `flags` String defaults to 'r', see also [open](#open-path-optionsen)
 
 
 ```javascript

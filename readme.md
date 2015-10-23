@@ -311,6 +311,7 @@ fildes.cp(['./data/*.txt'], './destination')
 
 ## TODO
 
+- Promises for all async fs methods that use fd: fs.ftruncate, fs.fchown, fs.fchmod, fs.futimes, fs.fsync
 - Test graceful-fs for ulimit, but include multiple child process (https://github.com/isaacs/node-graceful-fs/issues/48)
 - https://github.com/sindresorhus/trash ?
 - fancy build, dependency, coverage buttons

@@ -2,7 +2,7 @@
   "name": "fildes",
   "version": "0.1.4",
   "description": "file descriptor promises",
-  "main": "lib/index.js",
+  "main": "lib/main.js",
   "scripts": {
     "test": "tape test/test.js | tap-spec",
     "coverage": "istanbul cover test/test.js | tap-spec"

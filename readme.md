@@ -308,5 +308,5 @@ fildes.cp(['./data/*.txt'], './destination')
 
 ## TODO
 
-- Test graceful-fs for ulimit, but include multiple child process
+- Test graceful-fs for ulimit, but include multiple child process (https://github.com/isaacs/node-graceful-fs/issues/48)
 - https://github.com/sindresorhus/trash ?

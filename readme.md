@@ -1,6 +1,8 @@
 Fildes
 ------
 
+[![Build Status](https://travis-ci.org/thisconnect/fildes.svg?branch=master)](https://travis-ci.org/thisconnect/fildes)
+
 Provides native promises for all file system methods involving fd, basically `fs.open` for you.
 
 > file descriptor (FD, less frequently *fildes*)

@@ -18,6 +18,24 @@ tape('mkdir', function(t){
     });
 });
 
+
+tape('mkdir on file', function(t){
+    var path = resolve(__dirname, './data/file.txt');
+
+    file.mkdir(path)
+    .then(function(data){
+        t.fail('dir created');
+        t.end();
+    })
+    .catch(function(error){
+        t.ok(error, error);
+        t.equal(error.code, 'EEXIST', 'error.code is EEXIST');
+        t.equal(error.syscall, 'mkdir', 'error.syscall is mkdir');
+        t.end();
+    });
+});
+
+
 tape('mkdir error', function(t){
     file.mkdir(-1)
     .then(function(data){
@@ -30,6 +48,7 @@ tape('mkdir error', function(t){
         t.end();
     });
 });
+
 
 tape('rmdir', function(t){
     var path = resolve(__dirname, './data/a/new/dir');
@@ -45,6 +64,7 @@ tape('rmdir', function(t){
     });
 });
 
+
 tape('rmdir error', function(t){
     file.rmdir(-1)
     .then(function(data){
@@ -56,6 +76,7 @@ tape('rmdir error', function(t){
         t.end();
     });
 });
+
 
 tape('cp', function(t){
     var files = resolve(__dirname, './data/*.txt');
@@ -71,6 +92,7 @@ tape('cp', function(t){
         t.end();
     });
 });
+
 
 tape('cp error', function(t){
     var files = resolve(__dirname, './data/*');

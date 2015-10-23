@@ -42,13 +42,13 @@ tape('readFile non-existing file', function(t){
 
     file.readFile(path)
     .then(function(data){
-        t.fail(data, 'should have no data');
+        t.fail('should have no data');
         t.end();
     })
     .catch(function(error){
+        t.ok(error, error);
         t.equal(error.syscall, 'open', 'error.syscall is open');
         t.equal(error.path, path);
-        t.ok(error, 'has Error');
         t.end();
     });
 });

@@ -62,7 +62,7 @@ tape('writeFile error', function(t){
         t.end();
     })
     .catch(function(error){
-        t.ok(error, 'has Error');
+        t.ok(error, error);
         t.equal(error.syscall, 'open', 'error.syscall is open');
         t.equal(error.path, path);
         t.end();

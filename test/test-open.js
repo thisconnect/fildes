@@ -3,39 +3,6 @@ var file = require('../');
 var tape = require('tape');
 var resolve = require('path').resolve;
 
-tape('open', function(t){
-    var path = resolve(__dirname, './data/not/here.txt');
-
-    file.open(path)
-    .then(function(fd){
-        t.fail(fd, 'should not return fd');
-        t.end();
-    })
-    .catch(function(error){
-        t.equal(error.syscall, 'open', 'error.syscall is open');
-        t.equal(error.path, path);
-        t.ok(error, 'has Error');
-        t.end();
-    });
-});
-
-tape('open error', function(t){
-    var path = resolve(__dirname, './data/not/here.txt');
-
-    file.open(path, {
-        'flags': 'wx+' // reading and writing, fails if path exists
-    })
-    .then(function(fd){
-        t.fail(fd, 'should not return fd');
-        t.end();
-    })
-    .catch(function(error){
-        t.equal(error.syscall, 'open', 'error.syscall is open');
-        t.equal(error.path, path);
-        t.ok(error, 'has Error');
-        t.end();
-    });
-});
 
 tape('open wx (fails if path exists)', function(t){
     var path = resolve(__dirname, './data/open.txt');
@@ -55,6 +22,7 @@ tape('open wx (fails if path exists)', function(t){
         t.end();
     });
 });
+
 
 tape('open twice', function(t){
     var path = resolve(__dirname, './data/open.txt');
@@ -79,6 +47,45 @@ tape('open twice', function(t){
     });
 });
 
+
+tape('open', function(t){
+    var path = resolve(__dirname, './data/not/here.txt');
+
+    file.open(path, {
+        'flags': 'r' // reading, fails if path exists
+    })
+    .then(function(fd){
+        t.fail('should not return fd');
+        t.end();
+    })
+    .catch(function(error){
+        t.ok(error, error);
+        t.equal(error.syscall, 'open', 'error.syscall is open');
+        t.equal(error.path, path);
+        t.end();
+    });
+});
+
+
+tape('open error', function(t){
+    var path = resolve(__dirname, './data/not/here.txt');
+
+    file.open(path, {
+        'flags': 'wx+' // reading and writing, fails if path exists
+    })
+    .then(function(fd){
+        t.fail('should not return fd');
+        t.end();
+    })
+    .catch(function(error){
+        t.ok(error, error);
+        t.equal(error.syscall, 'open', 'error.syscall is open');
+        t.equal(error.path, path);
+        t.end();
+    });
+});
+
+
 tape('close', function(t){
     file.close(-1)
     .then(function(fd){
@@ -86,12 +93,13 @@ tape('close', function(t){
         t.end();
     })
     .catch(function(error){
+        t.ok(error, error);
         t.equal(error.code, 'EBADF', 'error.code is EBADF');
         t.equal(error.syscall, 'close', 'error.syscall is close');
-        t.ok(error, 'has Error');
         t.end();
     });
 });
+
 
 tape('close twice', function(t){
     var path = resolve(__dirname, './data/close-twice.txt');
@@ -110,8 +118,8 @@ tape('close twice', function(t){
         });
     })
     .catch(function(error){
+        t.ok(error, error);
         t.equal(error.syscall, 'close', 'error.syscall is close');
-        t.ok(error, 'has Error');
         t.end();
     });
 });

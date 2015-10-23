@@ -25,11 +25,11 @@ tape('fstat non-existing file', function(t){
 
     file.fstat(path)
     .then(function(stats){
-        t.fail(stats, 'should have no stats');
+        t.fail('should have no stats');
         t.end();
     })
     .catch(function(error){
-        t.ok(error, 'has Error');
+        t.ok(error, error);
         t.equal(error.syscall, 'open', 'error.syscall is open');
         t.equal(error.path, path);
         t.end();
@@ -42,11 +42,11 @@ tape('fstat wrong fd', function(t){
 
     file.fstat(-1)
     .then(function(stats){
-        t.fail(stats, 'should have no stats');
+        t.fail('should have no stats');
         t.end();
     })
     .catch(function(error){
-        t.ok(error, 'has Error');
+        t.ok(error, error);
         t.equal(error.syscall, 'fstat', 'error.syscall is fstat');
         t.equal(error.code, 'EBADF', 'error.code is EBADF');
         t.end();

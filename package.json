@@ -5,7 +5,8 @@
   "main": "lib/main.js",
   "scripts": {
     "test": "tape test/test.js | tap-spec",
-    "coverage": "istanbul cover test/test.js | tap-spec"
+    "coverage": "istanbul cover test/test.js | tap-spec",
+    "coveralls": "istanbul cover test/test.js --report lcovonly && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "rimraf": "^2.4.3"
   },
   "devDependencies": {
+    "coveralls": "^2.11.4",
     "istanbul": "^0.3.22",
     "tap-spec": "^4.1.0",
     "tape": "^4.2.1"

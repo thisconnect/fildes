@@ -281,6 +281,10 @@ fildes.unlink('./path/to/file.txt')
 
 Promise uses [mkdirp](https://www.npmjs.com/package/mkdirp) (NPM Documentation).
 
+- `path` String
+- `options` Object (optional)
+  - `mode`
+
 ```javascript
 fildes.mkdir('./path/to/dir')
 .then(function(){

@@ -64,7 +64,12 @@ fildes.open(path)
 
 ### Why?
 
-Because A) I needed an API that returns Promises and B) provides defaults i.e. flags c) a very popular module uses deprecated `fs.exists()`…
+- I needed an API that returns Promises
+- provides nice defaults i.e. suitable flags for `open`, `read` and `write`, see [fildes/issues/1](https://github.com/thisconnect/fildes/issues/2)
+- creates a directories if flag is `w`, `w+`, `a` or `a+`
+- uses no magic
+- promises useful methods, for `copy`, `mkdir`, `rmdir`, etc.
+- a very popular fs module uses deprecated `fs.exists()` which should not be used…
 
 > `fs.exists()` should not be used to check if a file exists before calling `fs.open()`. Doing so introduces a race condition since other processes may change the file's state between the two calls. Instead, user code should call `fs.open()` directly and handle the error raised if the file is non-existent.
 
@@ -317,6 +322,7 @@ fildes.cp(['./data/*.txt'], './destination')
     console.log('directory copied!');
 });
 ```
+
 
 ### Test
 

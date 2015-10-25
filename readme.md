@@ -308,6 +308,18 @@ fildes.cp(['./data/*.txt'], './destination')
 });
 ```
 
+### Test
+
+```bash
+npm t
+
+# debug
+DEBUG=fildes npm t
+
+# debug all
+DEBUG=fildes* npm t
+```
+
 
 ## TODO
 

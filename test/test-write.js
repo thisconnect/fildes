@@ -43,14 +43,13 @@ tape('write buffer', function(t){
 tape('write string at position', function(t){
     var path = resolve(__dirname, './data/foo2.txt');
 
-    file.write(path, 'foo bar baz', {
-        flags: 'w'
-    })
+    file.write(path, 'foo bar baz')
     .then(function(){
         t.pass('file written');
         t.equal(readFileSync(path, 'utf8'), 'foo bar baz');
 
         return file.write(path, 'bOz', {
+            // 'flags': 'r+'
             'position': 8
         })
         .then(function(){
@@ -69,14 +68,13 @@ tape('write string at position', function(t){
 tape('write buffer at position', function(t){
     var path = resolve(__dirname, './data/foo.txt');
 
-    file.write(path, 'foo bar baz', {
-        flags: 'w'
-    })
+    file.write(path, 'foo bar baz')
     .then(function(){
         t.pass('file written');
         t.equal(readFileSync(path, 'utf8'), 'foo bar baz');
 
         return file.write(path, new Buffer('bOz'), {
+            'flags': 'r+', // fails with 'w' or 'w+'
             'offset': 0,
             'length': 3,
             'position': 8

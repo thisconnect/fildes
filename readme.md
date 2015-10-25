@@ -133,7 +133,7 @@ If data is type of `Object` it will be converted to JSON.
 - `path` String | File descriptor (Number > 0)
 - `data` String | Object | Buffer
 - `options` Object
-  - `flags` String defaults to 'w', see also [open](#open-path-options)
+  - `flags` String if position > 0 defaults to 'r+' else defaults to 'w', see also [open](#open-path-options)
   - `mode` String, see [open](#open-path-options)
   - If data is of type String or Object,
     [fs.write](https://nodejs.org/api/fs.html#fs_fs_write_fd_data_position_encoding_callback) (Node.js File System API)

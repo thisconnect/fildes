@@ -20,6 +20,30 @@ tape('fstat', function(t){
 });
 
 
+tape('get size of many files', function(t){
+    var files = ['buffer.txt', 'data.json', 'file.txt'];
+
+    Promise.all(files.map(function(filename){
+        var filepath = resolve(__dirname, 'data', filename);
+        return file.fstat(filepath);
+    }))
+    .then(function(stats){
+        return stats.map(function(stat){
+            return stat.size;
+        });
+    })
+    .then(function(sizes){
+        t.equal(sizes.length, 3, 'stats.length is 3');
+        t.pass('stats received');
+        t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
+
+
 tape('fstat non-existing file', function(t){
     var path = resolve(__dirname, './data/nothing-here.txt');
 

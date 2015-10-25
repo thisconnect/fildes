@@ -61,6 +61,22 @@ fildes.open(path)
 });
 ```
 
+##### Get the size of many files
+
+```javascript
+Promise.all(['a.txt', 'b.json', 'c.txt'].map(function(filename){
+    var filepath = path.resolve(__dirname, 'sub/dir', filename);
+    return fildes.fstat(filepath);
+}))
+.then(function(stats){
+    return stats.map(function(stat){
+        return stat.size;
+    });
+})
+.then(function(sizes){
+    console.log('got filesizes', sizes);
+})
+```
 
 ### Why?
 

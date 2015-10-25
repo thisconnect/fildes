@@ -3,6 +3,8 @@ Fildes
 
 [![Build Status](https://travis-ci.org/thisconnect/fildes.svg?branch=master)](https://travis-ci.org/thisconnect/fildes)
 [![Coverage Status](https://coveralls.io/repos/thisconnect/fildes/badge.svg?service=github&branch=master)](https://coveralls.io/github/thisconnect/fildes?branch=master)
+[![Dependencies](https://img.shields.io/david/thisconnect/fildes.svg?style=flat-square)]
+[![Dev Dependencies](https://img.shields.io/david/dev/thisconnect/fildes.svg?style=flat-square)]
 
 Provides native promises for all file system methods involving fd, basically `fs.open` for you.
 

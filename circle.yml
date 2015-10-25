@@ -1,5 +1,6 @@
 
 machine:
   environment:
+    DEBUG: fildes*
   node:
     version: 4.2.1

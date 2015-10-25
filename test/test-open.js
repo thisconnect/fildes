@@ -13,8 +13,9 @@ tape('open w file and dir created', function(t){
     .then(function(fd){
         t.ok(fd, 'has file descriptor');
         t.equal(typeof fd, 'number', 'fd is Number');
-        // manually close fd
-        require('fs').close(fd);
+        return file.close(fd);
+    })
+    .then(function(){
         t.end();
     })
     .catch(function(error){
@@ -25,7 +26,7 @@ tape('open w file and dir created', function(t){
 
 
 tape('open wx (fails if path exists)', function(t){
-    var path = resolve(__dirname, './data/open.txt');
+    var path = resolve(__dirname, './data/new.txt');
 
     file.open(path, {
         'flags': 'wx' // writing, fails if path exists
@@ -33,8 +34,9 @@ tape('open wx (fails if path exists)', function(t){
     .then(function(fd){
         t.ok(fd, 'has file descriptor');
         t.equal(typeof fd, 'number', 'fd is Number');
-        // manually close fd
-        require('fs').close(fd);
+        return file.close(fd);
+    })
+    .then(function(){
         t.end();
     })
     .catch(function(error){
@@ -55,9 +57,9 @@ tape('open twice', function(t){
             t.ok(fd2, 'has file descriptor 2');
             t.equal(typeof fd1, 'number', 'fd1 is Number');
             t.equal(typeof fd2, 'number', 'fd2 is Number');
-            // manually close fd
-            require('fs').close(fd1);
-            require('fs').close(fd2);
+            return Promise.all([file.close(fd1), file.close(fd2)]);
+        })
+        .then(function(){
             t.end();
         });
     })
@@ -68,7 +70,7 @@ tape('open twice', function(t){
 });
 
 
-tape('open', function(t){
+tape('open r', function(t){
     var path = resolve(__dirname, './data/not/here.txt');
 
     file.open(path, {
@@ -88,7 +90,7 @@ tape('open', function(t){
 });
 
 
-tape('open error', function(t){
+tape('open wx+ error', function(t){
     var path = resolve(__dirname, './data/not/here.txt');
 
     file.open(path, {

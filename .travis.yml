@@ -4,5 +4,4 @@ node_js:
   - 'stable'
 os:
   - linux
-  - osx
 after_success: npm run coveralls

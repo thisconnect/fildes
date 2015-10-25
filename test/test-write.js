@@ -5,43 +5,6 @@ var resolve = require('path').resolve;
 var readFileSync = require('fs').readFileSync;
 
 
-tape('write', function(t){
-    var path = resolve(__dirname, './data/foo.txt');
-
-    file.write(path, 'foo bar baz')
-    .then(function(){
-        t.pass('file written');
-        t.equal(readFileSync(path, 'utf8'), 'foo bar baz');
-        t.end();
-    })
-    .catch(function(error){
-        t.error(error);
-        t.end();
-    });
-});
-
-/*
-tape('write buffer at position', function(t){
-    var path = resolve(__dirname, './data/foo.txt');
-
-    file.write(path, new Buffer('bOz'), {
-        'flags': 'a',
-        'offset': 0,
-        'length': 3,
-        'position': 8
-    })
-    .then(function(){
-        t.pass('file written');
-        t.equal(readFileSync(path, 'utf8'), 'foo bar bOz');
-        t.end();
-    })
-    .catch(function(error){
-        t.error(error);
-        t.end();
-    });
-});
-*/
-
 tape('write JSON', function(t){
     var path = resolve(__dirname, './data/data.json');
 
@@ -69,6 +32,60 @@ tape('write buffer', function(t){
         t.pass('file written');
         t.equal(readFileSync(path, 'utf8'), 'Hi!');
         t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
+
+
+tape('write string at position', function(t){
+    var path = resolve(__dirname, './data/foo2.txt');
+
+    file.write(path, 'foo bar baz', {
+        flags: 'w'
+    })
+    .then(function(){
+        t.pass('file written');
+        t.equal(readFileSync(path, 'utf8'), 'foo bar baz');
+
+        return file.write(path, 'bOz', {
+            'position': 8
+        })
+        .then(function(){
+            t.pass('file written');
+            t.equal(readFileSync(path, 'utf8'), 'foo bar bOz');
+            t.end();
+        });
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
+
+
+tape('write buffer at position', function(t){
+    var path = resolve(__dirname, './data/foo.txt');
+
+    file.write(path, 'foo bar baz', {
+        flags: 'w'
+    })
+    .then(function(){
+        t.pass('file written');
+        t.equal(readFileSync(path, 'utf8'), 'foo bar baz');
+
+        return file.write(path, new Buffer('bOz'), {
+            'offset': 0,
+            'length': 3,
+            'position': 8
+        })
+        .then(function(){
+            t.pass('file written');
+            t.equal(readFileSync(path, 'utf8'), 'foo bar bOz');
+            t.end();
+        });
     })
     .catch(function(error){
         t.error(error);

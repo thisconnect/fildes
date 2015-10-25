@@ -62,7 +62,7 @@ fildes.open(path)
 
 ### Why?
 
-Because A) I needed an API that returns Promises and B) a very popular module uses deprecated `fs.exists()`…
+Because A) I needed an API that returns Promises and B) provides defaults i.e. flags c) a very popular module uses deprecated `fs.exists()`…
 
 > `fs.exists()` should not be used to check if a file exists before calling `fs.open()`. Doing so introduces a race condition since other processes may change the file's state between the two calls. Instead, user code should call `fs.open()` directly and handle the error raised if the file is non-existent.
 
@@ -88,16 +88,16 @@ Because A) I needed an API that returns Promises and B) a very popular module us
 
 ### open(path[, options])
 
-Opens a file descriptor. If `flags` is 'w', 'w+', 'a' or 'a+' open will try to mkdir on 'ENOENT: no such file or directory' error. `fildes.open` is used internally for write, read and fstat.
+Opens a file descriptor (FD). If `flags` is 'w', 'w+', 'a' or 'a+' open will try to mkdir on 'ENOENT: no such file or directory' error. `fildes.open` is used internally for write, read and fstat.
 
 - `path` String
 - `options` Object
-  - `flags` String defaults to 'w+'
+  - `flag` or `flags` String defaults to 'w+'
   - `mode` String defaults to '0666'
 
 ```javascript
 fildes.open('./no/file/here.txt', {
-    'flags': 'r'
+    'flag': 'r'
 })
 .then(function(fd){})
 .catch(function(error){
@@ -109,13 +109,13 @@ fildes.open('./no/file/here.txt', {
 
 ### close(fd)
 
-Closes a file descriptor.
+Closes a file descriptor (FD).
 
 ```javascript
 fildes.open('./file.txt')
 .then(function(fd){
     // do stuff
-    return fildes.close(fd)
+    return fildes.close(fd);
 })
 .then(function(){
     console.log('done!');
@@ -130,10 +130,10 @@ Keeps fd open if path was a fd, only closes if path is a string.
 
 If data is type of `Object` it will be converted to JSON.
 
-- `path` String | File descriptor (Number > 0)
+- `path` String | FD (Number > 0)
 - `data` String | Object | Buffer
 - `options` Object
-  - `flags` String if position > 0 defaults to 'r+' else defaults to 'w', see also [open](#open-path-options)
+  - `flag` or `flags` String if position > 0 defaults to 'r+' else defaults to 'w', see also [open](#open-path-options)
   - `mode` String, see [open](#open-path-options)
   - If data is of type String or Object,
     [fs.write](https://nodejs.org/api/fs.html#fs_fs_write_fd_data_position_encoding_callback) (Node.js File System API)
@@ -184,10 +184,10 @@ See also [writeFile](#writeFile-path-data-options)
 
 Promise to read a file to a buffer.
 
-- `path` String | File descriptor (Number > 0)
+- `path` String | FD (Number > 0)
 - `buffer` Buffer
 - `options` Object
-  - `flags` String defaults to 'r', see also [open](#open-path-options)
+  - `flag` | `flags` String defaults to 'r', see also [open](#open-path-options)
   - `offset` Number
   - `length` Number
   - `position` Number
@@ -215,7 +215,7 @@ Promise file stats. alias for `fildes.fstat`.
 
 - `path` String | File descriptor (Number > 0)
 - `options` Object
-  - `flags` String defaults to 'r', see also [open](#open-path-optionsen)
+  - `flag` | `flags` String defaults to 'r', see also [open](#open-path-optionsen)
 
 
 ```javascript
@@ -250,6 +250,10 @@ See also [fs.writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_filename_
 ### readFile(path[, options])
 
 Promise uses `fs.readFile`.
+
+- `path` String
+- `options` Object (optional)
+  - `encoding`, `flag`
 
 ```javascript
 fildes.readFile('./path/to/file.json')

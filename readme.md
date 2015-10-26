@@ -253,6 +253,24 @@ fildes.stats('./path/to/file.txt')
 See also [fs.fstat](https://nodejs.org/api/fs.html#fs_fs_fstat_fd_callback) (Node.js File System API)
 
 
+### truncate(path)
+
+Promise truncate, alias for `fildes.ftruncate`.
+
+- `path` String | File descriptor (Number > 0)
+- `options` Object
+  - `flag` | `flags` String defaults to 'r+', see also [open](#open-path-optionsen)
+  - `length` | `len` Number, defaults to 0
+
+```javascript
+fildes.truncate('./path/to/file.txt', {
+    'length': 8
+})
+```
+
+See also [fs.ftruncate](https://nodejs.org/api/fs.html#fs_fs_ftruncate_fd_len_callback) (Node.js File System API)
+
+
 ### writeFile(path, data[, options])
 
 Promise uses `fs.writeFile`.

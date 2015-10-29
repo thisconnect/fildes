@@ -242,7 +242,7 @@ Promise file stats. alias for `fildes.fstat`.
 
 - `path` String | File descriptor (Number > 0)
 - `options` Object
-  - `flag` | `flags` String defaults to 'r', see also [open](#open-path-optionsen)
+  - `flag` | `flags` String defaults to 'r', see also [open](#open-path-options)
 
 
 ```javascript
@@ -261,7 +261,7 @@ Promise truncate, alias for `fildes.ftruncate`.
 
 - `path` String | File descriptor (Number > 0)
 - `options` Object
-  - `flag` | `flags` String defaults to 'r+', see also [open](#open-path-optionsen)
+  - `flag` | `flags` String defaults to 'r+', see also [open](#open-path-options)
   - `length` | `len` Number, defaults to 0
 
 ```javascript
@@ -279,7 +279,7 @@ Promise utime, alias for `fildes.futime`.
 
 - `path` String | File descriptor (Number > 0)
 - `options` Object
-  - `flag` | `flags` String defaults to 'r+', see also [open](#open-path-optionsen)
+  - `flag` | `flags` String defaults to 'r+', see also [open](#open-path-options)
   - `access` | `atime` UNIX timestamp or Date, defaults to new Date
   - `modification` | `mtime` UNIX timestamp or Date, defaults to new Date
 

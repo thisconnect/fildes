@@ -26,6 +26,7 @@ require('./test-read.js');
 require('./test-readfile.js');
 require('./test-stats.js');
 require('./test-truncate.js');
+require('./test-utimes.js');
 require('./test-unlink.js');
 require('./test-dir.js');
 // require('./test-functions.js');

@@ -271,6 +271,26 @@ fildes.truncate('./path/to/file.txt', {
 See also [fs.ftruncate](https://nodejs.org/api/fs.html#fs_fs_ftruncate_fd_len_callback) (Node.js File System API)
 
 
+### utime(path)
+
+Promise utime, alias for `fildes.futime`.
+
+- `path` String | File descriptor (Number > 0)
+- `options` Object
+  - `flag` | `flags` String defaults to 'r+', see also [open](#open-path-optionsen)
+  - `access` | `atime` UNIX timestamp or Date, defaults to new Date
+  - `modification` | `mtime` UNIX timestamp or Date, defaults to new Date
+
+```javascript
+fildes.utimes('./path/to/file.txt', {
+    'access': Date.now() - (60 * 60 * 1000),
+    'modification': new Date('2015-10-26')
+})
+```
+
+See also [fs.futime](https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime_callback) (Node.js File System API)
+
+
 ### writeFile(path, data[, options])
 
 Promise uses `fs.writeFile`.
@@ -378,3 +398,4 @@ DEBUG=fildes* npm t
 - Promises for all async fs methods that use fd: fs.ftruncate, fs.fchown, fs.fchmod, fs.futimes, fs.fsync
 - Test graceful-fs for ulimit, but include multiple child process (https://github.com/isaacs/node-graceful-fs/issues/48)
 - https://github.com/sindresorhus/trash ?
+- fs.readdir, fs.rename, fs.link, fs.symlink, fs.appendFile

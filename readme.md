@@ -113,7 +113,7 @@ Promise.all(files.map(function(filename){
 (GitHub uses a sligthly different anchor ID than NPM, this list only works on https://www.npmjs.com/package/fildes)
 
 
-### open(path[, options])
+### open (path[, options])
 
 Opens a file descriptor (FD). If `flags` is 'w', 'w+', 'a' or 'a+' open will try to mkdir on 'ENOENT: no such file or directory' error. `fildes.open` is used internally for write, read and fstat.
 
@@ -134,7 +134,7 @@ fildes.open('./no/file/here.txt', {
 ```
 
 
-### close(fd)
+### close (fd)
 
 Closes a file descriptor (FD).
 
@@ -150,7 +150,7 @@ fildes.open('./file.txt')
 ```
 
 
-### write(path, data[, options])
+### write (path, data[, options])
 
 Promise to open a file descriptor, write data to it and close it.
 Keeps fd open if path was a fd, only closes if path is a string.
@@ -207,7 +207,7 @@ fildes.write('./path/to/file.txt', buffer, {
 See also [writeFile](#writeFile-path-data-options)
 
 
-### read(path, buffer[, options])
+### read (path, buffer[, options])
 
 Promise to read a file to a buffer.
 
@@ -236,7 +236,7 @@ fildes.read('./path/to/file.txt', buffer, {
 See also [readFile](#readFile-path-options)
 
 
-### stats(path[, options])
+### stats (path[, options])
 
 Promise file stats. alias for `fildes.fstat`.
 
@@ -255,7 +255,7 @@ fildes.stats('./path/to/file.txt')
 See also [fs.fstat](https://nodejs.org/api/fs.html#fs_fs_fstat_fd_callback) (Node.js File System API)
 
 
-### truncate(path[, options])
+### truncate (path[, options])
 
 Promise truncate, alias for `fildes.ftruncate`.
 
@@ -273,7 +273,7 @@ fildes.truncate('./path/to/file.txt', {
 See also [fs.ftruncate](https://nodejs.org/api/fs.html#fs_fs_ftruncate_fd_len_callback) (Node.js File System API)
 
 
-### utime( path[, options] )
+### utime (path[, options])
 
 Promise utime, alias for `fildes.futime`.
 
@@ -293,7 +293,7 @@ fildes.utimes('./path/to/file.txt', {
 See also [fs.futime](https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime_callback) (Node.js File System API)
 
 
-### writeFile(path, data[, options])
+### writeFile (path, data[, options])
 
 Promise uses `fs.writeFile`.
 
@@ -312,7 +312,7 @@ fildes.writeFile('./path/to/file.json', { 'data': 1 })
 See also [fs.writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_filename_data_options_callback) (Node.js File System API)
 
 
-### readFile(path[, options])
+### readFile (path[, options])
 
 Promise uses `fs.readFile`.
 
@@ -330,7 +330,7 @@ fildes.readFile('./path/to/file.json')
 See also [fs.readFile](https://nodejs.org/api/fs.html#fs_fs_readfile_filename_options_callback) (Node.js File System API)
 
 
-### unlink(path)
+### unlink (path)
 
 Promise uses [fs.unlink](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback) (Node.js File System API).
 
@@ -342,7 +342,7 @@ fildes.unlink('./path/to/file.txt')
 ```
 
 
-### mkdir(path)
+### mkdir (path)
 
 Promise uses [mkdirp](https://www.npmjs.com/package/mkdirp) (NPM Documentation).
 
@@ -358,7 +358,7 @@ fildes.mkdir('./path/to/dir')
 ```
 
 
-### rmdir(path)
+### rmdir (path)
 
 Promise uses [rimraf](https://www.npmjs.com/package/rimraf) (NPM Documentation).
 
@@ -370,7 +370,7 @@ fildes.rmdir('./path/to/dir')
 ```
 
 
-### copy(files, destination, [options])
+### copy (files, destination, [options])
 
 Promise `fildes.cp` alias `fildes.copy` uses [cpy](https://www.npmjs.com/package/cpy) (NPM Documentation).
 

@@ -101,6 +101,8 @@ Promise.all(files.map(function(filename){
 - [write](#write-path-data-options)
 - [read](#read-path-buffer-options)
 - [stats](#stats-path-options)
+- [truncate](#truncate-path-options)
+- [utime](#utime-path-options)
 - [writeFile](#writefile-path-data-options)
 - [readFile](#readfile-path-options)
 - [unlink](#unlink-path)
@@ -253,7 +255,7 @@ fildes.stats('./path/to/file.txt')
 See also [fs.fstat](https://nodejs.org/api/fs.html#fs_fs_fstat_fd_callback) (Node.js File System API)
 
 
-### truncate(path)
+### truncate(path[, options])
 
 Promise truncate, alias for `fildes.ftruncate`.
 
@@ -271,7 +273,7 @@ fildes.truncate('./path/to/file.txt', {
 See also [fs.ftruncate](https://nodejs.org/api/fs.html#fs_fs_ftruncate_fd_len_callback) (Node.js File System API)
 
 
-### utime(path)
+### utime( path[, options] )
 
 Promise utime, alias for `fildes.futime`.
 

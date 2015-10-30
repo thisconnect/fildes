@@ -326,7 +326,7 @@ Promise uses `fs.writeFile`.
 fildes.writeFile('./path/to/file.json', { 'data': 1 })
 ```
 
-See also [fs.writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_filename_data_options_callback) (Node.js File System API)
+See also [fs.writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback) (Node.js File System API)
 
 
 ### readFile (path[, options])
@@ -344,7 +344,7 @@ fildes.readFile('./path/to/file.json')
 });
 ```
 
-See also [fs.readFile](https://nodejs.org/api/fs.html#fs_fs_readfile_filename_options_callback) (Node.js File System API)
+See also [fs.readFile](https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback) (Node.js File System API)
 
 
 ### unlink (path)

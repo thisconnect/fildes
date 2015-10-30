@@ -103,6 +103,7 @@ Promise.all(files.map(function(filename){
 - [stats](#stats-path-options)
 - [truncate](#truncate-path-options)
 - [utime](#utime-path-options)
+- [chmod](#chmod-path-options)
 - [writeFile](#writefile-path-data-options)
 - [readFile](#readfile-path-options)
 - [unlink](#unlink-path)
@@ -293,6 +294,22 @@ fildes.utimes('./path/to/file.txt', {
 See also [fs.futime](https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime_callback) (Node.js File System API)
 
 
+### chmod (path[, options])
+
+Promise chmod, alias for `fildes.fchmod`.
+
+- `path` String | File descriptor (Number > 0)
+- `options` Object
+  - `flag` | `flags` String defaults to 'r+', see also [open](#open-path-options)
+  - `mode` String | Integer
+
+  ```javascript
+  fildes.chmod('./path/to/file.txt', {
+      'mode': 0700 // nobody else
+  })
+  ```
+
+
 ### writeFile (path, data[, options])
 
 Promise uses `fs.writeFile`.
@@ -397,7 +414,7 @@ DEBUG=fildes* npm t
 
 ## TODO
 
-- Promises for all async fs methods that use fd: fs.fchown, fs.fchmod, fs.fsync
+- Promises for all async fs methods that use fd: fs.fchown, fs.fsync
 - Test graceful-fs for ulimit, but include multiple child process (https://github.com/isaacs/node-graceful-fs/issues/48)
 - https://github.com/sindresorhus/trash ?
 - fs.readdir, fs.rename, fs.link, fs.symlink, fs.appendFile

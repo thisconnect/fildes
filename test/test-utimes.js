@@ -7,19 +7,19 @@ var statSync = require('fs').statSync;
 tape('utimes', function(t){
     var path = resolve(__dirname, './data/buffer.txt');
 
-    var oneminago = Date.now() - (60 * 1000);
+    var now = Date.now();
     var firstoct = new Date('2015-10-01');
 
     file.utimes(path, {
-        'access': oneminago,
+        'access': (now / 1000) - 2, // two seconds ago
         'modification': firstoct
     })
     .then(function(){
         var stats = statSync(path);
         t.ok(stats.atime instanceof Date, 'atime instanceof Date');
         t.ok(stats.mtime instanceof Date, 'mtime instanceof Date');
-        t.equal(Number(stats.atime) / 1000, oneminago, 'access was 1 min ago');
-        t.equal(stats.mtime.toString(), firstoct.toString(), 'modification was on 2015-10-01');
+        t.ok(stats.atime.getTime() > new Date(now - 3000).getTime(), 'access was 2 seconds ago');
+        t.equal(stats.mtime.getTime(), firstoct.getTime(), 'modification was on 2015-10-01');
         t.end();
     })
     .catch(function(error){

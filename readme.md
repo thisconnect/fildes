@@ -303,11 +303,11 @@ Promise chmod, alias for `fildes.fchmod`.
   - `flag` | `flags` String defaults to 'r+', see also [open](#open-path-options)
   - `mode` String | Integer
 
-  ```javascript
-  fildes.chmod('./path/to/file.txt', {
-      'mode': 0700 // nobody else
-  })
-  ```
+```javascript
+fildes.chmod('./path/to/file.txt', {
+  'mode': 0700 // nobody else
+})
+```
 
 
 ### writeFile (path, data[, options])

@@ -10,9 +10,7 @@ tape('setup', function(t){
     .then(function(){
         return file.mkdir(path);
     })
-    .then(function(){
-        t.end();
-    })
+    .then(t.end)
     .catch(function(error){
         t.error(error);
         t.end();

@@ -154,14 +154,15 @@ fildes.open('./file.txt')
 ### write (path, data[, options])
 
 Promise to open a file descriptor, write data to it and close it.
-Keeps fd open if path was a fd, only closes if path is a string.
+Keeps fd open if a fd was passed, only closes if path is a string.
+Uses open internally which checks for 'ENOENT' error then tries to mkdir.
 
 If data is type of `Object` it will be converted to JSON.
 
 - `path` String | FD (Number > 0)
 - `data` String | Object | Buffer
 - `options` Object
-  - `flag` or `flags` String if position > 0 defaults to 'r+' else defaults to 'w', see also [open](#open-path-options)
+  - `flag` or `flags` String defaults to 'w' unless position > 0 in that case it is 'r+', see also [open](#open-path-options)
   - `mode` String, see [open](#open-path-options)
   - If data is of type String or Object,
     [fs.write](https://nodejs.org/api/fs.html#fs_fs_write_fd_data_position_encoding_callback) (Node.js File System API)
@@ -177,9 +178,9 @@ If data is type of `Object` it will be converted to JSON.
 ##### Example writing a String
 
 ```javascript
-fildes.write('./path/to/file.txt', 'some data')
+fildes.write('./path/to/a/new/dir/file.txt', 'some data\n')
 .then(function(){
-    console.log('done');
+    console.log('dir created and file written!');
 });
 ```
 

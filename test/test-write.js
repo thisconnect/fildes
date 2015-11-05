@@ -65,6 +65,23 @@ tape('write string at position', function(t){
 });
 
 
+tape('write file in a new directory', function(t){
+    var path = resolve(__dirname, './data/dir/sub2/file.txt');
+
+    file.write(path, 'test\n')
+    .then(function(){
+        t.pass('file written');
+        t.equal(readFileSync(path, 'utf8'), 'test\n');
+        t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+
+});
+
+
 tape('write buffer at position', function(t){
     var path = resolve(__dirname, './data/foo.txt');
 
@@ -92,7 +109,7 @@ tape('write buffer at position', function(t){
 });
 
 
-tape('open fd then write twice and close', function(t){
+tape('write twice with manually opened fd', function(t){
     var path = resolve(__dirname, './data/manual.txt');
 
     file.open(path)

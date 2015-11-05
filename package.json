@@ -5,6 +5,7 @@
   "main": "lib/main.js",
   "scripts": {
     "test": "tape test/test.js | tap-spec",
+    "test-length": "tape test/test-functions.js | tap-spec",
     "coverage": "istanbul cover test/test.js | tap-spec",
     "coveralls": "istanbul cover test/test.js --report lcovonly && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },

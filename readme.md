@@ -111,12 +111,10 @@ Promise.all(files.map(function(filename){
 - [rmdir](#rmdir-path)
 - [cp](#copy-files-destination-options)
 
-(GitHub uses a sligthly different anchor ID than NPM, this list only works on https://www.npmjs.com/package/fildes)
-
 
 ### open (path[, options])
 
-Opens a file descriptor (FD). If `flags` is 'w', 'w+', 'a' or 'a+' open will try to mkdir on 'ENOENT: no such file or directory' error. `fildes.open` is used internally for write, read and fstat.
+Opens a file descriptor (FD). If `flags` is 'w', 'w+', 'a' or 'a+' open will check for 'ENOENT: no such file or directory' error and try to mkdir. `fildes.open` is used internally for write, read and fstat.
 
 - `path` String
 - `options` Object
@@ -133,6 +131,8 @@ fildes.open('./no/file/here.txt', {
     console.log(error);
 });
 ```
+
+See also [fs.open](https://nodejs.org/api/fs.html#fs_fs_open_path_flags_mode_callback) (Node.js File System API)
 
 
 ### close (fd)

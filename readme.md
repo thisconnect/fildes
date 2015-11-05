@@ -20,7 +20,7 @@ npm i --save fildes
 ```
 
 
-### Use
+### Usage
 
 `fildes` always returns a new native [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)!
 
@@ -402,13 +402,15 @@ fildes.cp(['./data/*.txt'], './destination')
 ### Test
 
 ```bash
-npm t
+npm install
+
+npm test
 
 # debug
-DEBUG=fildes npm t
+DEBUG=fildes npm test
 
 # debug all
-DEBUG=fildes* npm t
+DEBUG=fildes* npm test
 ```
 
 

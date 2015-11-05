@@ -2,6 +2,8 @@ var file = require('../');
 
 var tape = require('tape');
 var resolve = require('path').resolve;
+var debug = require('debug');
+debug.log = console.log.bind(console);
 
 tape('setup', function(t){
     var path = resolve(__dirname, './data');

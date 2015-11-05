@@ -1,6 +1,6 @@
 {
   "name": "fildes",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "file descriptor promises",
   "main": "lib/main.js",
   "scripts": {

@@ -225,21 +225,31 @@ See also [writeFile](#writeFile-path-data-options)
 Promise to read a file to a buffer.
 
 - `path` String | FD (Number > 0)
-- `buffer` Buffer
+- `buffer` Buffer optional
 - `options` Object
   - `flag` | `flags` String defaults to 'r', see also [open](#open-path-options)
-  - `offset` Number
+  - `offset` Number optional
   - `length` Number
-  - `position` Number
+  - `position` Number optional
+
+
+```javascript
+fildes.read('./path/to/file.txt', {
+    'length': 8
+})
+.then(function(buffer){
+    console.log(buffer.toString());
+})
+```
 
 
 ```javascript
 var buffer = new Buffer(8);
 
 fildes.read('./path/to/file.txt', buffer, {
-  'offset': 0,
-  'length': 8,
-  'position': 0
+    'offset': 0,
+    'length': 8,
+    'position': 0
 })
 .then(function(){
     console.log(buffer.toString());
@@ -261,7 +271,7 @@ Promise file stats. alias for `fildes.fstat`.
 ```javascript
 fildes.stats('./path/to/file.txt')
 .then(function(stats){
-  console.log(stats);
+    console.log(stats);
 })
 ```
 
@@ -317,7 +327,7 @@ Promise chmod, alias for `fildes.fchmod`.
 
 ```javascript
 fildes.chmod('./path/to/file.txt', {
-  'mode': 0700 // nobody else
+    'mode': 0700 // nobody else
 })
 ```
 

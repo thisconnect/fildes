@@ -2,15 +2,39 @@ var file = require('../');
 
 var tape = require('tape');
 var resolve = require('path').resolve;
+var writeFileSync = require('fs').writeFileSync;
 
-// depends on files of test/test-write.js
+var file1 = resolve(__dirname, './data/read.txt');
+var file2 = resolve(__dirname, './data/read-foo-bar.txt');
+
+
+tape('setup', function(t){
+    writeFileSync(file1, 'Hi!!!\n');
+    writeFileSync(file2, 'foo bar bOz\n');
+    t.end();
+});
 
 
 tape('read', function(t){
-    var path = resolve(__dirname, './data/hi.txt');
+    file.read(file1, {
+        'length': 4
+    })
+    .then(function(buffer){
+        t.pass('file read');
+        t.deepEqual(buffer, new Buffer('Hi!!'));
+        t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
 
+
+
+tape('read to buffer', function(t){
     var buffer = new Buffer(3);
-    file.read(path, buffer, {
+    file.read(file1, buffer, {
         'offset': 0,
         'length': 3
     })
@@ -27,10 +51,9 @@ tape('read', function(t){
 
 
 tape('read partly', function(t){
-    var path = resolve(__dirname, './data/foo.txt');
 
     var buffer = new Buffer(3);
-    file.read(path, buffer, {
+    file.read(file2, buffer, {
         'flags': 'r',
         'offset': 0,
         'length': 3,
@@ -49,9 +72,7 @@ tape('read partly', function(t){
 
 
 tape('read path error', function(t){
-    var path = resolve(__dirname, './data/foo.txt');
-
-    file.read(path)
+    file.read(file2)
     .then(function(data){
         t.fail('should have no data');
         t.end();

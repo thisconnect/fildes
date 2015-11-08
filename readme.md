@@ -36,38 +36,14 @@ fildes.write('./path/to/file.txt', 'The quick green fix')
 });
 ```
 
-##### Manually open and close
 
-```javascript
-fildes.open(path)
-.then(function(fd){
-    // write first time
-    return fildes.write(fd, 'Hi there!')
-    .then(function(){
-        // write second time on the same fd
-        return fildes.write(fd, new Buffer('again'), {
-            'offset': 0,
-            'length': 5,
-            'position': 3
-        });
-    })
-    .then(function(){
-        // manually close fd
-        return fildes.close(fd);
-    });
-})
-.catch(function(error){
-    console.error(err.stack);
-});
-```
-
-##### Get the size of many files
+#### Get the size of many files
 
 ```javascript
 var files = ['a.txt', 'b.json', 'c.txt'];
 
-Promise.all(files.map(function(filename){
-    var filepath = path.resolve(__dirname, 'sub/dir', filename);
+Promise.all(files.map(function(file){
+    var filepath = path.resolve(__dirname, 'sub/dir', file);
     return fildes.fstat(filepath);
 }))
 .then(function(stats){
@@ -77,8 +53,40 @@ Promise.all(files.map(function(filename){
 })
 .then(function(sizes){
     console.log('got filesizes', sizes);
-})
+});
 ```
+
+
+#### Keep fd open and use multiple times
+
+```javascript
+fildes.open(path)
+.then(function(fd){
+    // write first time
+    return fildes.write(fd, 'Hi there!')
+    .then(function(){
+        var word = new Buffer('again');
+        // write second time on the same fd
+        return fildes.write(fd, word, {
+            'offset': 0,
+            'length': 5,
+            'position': 3
+        });
+    })
+    .then(function(){
+        return fildes.stats(fd);
+    })
+    .then(function(stats){
+        console.log(stats);
+        // manually close fd
+        return fildes.close(fd);
+    });
+})
+.catch(function(error){
+    console.error(err.stack);
+});
+```
+
 
 ### Why?
 
@@ -91,7 +99,7 @@ Promise.all(files.map(function(filename){
 
 > `fs.exists()` should not be used to check if a file exists before calling `fs.open()`. Doing so introduces a race condition since other processes may change the file's state between the two calls. Instead, user code should call `fs.open()` directly and handle the error raised if the file is non-existent.
 
-[fs.exists Stability: 0 - Deprecated](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback) (Node.js v4.2.1 File System API)
+[fs.exists Stability: 0 - Deprecated](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback) (Node.js v5.0.0 File System API)
 
 
 ## API
@@ -108,13 +116,17 @@ Promise.all(files.map(function(filename){
 - [readFile](#readfile-path-options)
 - [unlink](#unlink-path)
 - [mkdir](#mkdir-path)
-- [rmdir](#rmdir-path)
+- [rm](#rm-path)
 - [cp](#copy-files-destination-options)
 
 
 ### open (path[, options])
 
-Opens a file descriptor (FD). If `flags` is 'w', 'w+', 'a' or 'a+' open will check for 'ENOENT: no such file or directory' error and try to mkdir. `fildes.open` is used internally for write, read and fstat.
+Opens a file descriptor (FD). If `flags` is 'w', 'w+', 'a' or 'a+' open will
+check for 'ENOENT: no such file or directory' error and try to mkdir.
+`fildes.open` is used internally for write, read and fstat.
+Manually opening and closing is optional as all methods take a path
+and internally open and close for you.
 
 - `path` String
 - `options` Object
@@ -128,7 +140,6 @@ fildes.open('./no/file/here.txt', {
 .then(function(fd){})
 .catch(function(error){
     // returns  { [Error: ENOENT: no such file or directory..
-    console.log(error);
 });
 ```
 
@@ -175,17 +186,17 @@ If data is type of `Object` it will be converted to JSON.
     - `position` (optional)
 
 
-##### Example writing a String
+#### Example writing a String
 
 ```javascript
-fildes.write('./path/to/a/new/dir/file.txt', 'some data\n')
+fildes.write('./new/dir/file.txt', 'some data\n')
 .then(function(){
     console.log('dir created and file written!');
 });
 ```
 
 
-##### Example writing JSON
+#### Example writing JSON
 
 ```javascript
 fildes.write('./path/to/file.json', {
@@ -194,7 +205,7 @@ fildes.write('./path/to/file.json', {
 ```
 
 
-##### Example using a Buffer
+#### Example using a Buffer
 
 ```javascript
 var buffer = new Buffer('Hello World!');
@@ -209,7 +220,7 @@ fildes.write('./path/to/file.txt', buffer, {
 See also [writeFile](#writeFile-path-data-options)
 
 
-### read (path, buffer[, options])
+### read (path[, buffer], options)
 
 Promise to read a file to a buffer.
 
@@ -321,7 +332,7 @@ Promise uses `fs.writeFile`.
   - `encoding`, `mode`, `flag`
 
 
-##### Example writing JSON
+#### Example writing JSON
 
 ```javascript
 fildes.writeFile('./path/to/file.json', { 'data': 1 })
@@ -356,6 +367,9 @@ Promise uses [fs.unlink](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callba
 fildes.unlink('./path/to/file.txt')
 .then(function(){
     console.log('file removed!');
+})
+.catch(function(error){
+    // unlink thorws an error if file not found
 });
 ```
 
@@ -376,12 +390,13 @@ fildes.mkdir('./path/to/dir')
 ```
 
 
-### rmdir (path)
+### rm (path)
 
-Promise uses [rimraf](https://www.npmjs.com/package/rimraf) (NPM Documentation).
+Promise `fildes.rm` alias `fildes.rmdir`
+uses [rimraf](https://www.npmjs.com/package/rimraf) (NPM Documentation).
 
 ```javascript
-fildes.rmdir('./path/to/dir')
+fildes.rm('./path/to/dir')
 .then(function(){
     console.log('directory removed!');
 });
@@ -418,6 +433,7 @@ DEBUG=fildes* npm test
 ## TODO
 
 - Promises for all async fs methods that use fd: fs.fchown, fs.fsync
+- In Node.js v5.x fs.appendFile, fs.writeFile, fs.readFile accept a FD
 - Test graceful-fs for ulimit, but include multiple child process (https://github.com/isaacs/node-graceful-fs/issues/48)
 - https://github.com/sindresorhus/trash ?
 - fs.readdir, fs.rename, fs.link, fs.symlink, fs.appendFile

@@ -57,8 +57,8 @@ tape('mkdir error', function(t){
 });
 
 
-tape('rmdir', function(t){
-    file.rmdir(dirpath2)
+tape('rm', function(t){
+    file.rm(dirpath2)
     .then(function(data){
         t.pass('dir deleted');
         t.end();

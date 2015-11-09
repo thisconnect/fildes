@@ -25,6 +25,7 @@ require('./test-write.js');
 require('./test-read.js');
 require('./test-readfile.js');
 require('./test-stats.js');
+require('./test-append.js');
 require('./test-truncate.js');
 require('./test-utimes.js');
 require('./test-chmod.js');

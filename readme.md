@@ -6,7 +6,7 @@ Fildes
 [![Dependencies](https://img.shields.io/david/thisconnect/fildes.svg?style=flat-square)](https://david-dm.org/thisconnect/fildes)
 [![Dev Dependencies](https://img.shields.io/david/dev/thisconnect/fildes.svg?style=flat-square)](https://david-dm.org/thisconnect/fildes#info=devDependencies)
 
-Provides native promises for all file system methods involving fd, basically `fs.open` for you.
+Provides native promises for all file system methods involving file descriptors (FD), basically manages `fs.open` for you.
 
 > file descriptor (FD, less frequently *fildes*)
 
@@ -65,9 +65,9 @@ Promise.all(['file.txt', 'file2.txt'].map(function(path){
     });
 }))
 .then(function(result){
-    // chunk 1
+    // chunk of file 1
     console.log(result[0]);
-    // chunk 2
+    // chunk of file 2
     console.log(result[1]);
 });
 ```
@@ -110,7 +110,7 @@ Promise.all(files.map(function(file){
 ```
 
 
-#### Keep fd open and use many times
+#### Keep file descriptor (FD) open and use multiple times
 
 ```javascript
 fildes.open(path)
@@ -147,13 +147,14 @@ fildes.open(path)
 - [open](#open-path-options)
 - [close](#close-fd)
 - [write](#write-path-data-options)
+- [writeFile](#writefile-path-data-options)
 - [read](#read-path-buffer-options)
+- [readFile](#readfile-path-options)
+- [appendFile](#appendFile-path-data-options)
 - [stats](#stats-path-options)
 - [truncate](#truncate-path-options)
 - [utime](#utime-path-options)
 - [chmod](#chmod-path-options)
-- [writeFile](#writefile-path-data-options)
-- [readFile](#readfile-path-options)
 - [unlink](#unlink-path)
 - [mkdir](#mkdir-path)
 - [rm](#rm-path)
@@ -166,7 +167,7 @@ Opens a file descriptor (FD). If `flags` is 'w', 'w+', 'a' or 'a+' open will
 check for 'ENOENT: no such file or directory' error and try to mkdir.
 `fildes.open` is used internally for write, read and fstat.
 Manually opening and closing is optional as all methods take a path
-and internally open and close for you.
+and internally open and close.
 
 - `path` String
 - `options` Object
@@ -177,7 +178,9 @@ and internally open and close for you.
 fildes.open('./no/file/here.txt', {
     'flag': 'r'
 })
-.then(function(fd){})
+.then(function(fd){
+    // file descriptor (FD)
+})
 .catch(function(error){
     // returns  { [Error: ENOENT: no such file or directory..
 });
@@ -189,11 +192,14 @@ See also [fs.open](https://nodejs.org/api/fs.html#fs_fs_open_path_flags_mode_cal
 ### close (fd)
 
 Closes a file descriptor (FD).
+Methods generally take care about closing if a path was given.
+If a file descriptor (FD) was passed fildes will not close by itself.
 
 ```javascript
 fildes.open('./file.txt')
 .then(function(fd){
-    // do stuff
+    // do something
+    // manually close fd
     return fildes.close(fd);
 })
 .then(function(){
@@ -205,12 +211,11 @@ fildes.open('./file.txt')
 ### write (path, data[, options])
 
 Promise to open a file descriptor, write data to it and close it.
-Keeps fd open if a fd was passed, only closes if path is a string.
 Uses open internally which checks for 'ENOENT' error then tries to mkdir.
 
 If data is type of `Object` it will be converted to JSON.
 
-- `path` String | FD (Number > 0)
+- `path` String | file descriptor (FD)
 - `data` String | Object | Buffer
 - `options` Object
   - `flag` or `flags` String defaults to 'w' unless position > 0 in that case it is 'r+', see also [open](#open-path-options)
@@ -257,14 +262,30 @@ fildes.write('./path/to/file.txt', buffer, {
 ```
 
 
-See also [writeFile](#writeFile-path-data-options)
+### writeFile (path, data[, options])
+
+Promise uses `fs.writeFile`.
+
+- `path` String | file descriptor (FD, introduced in Node.js 5.x)
+- `data` String | Object | Buffer
+- `options` Object (optional)
+  - `encoding`, `mode`, `flag`
+
+
+#### Example writing JSON
+
+```javascript
+fildes.writeFile('./path/to/file.json', { 'data': 1 });
+```
+
+See also [fs.writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback) (Node.js File System API)
 
 
 ### read (path[, buffer], options)
 
 Promise to read a file to a buffer.
 
-- `path` String | FD (Number > 0)
+- `path` String | file descriptor (FD)
 - `buffer` Buffer (optional)
 - `options` Object
   - `flag` | `flags` String defaults to 'r', see also [open](#open-path-options)
@@ -299,14 +320,49 @@ fildes.read('./path/to/file.txt', buffer, {
 })
 ```
 
-See also [readFile](#readFile-path-options)
+
+### readFile (path[, options])
+
+Promise uses `fs.readFile`.
+
+- `path` String | file descriptor (FD, introduced in Node.js 5.x)
+- `options` Object (optional)
+  - `encoding`, `flag`
+
+```javascript
+fildes.readFile('./path/to/file.json')
+.then(function(buffer){
+    console.log('got', buffer.toString());
+});
+```
+
+See also [fs.readFile](https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback) (Node.js File System API)
+
+
+### appendFile (path, data[, options])
+
+Promise uses `fs.appendFile`.
+
+- `path` String | file descriptor (FD, introduced in Node.js 5.x)
+- `data` Buffer | String
+- `options` Object (optional)
+  - `encoding`, `flag`, `mode`
+
+```javascript
+fildes.appendFile('./path/to/file.txt', '2015-11-07 GET /robots.txt ')
+.then(function(){
+    console.log('added some data');
+});
+```
+
+See also [fs.appendFile](https://nodejs.org/api/fs.html#fs_fs_appendfile_file_data_options_callback) (Node.js File System API)
 
 
 ### stats (path[, options])
 
 Promise file stats. alias for `fildes.fstat`.
 
-- `path` String | File descriptor (Number > 0)
+- `path` String | file descriptor (FD)
 - `options` Object
   - `flag` | `flags` String defaults to 'r', see also [open](#open-path-options)
 
@@ -325,7 +381,7 @@ See also [fs.fstat](https://nodejs.org/api/fs.html#fs_fs_fstat_fd_callback) (Nod
 
 Promise truncate, alias for `fildes.ftruncate`.
 
-- `path` String | File descriptor (Number > 0)
+- `path` String | file descriptor (FD)
 - `options` Object
   - `flag` | `flags` String defaults to 'r+', see also [open](#open-path-options)
   - `length` | `len` Number, defaults to 0
@@ -343,7 +399,7 @@ See also [fs.ftruncate](https://nodejs.org/api/fs.html#fs_fs_ftruncate_fd_len_ca
 
 Promise utime, alias for `fildes.futime`.
 
-- `path` String | File descriptor (Number > 0)
+- `path` String | file descriptor (FD)
 - `options` Object
   - `flag` | `flags` String defaults to 'r+', see also [open](#open-path-options)
   - `access` | `atime` UNIX timestamp or Date, defaults to new Date
@@ -363,7 +419,7 @@ See also [fs.futime](https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime
 
 Promise chmod, alias for `fildes.fchmod`.
 
-- `path` String | File descriptor (Number > 0)
+- `path` String | file descriptor (FD)
 - `options` Object
   - `flag` | `flags` String defaults to 'r+', see also [open](#open-path-options)
   - `mode` String | Integer
@@ -373,43 +429,6 @@ fildes.chmod('./path/to/file.txt', {
     'mode': 0700 // nobody else
 })
 ```
-
-
-### writeFile (path, data[, options])
-
-Promise uses `fs.writeFile`.
-
-- `path` String
-- `data` String | Object | Buffer
-- `options` Object (optional)
-  - `encoding`, `mode`, `flag`
-
-
-#### Example writing JSON
-
-```javascript
-fildes.writeFile('./path/to/file.json', { 'data': 1 })
-```
-
-See also [fs.writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback) (Node.js File System API)
-
-
-### readFile (path[, options])
-
-Promise uses `fs.readFile`.
-
-- `path` String
-- `options` Object (optional)
-  - `encoding`, `flag`
-
-```javascript
-fildes.readFile('./path/to/file.json')
-.then(function(buffer){
-    console.log('got', buffer.toString());
-});
-```
-
-See also [fs.readFile](https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback) (Node.js File System API)
 
 
 ### unlink (path)
@@ -485,7 +504,7 @@ DEBUG=fildes* npm test
 
 ## TODO
 
-- Promises for all async fs methods that use fd: fs.fchown, fs.fsync
+- Promises for all async fs methods that use a file descriptor (FD): fs.fchown, fs.fsync
 - In Node.js v5.x fs.appendFile, fs.writeFile, fs.readFile accept a FD
 - Test graceful-fs for ulimit, but include multiple child process (https://github.com/isaacs/node-graceful-fs/issues/48)
 - https://github.com/sindresorhus/trash ?

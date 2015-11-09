@@ -109,7 +109,40 @@ tape('cp error', function(t){
         t.end();
     })
     .catch(function(error){
-        t.ok(error, 'has Error');
+        t.ok(error, error);
+        t.end();
+    });
+});
+
+
+tape('readdir', function(t){
+    var dir = resolve(__dirname, './data/dir');
+
+    file.readdir(dir)
+    .then(function(files){
+        t.ok(files, 'has files');
+        t.ok(Array.isArray(files), 'files is Array');
+        t.ok(files.length > 1, 'has some files');
+        t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
+
+
+tape('readdir error', function(t){
+    var dir = resolve(__dirname, './data/dir/that/is/not/here');
+
+    file.readdir(dir)
+    .then(function(files){
+        t.fail('should have no files');
+        t.end();
+    })
+    .catch(function(error){
+        t.ok(error, error);
+        t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
         t.end();
     });
 });

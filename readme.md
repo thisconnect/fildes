@@ -156,6 +156,7 @@ fildes.open(path)
 - [utime](#utime-path-options)
 - [chmod](#chmod-path-options)
 - [unlink](#unlink-path)
+- [readdir](#readdir-path)
 - [mkdir](#mkdir-path)
 - [rm](#rm-path)
 - [cp](#copy-files-destination-options)
@@ -442,6 +443,23 @@ fildes.unlink('./path/to/file.txt')
 })
 .catch(function(error){
     // unlink thorws an error if file not found
+});
+```
+
+
+### readdir (path)
+
+Promise uses [fs.readdir](https://nodejs.org/api/fs.html#fs_fs_readdir_path_callback) (Node.js File System API).
+
+- `path` String
+
+```javascript
+fildes.readdir('./path/to/dir')
+.then(function(files){
+    console.log(files);
+})
+.catch(function(error){
+    // readdir thorws an error no such file or directory
 });
 ```
 

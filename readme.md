@@ -447,6 +447,21 @@ fildes.unlink('./path/to/file.txt')
 ```
 
 
+### rename (oldPath, newPath)
+
+Promise uses [fs.rename](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback) (Node.js File System API).
+
+```javascript
+fildes.rename('./path/to/old.txt', './path/moved/to/new.txt')
+.then(function(){
+    console.log('file moved!');
+})
+.catch(function(error){
+    // unlink thorws an error if file not found
+});
+```
+
+
 ### readdir (path)
 
 Promise uses [fs.readdir](https://nodejs.org/api/fs.html#fs_fs_readdir_path_callback) (Node.js File System API).
@@ -525,4 +540,4 @@ DEBUG=fildes* npm test
 - Promises for all async fs methods that use a file descriptor (FD): fs.fchown, fs.fsync
 - Test graceful-fs for ulimit, but include multiple child process (https://github.com/isaacs/node-graceful-fs/issues/48)
 - https://github.com/sindresorhus/trash ?
-- fs.readdir, fs.rename, fs.link, fs.symlink
+- fs.link, fs.symlink

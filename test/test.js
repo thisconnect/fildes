@@ -30,5 +30,6 @@ require('./test-truncate.js');
 require('./test-utimes.js');
 require('./test-chmod.js');
 require('./test-unlink.js');
+require('./test-rename.js');
 require('./test-dir.js');
 // require('./test-functions.js');

@@ -20,7 +20,6 @@ tape('read', function(t){
         'length': 4
     })
     .then(function(buffer){
-        t.pass('file read');
         t.deepEqual(buffer, new Buffer('Hi!!'));
         t.end();
     })
@@ -31,7 +30,6 @@ tape('read', function(t){
 });
 
 
-
 tape('read to buffer', function(t){
     var buffer = new Buffer(3);
     file.read(file1, buffer, {
@@ -40,7 +38,6 @@ tape('read to buffer', function(t){
     })
     .then(function(){
         t.equal(buffer.toString(), 'Hi!');
-        t.pass('file read');
         t.end();
     })
     .catch(function(error){
@@ -51,8 +48,62 @@ tape('read to buffer', function(t){
 
 
 tape('read partly', function(t){
+    file.read(file2, {
+        'length': 3,
+        'position': 8,
+        'encoding': 'utf8'
+    })
+    .then(function(buffer){
+        t.equal(buffer, 'bOz');
+        t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
+
+
+tape('read partly too much', function(t){
+    file.read(file2, {
+        'length': 128
+    })
+    .then(function(buffer){
+        t.ok(buffer.length == 'foo bar bOz\n'.length, 'length is correct');
+        t.equal(buffer.toString(), 'foo bar bOz\n');
+        t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
+
+
+tape('read many', function(t){
+    Promise.all([file1, file2].map(function(path){
+        return file.read(path, {
+            'length': 4,
+            'position': 1,
+            'encoding': 'utf8'
+        });
+    }))
+    .then(function(result){
+        t.equal(result[0], 'i!!!');
+        t.equal(result[1], 'oo b');
+        t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
+
+
+tape('read partly to buffer', function(t){
 
     var buffer = new Buffer(3);
+
     file.read(file2, buffer, {
         'flags': 'r',
         'offset': 0,
@@ -61,7 +112,6 @@ tape('read partly', function(t){
     })
     .then(function(){
         t.equal(buffer.toString(), 'bOz');
-        t.pass('file partly read');
         t.end();
     })
     .catch(function(error){

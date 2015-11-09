@@ -30,12 +30,27 @@ var fildes = require('fildes');
 fildes.write('./path/to/file.txt', 'The quick green fix')
 .then(function(){
     console.log('done!');
-})
-.catch(function(err){
-    console.error(err.stack);
 });
 ```
 
+
+#### Read chunk of many files
+
+```javascript
+Promise.all(['file.txt', 'file2.txt'].map(function(path){
+    return file.read(path, {
+        'length': 262,
+        'position': 0
+    });
+}))
+.then(function(result){
+    // chunk 1
+    console.log(result[0]);
+    // chunk 2
+    console.log(result[1]);
+});
+
+```
 
 #### Get the size of many files
 
@@ -225,23 +240,26 @@ See also [writeFile](#writeFile-path-data-options)
 Promise to read a file to a buffer.
 
 - `path` String | FD (Number > 0)
-- `buffer` Buffer optional
+- `buffer` Buffer (optional)
 - `options` Object
   - `flag` | `flags` String defaults to 'r', see also [open](#open-path-options)
-  - `offset` Number optional
+  - `offset` Number defaults to 0 (optional)
   - `length` Number
-  - `position` Number optional
+  - `position` Number (optional)
+  - `encoding` String (optional)
 
 
 ```javascript
 fildes.read('./path/to/file.txt', {
-    'length': 8
+    'length': 8,
+    'encoding': 'utf8'
 })
-.then(function(buffer){
-    console.log(buffer.toString());
+.then(function(content){
+    console.log(content);
 })
 ```
 
+#### Read to a Buffer
 
 ```javascript
 var buffer = new Buffer(8);

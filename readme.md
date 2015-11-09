@@ -38,7 +38,7 @@ fildes.write('./path/to/file.txt', 'The quick green fix')
 
 ```javascript
 Promise.all(['file.txt', 'file2.txt'].map(function(path){
-    return file.read(path, {
+    return fildes.read(path, {
         'length': 262,
         'position': 0
     });
@@ -49,8 +49,8 @@ Promise.all(['file.txt', 'file2.txt'].map(function(path){
     // chunk 2
     console.log(result[1]);
 });
-
 ```
+
 
 #### Get the size of many files
 
@@ -58,8 +58,7 @@ Promise.all(['file.txt', 'file2.txt'].map(function(path){
 var files = ['a.txt', 'b.json', 'c.txt'];
 
 Promise.all(files.map(function(file){
-    var filepath = path.resolve(__dirname, 'sub/dir', file);
-    return fildes.fstat(filepath);
+    return fildes.fstat(file);
 }))
 .then(function(stats){
     return stats.map(function(stat){
@@ -69,6 +68,26 @@ Promise.all(files.map(function(file){
 .then(function(sizes){
     console.log('got filesizes', sizes);
 });
+```
+
+
+#### Check multiple files exist
+
+```javascript
+var files = ['buffer.txt', 'nothere.txt', 'dir'];
+
+Promise.all(files.map(function(file){
+    return fildes.fstat(file)
+    .then(function(stat){
+        return stat.isFile();
+    })
+    .catch(function(){
+        return false;
+    });
+}))
+.then(function(result){
+    console.log(result);
+})
 ```
 
 

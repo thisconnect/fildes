@@ -30,8 +30,29 @@ var fildes = require('fildes');
 fildes.write('./path/to/file.txt', 'The quick green fix')
 .then(function(){
     console.log('done!');
+})
+.catch(function(error){
+    // error
 });
 ```
+
+
+### Why?
+
+- I needed an API that returns Promises
+- provides nice defaults i.e. suitable flags for `open`, `read` and `write`, see [fildes/issues/1](https://github.com/thisconnect/fildes/issues/2)
+- creates a directories if flag is `w`, `w+`, `a` or `a+`
+- uses no magic
+- promises useful methods, for `copy`, `mkdir`, `rmdir`, etc.
+- a very popular fs module uses deprecated `fs.exists()` which should not be used…
+
+> `fs.exists()` should not be used to check if a file exists before calling `fs.open()`. Doing so introduces a race condition since other processes may change the file's state between the two calls. Instead, user code should call `fs.open()` directly and handle the error raised if the file is non-existent.
+
+[fs.exists Stability: 0 - Deprecated](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback) (Node.js v5.0.0 File System API)
+
+
+
+### Exmples
 
 
 #### Read chunk of many files
@@ -69,7 +90,7 @@ Promise.all(files.map(function(file){
 ```
 
 
-#### Check multiple files exist
+#### Check if multiple files exist
 
 ```javascript
 var files = ['buffer.txt', 'nothere.txt', 'dir'];
@@ -89,7 +110,7 @@ Promise.all(files.map(function(file){
 ```
 
 
-#### Keep fd open and use multiple times
+#### Keep fd open and use many times
 
 ```javascript
 fildes.open(path)
@@ -119,19 +140,6 @@ fildes.open(path)
 });
 ```
 
-
-### Why?
-
-- I needed an API that returns Promises
-- provides nice defaults i.e. suitable flags for `open`, `read` and `write`, see [fildes/issues/1](https://github.com/thisconnect/fildes/issues/2)
-- creates a directories if flag is `w`, `w+`, `a` or `a+`
-- uses no magic
-- promises useful methods, for `copy`, `mkdir`, `rmdir`, etc.
-- a very popular fs module uses deprecated `fs.exists()` which should not be used…
-
-> `fs.exists()` should not be used to check if a file exists before calling `fs.open()`. Doing so introduces a race condition since other processes may change the file's state between the two calls. Instead, user code should call `fs.open()` directly and handle the error raised if the file is non-existent.
-
-[fs.exists Stability: 0 - Deprecated](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback) (Node.js v5.0.0 File System API)
 
 
 ## API

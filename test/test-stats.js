@@ -44,6 +44,32 @@ tape('get size of many files', function(t){
 });
 
 
+tape('check if many files exist', function(t){
+    var files = ['buffer.txt', 'nothere.txt', 'dir'];
+
+    Promise.all(files.map(function(filename){
+        var filepath = resolve(__dirname, 'data', filename);
+        return file.fstat(filepath)
+        .then(function(stat){
+            return stat.isFile();
+        })
+        .catch(function(){
+            return false;
+        });
+    }))
+    .then(function(exist){
+        t.equal(exist.length, 3, 'stats.length is 3');
+        t.deepEqual(exist, [true, false, false]);
+        t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
+
+
+
 tape('fstat non-existing file', function(t){
     var path = resolve(__dirname, './data/nothing-here.txt');
 

@@ -2,12 +2,21 @@ var file = require('../');
 
 var tape = require('tape');
 var resolve = require('path').resolve;
+var writeFileSync = require('fs').writeFileSync;
+
+var dirpath1 = resolve(__dirname, './data/dir/dir/sub/subsub');
+var dirpath2 = resolve(__dirname, './data/dir/dir/sub');
+var filepath = resolve(__dirname, './data/dir.txt');
+
+
+tape('setup dirs', function(t){
+    writeFileSync(filepath, 'chmod test\n');
+    t.end();
+});
 
 
 tape('mkdir', function(t){
-    var path = resolve(__dirname, './data/a/new/dir');
-
-    file.mkdir(path)
+    file.mkdir(dirpath1)
     .then(function(data){
         t.pass('dir created');
         t.end();
@@ -20,9 +29,7 @@ tape('mkdir', function(t){
 
 
 tape('mkdir on file', function(t){
-    var path = resolve(__dirname, './data/file.txt');
-
-    file.mkdir(path)
+    file.mkdir(filepath)
     .then(function(data){
         t.fail('dir created');
         t.end();
@@ -51,9 +58,7 @@ tape('mkdir error', function(t){
 
 
 tape('rmdir', function(t){
-    var path = resolve(__dirname, './data/a/new/dir');
-
-    file.rmdir(path)
+    file.rmdir(dirpath2)
     .then(function(data){
         t.pass('dir deleted');
         t.end();
@@ -80,7 +85,7 @@ tape('rmdir error', function(t){
 
 tape('cp', function(t){
     var files = resolve(__dirname, './data/*.txt');
-    var destination = resolve(__dirname, './data/a');
+    var destination = resolve(__dirname, './data/dir');
 
     file.copy([files], destination)
     .then(function(data){
@@ -96,7 +101,7 @@ tape('cp', function(t){
 
 tape('cp error', function(t){
     var files = resolve(__dirname, './data/*');
-    var destination = resolve(__dirname, './data/a');
+    var destination = resolve(__dirname, './data/dir');
 
     file.copy([files], destination)
     .then(function(data){

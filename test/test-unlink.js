@@ -2,12 +2,19 @@ var file = require('../');
 
 var tape = require('tape');
 var resolve = require('path').resolve;
+var writeFileSync = require('fs').writeFileSync;
+
+var filepath1 = resolve(__dirname, './data/unlink.txt');
+
+
+tape('setup unlink', function(t){
+    writeFileSync(filepath1, 'file content\n');
+    t.end();
+});
 
 
 tape('unlink', function(t){
-    var path = resolve(__dirname, './data/open.txt');
-
-    file.unlink(path)
+    file.unlink(filepath1)
     .then(function(){
         t.pass('file deleted');
         t.end();

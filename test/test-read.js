@@ -4,19 +4,19 @@ var tape = require('tape');
 var resolve = require('path').resolve;
 var writeFileSync = require('fs').writeFileSync;
 
-var file1 = resolve(__dirname, './data/read.txt');
-var file2 = resolve(__dirname, './data/read-foo-bar.txt');
+var filepath1 = resolve(__dirname, './data/read.txt');
+var filepath2 = resolve(__dirname, './data/read-foo-bar.txt');
 
 
 tape('setup', function(t){
-    writeFileSync(file1, 'Hi!!!\n');
-    writeFileSync(file2, 'foo bar bOz\n');
+    writeFileSync(filepath1, 'Hi!!!\n');
+    writeFileSync(filepath2, 'foo bar bOz\n');
     t.end();
 });
 
 
 tape('read', function(t){
-    file.read(file1, {
+    file.read(filepath1, {
         'length': 4
     })
     .then(function(buffer){
@@ -32,7 +32,7 @@ tape('read', function(t){
 
 tape('read to buffer', function(t){
     var buffer = new Buffer(3);
-    file.read(file1, buffer, {
+    file.read(filepath1, buffer, {
         'offset': 0,
         'length': 3
     })
@@ -48,7 +48,7 @@ tape('read to buffer', function(t){
 
 
 tape('read partly', function(t){
-    file.read(file2, {
+    file.read(filepath2, {
         'length': 3,
         'position': 8,
         'encoding': 'utf8'
@@ -65,7 +65,7 @@ tape('read partly', function(t){
 
 
 tape('read partly too much', function(t){
-    file.read(file2, {
+    file.read(filepath2, {
         'length': 128
     })
     .then(function(buffer){
@@ -81,7 +81,7 @@ tape('read partly too much', function(t){
 
 
 tape('read many', function(t){
-    Promise.all([file1, file2].map(function(path){
+    Promise.all([filepath1, filepath2].map(function(path){
         return file.read(path, {
             'length': 4,
             'position': 1,
@@ -104,7 +104,7 @@ tape('read partly to buffer', function(t){
 
     var buffer = new Buffer(3);
 
-    file.read(file2, buffer, {
+    file.read(filepath2, buffer, {
         'flags': 'r',
         'offset': 0,
         'length': 3,
@@ -122,7 +122,7 @@ tape('read partly to buffer', function(t){
 
 
 tape('read path error', function(t){
-    file.read(file2)
+    file.read(filepath2)
     .then(function(data){
         t.fail('should have no data');
         t.end();

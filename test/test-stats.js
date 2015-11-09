@@ -2,12 +2,23 @@ var file = require('../');
 
 var tape = require('tape');
 var resolve = require('path').resolve;
+var writeFileSync = require('fs').writeFileSync;
+
+var filepath1 = resolve(__dirname, './data/stats.txt');
+var filepath2 = resolve(__dirname, './data/stats2.txt');
+var filepath3 = resolve(__dirname, './data/stats3.txt');
+
+
+tape('setup stats', function(t){
+    writeFileSync(filepath1, 'Hi\n');
+    writeFileSync(filepath2, 'Hi\n');
+    writeFileSync(filepath3, 'Hi\n');
+    t.end();
+});
 
 
 tape('fstat', function(t){
-    var path = resolve(__dirname, './data/hi.txt');
-
-    file.fstat(path)
+    file.fstat(filepath1)
     .then(function(stats){
         t.equal(stats.size, 3, 'stats.size is 3');
         t.pass('stats received');
@@ -21,10 +32,9 @@ tape('fstat', function(t){
 
 
 tape('get size of many files', function(t){
-    var files = ['buffer.txt', 'data.json', 'file.txt'];
+    var files = [filepath1, filepath2, filepath3];
 
-    Promise.all(files.map(function(filename){
-        var filepath = resolve(__dirname, 'data', filename);
+    Promise.all(files.map(function(filepath){
         return file.fstat(filepath)
         .then(function(stat){
             return stat.size;
@@ -42,8 +52,26 @@ tape('get size of many files', function(t){
 });
 
 
+tape('fstat non-existing file', function(t){
+    var path = resolve(__dirname, './data/nothing-here.txt');
+
+    file.fstat(path)
+    .then(function(stats){
+        t.fail('should have no stats');
+        t.end();
+    })
+    .catch(function(error){
+        t.ok(error, error);
+        t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
+        t.equal(error.syscall, 'open', 'error.syscall is open');
+        t.equal(error.path, path);
+        t.end();
+    });
+});
+
+
 tape('check if many files exist', function(t){
-    var files = ['buffer.txt', 'nothere.txt', 'dir'];
+    var files = [filepath1, 'nothere.txt', 'dir'];
 
     Promise.all(files.map(function(filename){
         var filepath = resolve(__dirname, 'data', filename);
@@ -62,25 +90,6 @@ tape('check if many files exist', function(t){
     })
     .catch(function(error){
         t.error(error);
-        t.end();
-    });
-});
-
-
-
-tape('fstat non-existing file', function(t){
-    var path = resolve(__dirname, './data/nothing-here.txt');
-
-    file.fstat(path)
-    .then(function(stats){
-        t.fail('should have no stats');
-        t.end();
-    })
-    .catch(function(error){
-        t.ok(error, error);
-        t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
-        t.equal(error.syscall, 'open', 'error.syscall is open');
-        t.equal(error.path, path);
         t.end();
     });
 });

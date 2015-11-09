@@ -7,7 +7,7 @@ var writeFileSync = require('fs').writeFileSync;
 var filepath1 = resolve(__dirname, './data/readfile.txt');
 
 
-tape('setup truncate', function(t){
+tape('setup readFile', function(t){
     writeFileSync(filepath1, '0123456789\n');
     t.end();
 });

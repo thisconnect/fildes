@@ -17,8 +17,8 @@ tape('setup stats', function(t){
 });
 
 
-tape('fstat', function(t){
-    file.fstat(filepath1)
+tape('stats', function(t){
+    file.stats(filepath1)
     .then(function(stats){
         t.equal(stats.size, 3, 'stats.size is 3');
         t.pass('stats received');
@@ -52,7 +52,7 @@ tape('get size of many files', function(t){
 });
 
 
-tape('fstat non-existing file', function(t){
+tape('stats non-existing file', function(t){
     var path = resolve(__dirname, './data/nothing-here.txt');
 
     file.fstat(path)
@@ -95,10 +95,10 @@ tape('check if many files exist', function(t){
 });
 
 
-tape('fstat wrong fd', function(t){
+tape('stats wrong fd', function(t){
     var path = resolve(__dirname, './data/nothing-here.txt');
 
-    file.fstat(-1)
+    file.stats(-1)
     .then(function(stats){
         t.fail('should have no stats');
         t.end();

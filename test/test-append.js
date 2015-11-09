@@ -28,6 +28,20 @@ tape('append', function(t){
 });
 
 
+tape('append a buffer', function(t){
+    file.appendFile(filepath, new Buffer('ghi'))
+    .then(function(){
+        t.pass('appended data');
+        t.equal(readFileSync(filepath, 'utf8'), 'abcdefghi');
+        t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
+
+
 tape('append error', function(t){
     file.appendFile(filepath, '', {
         flag: 'r'

@@ -8,7 +8,7 @@ var filepath1 = resolve(__dirname, './data/read.txt');
 var filepath2 = resolve(__dirname, './data/read-foo-bar.txt');
 
 
-tape('setup', function(t){
+tape('setup read', function(t){
     writeFileSync(filepath1, 'Hi!!!\n');
     writeFileSync(filepath2, 'foo bar bOz\n');
     t.end();
@@ -64,7 +64,7 @@ tape('read partly', function(t){
 });
 
 
-tape('read partly too much', function(t){
+tape('read too much', function(t){
     file.read(filepath2, {
         'length': 128
     })
@@ -101,7 +101,6 @@ tape('read many', function(t){
 
 
 tape('read partly to buffer', function(t){
-
     var buffer = new Buffer(3);
 
     file.read(filepath2, buffer, {

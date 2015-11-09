@@ -13,7 +13,7 @@ function isPermission(mode, permission){
 }
 
 
-tape('setup', function(t){
+tape('setup chmod', function(t){
     writeFileSync(filepath, 'chmod test\n');
     t.end();
 });

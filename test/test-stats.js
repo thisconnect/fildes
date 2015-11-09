@@ -25,13 +25,11 @@ tape('get size of many files', function(t){
 
     Promise.all(files.map(function(filename){
         var filepath = resolve(__dirname, 'data', filename);
-        return file.fstat(filepath);
-    }))
-    .then(function(stats){
-        return stats.map(function(stat){
+        return file.fstat(filepath)
+        .then(function(stat){
             return stat.size;
         });
-    })
+    }))
     .then(function(sizes){
         t.equal(sizes.length, 3, 'stats.length is 3');
         t.pass('stats received');

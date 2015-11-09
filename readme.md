@@ -58,13 +58,11 @@ Promise.all(['file.txt', 'file2.txt'].map(function(path){
 var files = ['a.txt', 'b.json', 'c.txt'];
 
 Promise.all(files.map(function(file){
-    return fildes.fstat(file);
-}))
-.then(function(stats){
-    return stats.map(function(stat){
+    return fildes.fstat(file)
+    .then(function(stat){
         return stat.size;
     });
-})
+}))
 .then(function(sizes){
     console.log('got filesizes', sizes);
 });

@@ -505,7 +505,6 @@ DEBUG=fildes* npm test
 ## TODO
 
 - Promises for all async fs methods that use a file descriptor (FD): fs.fchown, fs.fsync
-- In Node.js v5.x fs.appendFile, fs.writeFile, fs.readFile accept a FD
 - Test graceful-fs for ulimit, but include multiple child process (https://github.com/isaacs/node-graceful-fs/issues/48)
 - https://github.com/sindresorhus/trash ?
-- fs.readdir, fs.rename, fs.link, fs.symlink, fs.appendFile
+- fs.readdir, fs.rename, fs.link, fs.symlink

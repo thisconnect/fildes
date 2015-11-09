@@ -457,7 +457,7 @@ fildes.rename('./path/to/old.txt', './path/moved/to/new.txt')
     console.log('file moved!');
 })
 .catch(function(error){
-    // unlink thorws an error if file not found
+    // rename thorws an error if file not found
 });
 ```
 

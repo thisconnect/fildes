@@ -44,7 +44,7 @@ fildes.write('./path/to/file.txt', 'The quick green fix')
 - creates a directories if flag is `w`, `w+`, `a` or `a+`
 - uses no magic
 - promises useful methods, for `copy`, `mkdir`, `rmdir`, etc.
-- a very popular fs module uses deprecated `fs.exists()` which should not be used…
+- some very popular node modules use `fs.exists()` which is deprecated…
 
 > `fs.exists()` should not be used to check if a file exists before calling `fs.open()`. Doing so introduces a race condition since other processes may change the file's state between the two calls. Instead, user code should call `fs.open()` directly and handle the error raised if the file is non-existent.
 

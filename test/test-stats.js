@@ -32,17 +32,18 @@ tape('stats', function(t){
 
 
 tape('get size of many files', function(t){
-    var files = [filepath1, filepath2, filepath3];
-
-    Promise.all(files.map(function(filepath){
+    var getSizes = [filepath1, filepath2, filepath3]
+    .map(function(filepath){
         return file.fstat(filepath)
         .then(function(stat){
             return stat.size;
         });
-    }))
+    });
+
+    Promise.all(getSizes)
     .then(function(sizes){
         t.equal(sizes.length, 3, 'stats.length is 3');
-        t.pass('stats received');
+        t.ok(sizes.every(function(size){ return size > 1; }), 'each gt 1');
         t.end();
     })
     .catch(function(error){
@@ -73,7 +74,7 @@ tape('stats non-existing file', function(t){
 tape('check if many files exist', function(t){
     var files = [filepath1, 'nothere.txt', 'dir'];
 
-    Promise.all(files.map(function(filename){
+    function isFile(filename){
         var filepath = resolve(__dirname, 'data', filename);
         return file.fstat(filepath)
         .then(function(stat){
@@ -82,7 +83,9 @@ tape('check if many files exist', function(t){
         .catch(function(){
             return false;
         });
-    }))
+    }
+
+    Promise.all(files.map(isFile))
     .then(function(exist){
         t.equal(exist.length, 3, 'stats.length is 3');
         t.deepEqual(exist, [true, false, false]);

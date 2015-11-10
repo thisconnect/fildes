@@ -55,35 +55,17 @@ fildes.write('./path/to/file.txt', 'The quick green fix')
 ### Exmples
 
 
-#### Read chunk of many files
-
-```javascript
-Promise.all(['file.txt', 'file2.txt'].map(function(path){
-    return fildes.read(path, {
-        'length': 262,
-        'position': 0
-    });
-}))
-.then(function(result){
-    // chunk of file 1
-    console.log(result[0]);
-    // chunk of file 2
-    console.log(result[1]);
-});
-```
-
-
 #### Get the size of many files
 
 ```javascript
-var files = ['a.txt', 'b.json', 'c.txt'];
-
-Promise.all(files.map(function(file){
+function getSize(file){
     return fildes.fstat(file)
     .then(function(stat){
         return stat.size;
     });
-}))
+}
+
+Promise.all(['a.txt', 'b.json', 'c.txt'].map(getSize))
 .then(function(sizes){
     console.log('got filesizes', sizes);
 });
@@ -107,6 +89,24 @@ Promise.all(files.map(function(file){
 .then(function(result){
     console.log(result);
 })
+```
+
+
+#### Read chunk of many files
+
+```javascript
+Promise.all(['file.txt', 'file2.txt'].map(function(path){
+    return fildes.read(path, {
+        'length': 262,
+        'position': 0
+    });
+}))
+.then(function(result){
+    // chunk of file 1
+    console.log(result[0]);
+    // chunk of file 2
+    console.log(result[1]);
+});
 ```
 
 

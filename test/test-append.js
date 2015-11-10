@@ -52,7 +52,7 @@ tape('append error', function(t){
     })
     .catch(function(error){
         t.ok(error, error);
-        t.equal(error.code, 'EBADF', 'error.code is EBADF');
+        t.ok(/^(EBADF|EPERM)$/.test(error.code), 'error.code is EBADF (or EPERM on Windows)');
         t.end();
     });
 });

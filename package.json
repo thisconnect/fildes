@@ -1,7 +1,7 @@
 {
   "name": "fildes",
   "version": "0.7.0",
-  "description": "file descriptor promises",
+  "description": "fs promises including rm -rf, mkdir -p and cp -r",
   "main": "lib/main.js",
   "scripts": {
     "test": "tape test/test.js | tap-spec",
@@ -19,8 +19,11 @@
     "descriptor",
     "fd",
     "filesystem",
+    "mkdir",
+    "cp",
     "file",
     "fs",
+    "rm",
     "remove",
     "delete",
     "write",

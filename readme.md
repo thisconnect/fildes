@@ -141,7 +141,6 @@ fildes.open(path)
 ```
 
 
-
 ## API
 
 - [open](#open-path-options)
@@ -150,7 +149,7 @@ fildes.open(path)
 - [writeFile](#writefile-path-data-options)
 - [read](#read-path-buffer-options)
 - [readFile](#readfile-path-options)
-- [appendFile](#appendFile-path-data-options)
+- [appendFile](#appendfile-path-data-options)
 - [stats](#stats-path-options)
 - [truncate](#truncate-path-options)
 - [utime](#utime-path-options)
@@ -164,11 +163,10 @@ fildes.open(path)
 
 ### open (path[, options])
 
-Opens a file descriptor (FD). If `flags` is 'w', 'w+', 'a' or 'a+' open will
+Opens a file descriptor (FD).
+`fildes.open` is used internally for write, read, chmod, stats, truncate and utimes.
+If `flags` is 'w', 'w+', 'a' or 'a+' open will
 check for 'ENOENT: no such file or directory' error and try to mkdir.
-`fildes.open` is used internally for write, read and fstat.
-Manually opening and closing is optional as all methods take a path
-and internally open and close.
 
 - `path` String
 - `options` Object

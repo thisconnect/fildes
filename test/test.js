@@ -29,6 +29,7 @@ require('./test-append.js');
 require('./test-truncate.js');
 require('./test-utimes.js');
 require('./test-chmod.js');
+require('./test-chown.js');
 require('./test-sync.js');
 require('./test-unlink.js');
 require('./test-rename.js');

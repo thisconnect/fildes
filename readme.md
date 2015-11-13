@@ -88,7 +88,7 @@ Promise.all(files.map(function(file){
 }))
 .then(function(result){
     console.log(result);
-})
+});
 ```
 
 
@@ -154,6 +154,7 @@ fildes.open(path)
 - [truncate](#truncate-path-options)
 - [utime](#utime-path-options)
 - [chmod](#chmod-path-options)
+- [chown](#chown-path-options)
 - [sync](#sync-fd)
 - [unlink](#unlink-path)
 - [readdir](#readdir-path)
@@ -302,7 +303,7 @@ fildes.read('./path/to/file.txt', {
 })
 .then(function(content){
     console.log(content);
-})
+});
 ```
 
 #### Read to a Buffer
@@ -317,7 +318,7 @@ fildes.read('./path/to/file.txt', buffer, {
 })
 .then(function(){
     console.log(buffer.toString());
-})
+});
 ```
 
 
@@ -371,7 +372,7 @@ Promise file stats. alias for `fildes.fstat`.
 fildes.stats('./path/to/file.txt')
 .then(function(stats){
     console.log(stats);
-})
+});
 ```
 
 See also [fs.fstat](https://nodejs.org/api/fs.html#fs_fs_fstat_fd_callback) (Node.js File System API)
@@ -389,7 +390,7 @@ Promise truncate, alias for `fildes.ftruncate`.
 ```javascript
 fildes.truncate('./path/to/file.txt', {
     'length': 8
-})
+});
 ```
 
 See also [fs.ftruncate](https://nodejs.org/api/fs.html#fs_fs_ftruncate_fd_len_callback) (Node.js File System API)
@@ -409,7 +410,7 @@ Promise utime, alias for `fildes.futime`.
 fildes.utimes('./path/to/file.txt', {
     'access': Date.now() - (60 * 60 * 1000),
     'modification': new Date('2015-10-26')
-})
+});
 ```
 
 See also [fs.futime](https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime_callback) (Node.js File System API)
@@ -427,10 +428,29 @@ Promise chmod, alias for `fildes.fchmod`.
 ```javascript
 fildes.chmod('./path/to/file.txt', {
     'mode': 0700 // nobody else
-})
+});
 ```
 
 See also [fs.fchmod](https://nodejs.org/api/fs.html#fs_fs_fchmod_fd_mode_callback) (Node.js File System API)
+
+
+### chown (path[, options])
+
+Promise chown, alias for `fildes.fchown`.
+
+- `path` String | file descriptor (FD)
+- `options` Object
+  - `uid` Integer defaults to process.getuid()
+  - `gid` Integer defaults to process.getgid()
+
+```javascript
+fildes.chown('./path/to/file.txt')
+.then(function(){
+    // mine
+});
+```
+
+See also [fs.fchown](https://nodejs.org/api/fs.html#fs_fs_fchown_fd_uid_gid_callback) (Node.js File System API)
 
 
 ### sync (fd)
@@ -555,7 +575,6 @@ DEBUG=fildes* npm test
 
 ## TODO
 
-- Promises for all async fs methods that use a file descriptor (FD): fs.fchown
 - Test graceful-fs for ulimit, but include multiple child process (https://github.com/isaacs/node-graceful-fs/issues/48)
 - https://github.com/sindresorhus/trash ?
 - fs.link, fs.symlink

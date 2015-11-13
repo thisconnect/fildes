@@ -154,6 +154,7 @@ fildes.open(path)
 - [truncate](#truncate-path-options)
 - [utime](#utime-path-options)
 - [chmod](#chmod-path-options)
+- [sync](#sync-fd)
 - [unlink](#unlink-path)
 - [readdir](#readdir-path)
 - [mkdir](#mkdir-path)
@@ -428,6 +429,25 @@ fildes.chmod('./path/to/file.txt', {
     'mode': 0700 // nobody else
 })
 ```
+
+See also [fs.fchmod](https://nodejs.org/api/fs.html#fs_fs_fchmod_fd_mode_callback) (Node.js File System API)
+
+
+### sync (fd)
+
+Promise sync, alias for `fildes.fsync`.
+Flushes modified data of the file descriptor (FD) to the disk device or other permanent storage device.
+
+- `fd` file descriptor (FD)
+
+```javascript
+fildes.sync(fd)
+.then(function(){
+    // data flushed to storage
+});
+```
+
+See also [fs.fsync](https://nodejs.org/api/fs.html#fs_fs_fsync_fd_callback) (Node.js File System API)
 
 
 ### unlink (path)

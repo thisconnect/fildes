@@ -6,9 +6,13 @@ var resolve = require('path').resolve;
 var filepath1 = resolve(__dirname, './data/dir/open/open.txt');
 var filepath2 = resolve(__dirname, './data/open.txt');
 
+
+// 'w' - Open file for writing.
+// The file is created (if it does not exist)
+// or truncated (if it exists).
 tape('open w file and dir created', function(t){
     file.open(filepath1, {
-        'flags': 'w' // writing, file is created if it does not exist
+        'flags': 'w'
     })
     .then(function(fd){
         t.ok(fd, 'has file descriptor');
@@ -25,6 +29,8 @@ tape('open w file and dir created', function(t){
 });
 
 
+// 'wx' - Open file for writing.
+// Fails if path exists.
 tape('open wx (fails if path exists)', function(t){
     file.open(filepath2, {
         'flags': 'wx'
@@ -74,11 +80,12 @@ tape('open twice', function(t){
 });
 
 
+// 'r' - Open file for reading.
+// An exception occurs if the file does not exist.
 tape('open r', function(t){
     var path = resolve(__dirname, './data/not/here.txt');
-
     file.open(path, {
-        'flags': 'r' // reading, fails if path exists
+        'flags': 'r'
     })
     .then(function(fd){
         t.fail('should not return fd');
@@ -94,11 +101,12 @@ tape('open r', function(t){
 });
 
 
+// 'wx+' - Open file for reading and writing.
+// Fails if path exists.
 tape('open wx+ error', function(t){
     var path = resolve(__dirname, './data/not/here.txt');
-
     file.open(path, {
-        'flags': 'wx+' // reading and writing, fails if path exists
+        'flags': 'wx+'
     })
     .then(function(fd){
         t.fail('should not return fd');
@@ -132,7 +140,6 @@ tape('close', function(t){
 tape('close twice', function(t){
     file.open(filepath2)
     .then(function(fd){
-
         return file.close(fd)
         .then(function(){
             t.pass('close first time');

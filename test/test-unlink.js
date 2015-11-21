@@ -25,6 +25,7 @@ tape('unlink', function(t){
     });
 });
 
+
 tape('unlink non-existing file', function(t){
     var path = resolve(__dirname, './data/nothing-here.txt');
 

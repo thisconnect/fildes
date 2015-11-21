@@ -13,6 +13,7 @@ tape('setup chown', function(t){
     t.end();
 });
 
+
 tape('chown', function(t){
     file.chown(filepath)
     .then(function(){
@@ -30,6 +31,7 @@ tape('chown', function(t){
         t.end();
     });
 });
+
 
 tape('chown error', function(t){
     file.chown(-1)

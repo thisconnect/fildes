@@ -75,9 +75,7 @@ Promise.all(['a.txt', 'b.json', 'c.txt'].map(getSize))
 #### Check if multiple files exist
 
 ```javascript
-var files = ['buffer.txt', 'nothere.txt', 'dir'];
-
-Promise.all(files.map(function(file){
+var checkFiles = ['buffer.txt', 'nothere.txt', 'dir'].map(function(file){
     return fildes.fstat(file)
     .then(function(stat){
         return stat.isFile();
@@ -85,7 +83,9 @@ Promise.all(files.map(function(file){
     .catch(function(){
         return false;
     });
-}))
+});
+
+Promise.all(checkFiles)
 .then(function(result){
     console.log(result);
 });

@@ -36,5 +36,6 @@ require('./test-sync.js');
 require('./test-unlink.js');
 require('./test-rename.js');
 require('./test-links.js');
+require('./test-symlinks.js');
 require('./test-dir.js');
 // require('./test-functions.js');

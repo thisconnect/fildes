@@ -158,6 +158,7 @@ fildes.open(path)
 - [sync](#sync-fd)
 - [unlink](#unlink-path)
 - [link](#link-src-dest)
+- [symlink](#symlink-dest-path)
 - [readdir](#readdir-path)
 - [mkdir](#mkdir-path)
 - [rm](#rm-path)
@@ -500,6 +501,20 @@ fildes.link('./from/file.txt', './to/new/path/file.txt')
 ```
 
 
+### symlink (dest, path)
+
+Promise uses [fs.symlink](https://nodejs.org/api/fs.html#fs_fs_symlink_destination_path_type_callback) (Node.js File System API).
+Tries to symlink destination to path.
+If an error occurs it tries to mkdir the directory of the path.
+
+```javascript
+fildes.symlink('./from/file.txt', './to/new/path/symlink.txt')
+.then(function(){
+    console.log('created symlink to file.txt!');
+});
+```
+
+
 ### rename (oldPath, newPath)
 
 Promise uses [fs.rename](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback) (Node.js File System API).
@@ -592,4 +607,3 @@ DEBUG=fildes* npm test
 
 - Test graceful-fs for ulimit, but include multiple child process (https://github.com/isaacs/node-graceful-fs/issues/48)
 - https://github.com/sindresorhus/trash ?
-- fs.symlink

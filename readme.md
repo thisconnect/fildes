@@ -157,6 +157,7 @@ fildes.open(path)
 - [chown](#chown-path-options)
 - [sync](#sync-fd)
 - [unlink](#unlink-path)
+- [link](#link-src-dest)
 - [readdir](#readdir-path)
 - [mkdir](#mkdir-path)
 - [rm](#rm-path)
@@ -485,6 +486,20 @@ fildes.unlink('./path/to/file.txt')
 ```
 
 
+### link (src, dest)
+
+Promise uses [fs.link](https://nodejs.org/api/fs.html#fs_fs_link_srcpath_dstpath_callback) (Node.js File System API).
+Performs access test to src path, then tries to link src to destination path.
+If an error is caught tries to mkdir destination directory if that fails it rejects.
+
+```javascript
+fildes.link('./from/file.txt', './to/new/path/file.txt')
+.then(function(){
+    console.log('file linked!');
+});
+```
+
+
 ### rename (oldPath, newPath)
 
 Promise uses [fs.rename](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback) (Node.js File System API).
@@ -577,4 +592,4 @@ DEBUG=fildes* npm test
 
 - Test graceful-fs for ulimit, but include multiple child process (https://github.com/isaacs/node-graceful-fs/issues/48)
 - https://github.com/sindresorhus/trash ?
-- fs.link, fs.symlink
+- fs.symlink

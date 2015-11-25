@@ -35,5 +35,6 @@ require('./test-chown.js');
 require('./test-sync.js');
 require('./test-unlink.js');
 require('./test-rename.js');
+require('./test-links.js');
 require('./test-dir.js');
 // require('./test-functions.js');

@@ -7,6 +7,7 @@ var fs = require('fs');
 var filepath1 = resolve(__dirname, './data/sync.txt');
 var filepath2 = resolve(__dirname, './data/sync2.txt');
 
+
 tape('sync', function(t){
     fs.open(filepath1, 'w', function(error, fd){
         t.error(error, 'no error');
@@ -29,6 +30,7 @@ tape('sync', function(t){
         });
     });
 });
+
 
 tape('sync error', function(t){
     file.sync(-1)

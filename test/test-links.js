@@ -2,7 +2,6 @@ var file = require('../');
 
 var tape = require('tape');
 var resolve = require('path').resolve;
-var lstatSync = require('fs').lstatSync;
 var writeFileSync = require('fs').writeFileSync;
 
 var filepath1 = resolve(__dirname, './data/link.txt');

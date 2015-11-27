@@ -7,6 +7,7 @@ var readFileSync = require('fs').readFileSync;
 var file1 = resolve(__dirname, './data/writefile-1.txt');
 var file2 = resolve(__dirname, './data/writefile-2.json');
 var file3 = resolve(__dirname, './data/writefile-3.txt');
+var file4 = resolve(__dirname, './data/writefile/new/file.txt');
 
 
 tape('writeFile', function(t){
@@ -51,19 +52,29 @@ tape('writeFile Buffer', function(t){
 });
 
 
-tape('writeFile error', function(t){
-    var path = resolve(__dirname, './data/no/file/here.txt');
+tape('writeFile to a new directory', function(t){
+    file.writeFile(file4, 'In a new directory')
+    .then(function(){
+        t.pass('file written');
+        t.equal(readFileSync(file4, 'utf8'), 'In a new directory');
+        t.end();
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});
 
-    file.writeFile(path, 'nothing')
+
+tape('writeFile error', function(t){
+    file.writeFile()
     .then(function(){
         t.fail('should not write');
         t.end();
     })
     .catch(function(error){
         t.ok(error, error);
-        t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
-        t.equal(error.syscall, 'open', 'error.syscall is open');
-        t.equal(error.path, path);
+        t.ok(error instanceof TypeError, 'is TypeError');
         t.end();
     });
 });

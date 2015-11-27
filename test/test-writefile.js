@@ -78,3 +78,19 @@ tape('writeFile error', function(t){
         t.end();
     });
 });
+
+
+tape('writeFile on a dir error', function(t){
+    var dir = resolve(__dirname, './data/writefile/new');
+    file.writeFile(dir, 'here is a dir')
+    .then(function(){
+        t.fail('should not write');
+        t.end();
+    })
+    .catch(function(error){
+        t.ok(error, error);
+        t.ok(error instanceof Error, 'is Error');
+        t.equal(error.code, 'EISDIR', 'error.code is EISDIR');
+        t.end();
+    });
+});

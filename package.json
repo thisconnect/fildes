@@ -1,7 +1,7 @@
 {
   "name": "fildes",
   "version": "0.9.0",
-  "description": "fs promises including rm -rf, mkdir -p and cp -r",
+  "description": "fs promises takes care about fs.open",
   "main": "lib/main.js",
   "scripts": {
     "test": "tape test/test.js | tap-spec",

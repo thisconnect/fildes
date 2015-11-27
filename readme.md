@@ -13,16 +13,9 @@ Provides native promises for all file system methods involving file descriptors 
 [en.wikipedia.org/wiki/File_descriptor](https://en.wikipedia.org/wiki/File_descriptor)
 
 
-### Install
-
-```bash
-npm i --save fildes
-```
-
-
 ### Usage
 
-`fildes` always returns a new native [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)!
+`fildes` always return a new [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)!
 
 ```javascript
 var fildes = require('fildes');
@@ -40,7 +33,7 @@ fildes.write('./path/to/file.txt', 'The quick green fix')
 ### Why?
 
 - I needed an API that returns Promises
-- provides nice defaults i.e. suitable flags for `open`, `read` and `write`, see [fildes/issues/1](https://github.com/thisconnect/fildes/issues/2)
+- provides smart defaults i.e. suitable flags for `open`, `read` and `write`, see [fildes/issues/1](https://github.com/thisconnect/fildes/issues/2)
 - creates a directories if flag is `w`, `w+`, `a` or `a+`
 - uses no magic
 - promises useful methods, for `copy`, `mkdir`, `rmdir`, etc.
@@ -48,11 +41,17 @@ fildes.write('./path/to/file.txt', 'The quick green fix')
 
 > `fs.exists()` should not be used to check if a file exists before calling `fs.open()`. Doing so introduces a race condition since other processes may change the file's state between the two calls. Instead, user code should call `fs.open()` directly and handle the error raised if the file is non-existent.
 
-[fs.exists Stability: 0 - Deprecated](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback) (Node.js v5.0.0 File System API)
+[fs.exists Stability: 0 - Deprecated](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback) (Node.js v5.1.0 File System API)
 
 
+### Install
 
-### Exmples
+```bash
+npm i --save fildes
+```
+
+
+### Examples
 
 
 #### Get the size of many files
@@ -139,6 +138,15 @@ fildes.open(path)
     console.error(err.stack);
 });
 ```
+
+
+### Do you need graceful-fs?
+
+If EMFILE, too many open files Errors are expected it is possible to patch the `fs` module with `graceful-fs`,
+see [node-graceful-fs#global-patching](https://github.com/isaacs/node-graceful-fs#global-patching).
+
+It also helps with older Node.js environments, but not when using multiple processes, read more
+[node-graceful-fs/issues/48](https://github.com/isaacs/node-graceful-fs/issues/48).
 
 
 ## API
@@ -644,9 +652,3 @@ DEBUG=fildes npm test
 # debug all
 DEBUG=fildes* npm test
 ```
-
-
-## TODO
-
-- Test graceful-fs for ulimit, but include multiple child process (https://github.com/isaacs/node-graceful-fs/issues/48)
-- https://github.com/sindresorhus/trash ?

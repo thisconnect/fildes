@@ -36,7 +36,6 @@ fildes.write('./path/to/file.txt', 'The quick green fix')
 - provides smart defaults i.e. suitable flags for `open`, `read` and `write`, see [fildes/issues/1](https://github.com/thisconnect/fildes/issues/2)
 - creates a directories if flag is `w`, `w+`, `a` or `a+`
 - uses no magic
-- promises useful methods, for `copy`, `mkdir`, `rmdir`, etc.
 - some very popular node modules use `fs.exists()` which is deprecated…
 
 > `fs.exists()` should not be used to check if a file exists before calling `fs.open()`. Doing so introduces a race condition since other processes may change the file's state between the two calls. Instead, user code should call `fs.open()` directly and handle the error raised if the file is non-existent.
@@ -170,8 +169,6 @@ It also helps with older Node.js environments, but not when using multiple proce
 - [symlink](#symlink-dest-path)
 - [readdir](#readdir-path)
 - [mkdir](#mkdir-path)
-- [rm](#rm-path)
-- [cp](#copy-files-destination-options)
 
 
 ### open (path[, options])
@@ -610,31 +607,6 @@ Promise uses [mkdirp](https://www.npmjs.com/package/mkdirp) (NPM Documentation).
 fildes.mkdir('./path/to/dir')
 .then(function(){
     console.log('directory created!');
-});
-```
-
-
-### rm (path)
-
-Promise `fildes.rm` alias `fildes.rmdir`
-uses [rimraf](https://www.npmjs.com/package/rimraf) (NPM Documentation).
-
-```javascript
-fildes.rm('./path/to/dir')
-.then(function(){
-    console.log('directory removed!');
-});
-```
-
-
-### copy (files, destination, [options])
-
-Promise `fildes.cp` alias `fildes.copy` uses [cpy](https://www.npmjs.com/package/cpy) (NPM Documentation).
-
-```javascript
-fildes.cp(['./data/*.txt'], './destination')
-.then(function(){
-    console.log('directory copied!');
 });
 ```
 

@@ -83,7 +83,7 @@ tape('symlink dest that doesnt exist yet', function(t){
         return file.readFile(filepath2, {encoding: 'utf8'});
     })
     .then(function(content){
-        t.equal(content, 'text after symlink\n', 'symlink has content of dest2')
+        t.equal(content, 'text after symlink\n', 'symlink has content of dest2');
         t.end();
     })
     .catch(function(error){

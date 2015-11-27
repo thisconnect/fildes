@@ -42,9 +42,9 @@
   },
   "devDependencies": {
     "coveralls": "^2.11.4",
-    "istanbul": "^0.4.0",
+    "istanbul": "^0.4.1",
     "rimraf": "^2.4.4",
-    "tap-spec": "^4.1.0",
+    "tap-spec": "^4.1.1",
     "tape": "^4.2.2"
   }
 }

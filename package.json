@@ -1,7 +1,7 @@
 {
   "name": "fildes",
   "version": "1.0.0",
-  "description": "fs promises takes care about fs.open",
+  "description": "promises fs and takes care about fs.open",
   "main": "lib/main.js",
   "scripts": {
     "test": "tape test/test.js | tap-spec",
@@ -18,9 +18,9 @@
     "fildes",
     "file",
     "fd",
+    "fs",
     "filesystem",
     "mkdir",
-    "fs",
     "rm",
     "remove",
     "delete",

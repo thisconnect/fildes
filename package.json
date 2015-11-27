@@ -40,7 +40,7 @@
     "cpy": "^3.4.1",
     "debug": "^2.2.0",
     "mkdirp": "^0.5.1",
-    "rimraf": "^2.4.3"
+    "rimraf": "^2.4.4"
   },
   "devDependencies": {
     "coveralls": "^2.11.4",

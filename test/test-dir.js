@@ -57,64 +57,6 @@ tape('mkdir error', function(t){
 });
 
 
-tape('rm', function(t){
-    file.rm(dirpath2)
-    .then(function(data){
-        t.pass('dir deleted');
-        t.end();
-    })
-    .catch(function(error){
-        t.error(error);
-        t.end();
-    });
-});
-
-
-tape('rmdir error', function(t){
-    file.rmdir(-1)
-    .then(function(data){
-        t.fail('dir deleted');
-        t.end();
-    })
-    .catch(function(error){
-        t.ok(error, error.message);
-        t.end();
-    });
-});
-
-
-tape('cp', function(t){
-    var files = resolve(__dirname, './data/*.txt');
-    var destination = resolve(__dirname, './data/dir');
-
-    file.copy([files], destination)
-    .then(function(data){
-        t.pass('copied');
-        t.end();
-    })
-    .catch(function(error){
-        t.error(error);
-        t.end();
-    });
-});
-
-
-tape('cp error', function(t){
-    var files = resolve(__dirname, './data/*');
-    var destination = resolve(__dirname, './data/dir');
-
-    file.copy([files], destination)
-    .then(function(data){
-        t.fail('copied');
-        t.end();
-    })
-    .catch(function(error){
-        t.ok(error, error);
-        t.end();
-    });
-});
-
-
 tape('readdir', function(t){
     var dir = resolve(__dirname, './data/dir');
 

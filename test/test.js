@@ -1,25 +1,31 @@
 var file = require('../');
 
 var tape = require('tape');
+var rimraf = require('rimraf');
 var resolve = require('path').resolve;
 var debug = require('debug');
 debug.log = console.log.bind(console);
 
+
 tape('setup', function(t){
     var path = resolve(__dirname, './data');
 
-    file.rmdir(path)
-    .then(function(){
-        return file.mkdir(path);
-    })
-    .then(function(){
-        t.end();
-    })
-    .catch(function(error){
-        t.error(error);
-        t.end();
+    rimraf(path, function(error){
+        if (error){
+            t.error(error);
+            t.end();
+        }
+        file.mkdir(path)
+        .then(function(){
+            t.end();
+        })
+        .catch(function(error){
+            t.error(error);
+            t.end();
+        });
     });
 });
+
 
 require('./test-open.js');
 require('./test-writefile.js');

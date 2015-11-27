@@ -22,7 +22,7 @@ tape('link', function(t){
         return file.readFile(filepath2, {encoding: 'utf8'});
     })
     .then(function(content){
-        t.equal(content, 'link test\n', 'link2 has content of file1')
+        t.equal(content, 'link test\n', 'link2 has content of file1');
         t.end();
     })
     .catch(function(error){
@@ -42,7 +42,7 @@ tape('link link', function(t){
         return file.readFile(filepath3, {encoding: 'utf8'});
     })
     .then(function(content){
-        t.equal(content, 'changed\n', 'link3 has content of file1')
+        t.equal(content, 'changed\n', 'link3 has content of file1');
         t.end();
     })
     .catch(function(error){

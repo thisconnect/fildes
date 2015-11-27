@@ -4,16 +4,16 @@ var tape = require('tape');
 var resolve = require('path').resolve;
 var readFileSync = require('fs').readFileSync;
 
-var filepath1 = resolve(__dirname, './data/writefile-1.txt');
-var filepath2 = resolve(__dirname, './data/writefile-2.json');
-var filepath3 = resolve(__dirname, './data/writefile-3.txt');
+var file1 = resolve(__dirname, './data/writefile-1.txt');
+var file2 = resolve(__dirname, './data/writefile-2.json');
+var file3 = resolve(__dirname, './data/writefile-3.txt');
 
 
 tape('writeFile', function(t){
-    file.writeFile(filepath1, 'Hello File!')
+    file.writeFile(file1, 'Hello File!')
     .then(function(){
         t.pass('file written');
-        t.equal(readFileSync(filepath1, 'utf8'), 'Hello File!');
+        t.equal(readFileSync(file1, 'utf8'), 'Hello File!');
         t.end();
     })
     .catch(function(error){
@@ -24,10 +24,10 @@ tape('writeFile', function(t){
 
 
 tape('writeFile JSON', function(t){
-    file.writeFile(filepath2, {data: 1})
+    file.writeFile(file2, {data: 1})
     .then(function(){
         t.pass('JSON written');
-        t.equal(readFileSync(filepath2, 'utf8'), '{"data":1}');
+        t.equal(readFileSync(file2, 'utf8'), '{"data":1}');
         t.end();
     })
     .catch(function(error){
@@ -38,10 +38,10 @@ tape('writeFile JSON', function(t){
 
 
 tape('writeFile Buffer', function(t){
-    file.writeFile(filepath3, new Buffer('I\'m a buffer'))
+    file.writeFile(file3, new Buffer('I\'m a buffer'))
     .then(function(){
         t.pass('Buffer written');
-        t.equal(readFileSync(filepath3, 'utf8'), 'I\'m a buffer');
+        t.equal(readFileSync(file3, 'utf8'), 'I\'m a buffer');
         t.end();
     })
     .catch(function(error){

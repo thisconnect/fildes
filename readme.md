@@ -150,6 +150,7 @@ fildes.open(path)
 - [read](#read-path-buffer-options)
 - [readFile](#readfile-path-options)
 - [appendFile](#appendfile-path-data-options)
+- [access](#access-path-mode)
 - [stats](#stats-path-options)
 - [truncate](#truncate-path-options)
 - [utime](#utime-path-options)
@@ -308,6 +309,7 @@ fildes.read('./path/to/file.txt', {
 });
 ```
 
+
 #### Read to a Buffer
 
 ```javascript
@@ -352,13 +354,54 @@ Promise uses `fs.appendFile`.
   - `encoding`, `flag`, `mode`
 
 ```javascript
-fildes.appendFile('./path/to/file.txt', '2015-11-07 GET /robots.txt ')
+fildes.appendFile('./path/to/file.txt', '2015-11-07 GET /robots.txt')
 .then(function(){
     console.log('added some data');
 });
 ```
 
 See also [fs.appendFile](https://nodejs.org/api/fs.html#fs_fs_appendfile_file_data_options_callback) (Node.js File System API)
+
+
+### access (path[, mode])
+
+Promise uses `fs.access`.
+`mode` can be 'r', 'rw', 'rwx', 'rx', 'w', 'wx', 'x' or a mask consisting of `fs.F_OK`, `fs.R_OK`, `fs.W_OK` or `fs.X_OK`,
+
+- `path` String
+- `mode` | `options`
+  - `mode` String | Integer
+
+
+```javascript
+fildes.access('./path/to/file.txt', 'rwx')
+.then(function(){
+    console.log('has read write execute');
+})
+.catch(function(error){
+    console.log(error);
+});
+```
+
+```javascript
+fildes.access('./path/to/file.txt', fs.R_OK | fs.W_OK)
+```
+
+
+```javascript
+fildes.access('./path/to/file.txt', {
+    'mode': fs.R_OK | fs.W_OK
+})
+```
+
+```javascript
+fildes.access('./path/to/file.txt', {
+    'mode': 'rwx'
+})
+```
+
+See also [fs.access](https://nodejs.org/api/fs.html#fs_fs_access_path_mode_callback) (Node.js File System API)
+
 
 
 ### stats (path[, options])

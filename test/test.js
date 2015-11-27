@@ -26,6 +26,7 @@ require('./test-writefile.js');
 require('./test-write.js');
 require('./test-read.js');
 require('./test-readfile.js');
+require('./test-access.js');
 require('./test-stats.js');
 require('./test-append.js');
 require('./test-truncate.js');
@@ -38,4 +39,5 @@ require('./test-rename.js');
 require('./test-links.js');
 require('./test-symlinks.js');
 require('./test-dir.js');
+
 // require('./test-functions.js');

@@ -22,6 +22,8 @@
     "filesystem",
     "mkdir",
     "rm",
+    "access",
+    "exists",
     "remove",
     "delete",
     "write",

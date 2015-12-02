@@ -73,7 +73,8 @@ Promise.all(['a.txt', 'b.json', 'c.txt'].map(getSize))
 #### Check if multiple files exist
 
 ```javascript
-var checkFiles = ['buffer.txt', 'nothere.txt', 'dir'].map(function(file){
+var files = ['buffer.txt', 'nothere.txt', 'dir']
+.map(function(file){
     return fildes.fstat(file)
     .then(function(stat){
         return stat.isFile();
@@ -83,7 +84,7 @@ var checkFiles = ['buffer.txt', 'nothere.txt', 'dir'].map(function(file){
     });
 });
 
-Promise.all(checkFiles)
+Promise.all(files)
 .then(function(result){
     console.log(result);
 });
@@ -371,22 +372,27 @@ See also [fs.appendFile](https://nodejs.org/api/fs.html#fs_fs_appendfile_file_da
 ### access (path[, mode])
 
 Promise uses `fs.access`.
-`mode` can be 'r', 'rw', 'rwx', 'rx', 'w', 'wx', 'x' or a mask consisting of `fs.F_OK`, `fs.R_OK`, `fs.W_OK` or `fs.X_OK`,
+`mode` is optional and can be 'r', 'rw', 'rwx', 'rx', 'w', 'wx', 'x' or a mask consisting of `fs.F_OK`, `fs.R_OK`, `fs.W_OK` or `fs.X_OK`,
 
 - `path` String
 - `mode` | `options`
   - `mode` String | Integer
 
+```javascript
+fildes.access('./path/to/file.txt')
+.then(function(){
+  console.log('file exists');
+})
+.catch(function(error){
+  console.log(error);
+});
+```
+
 
 ```javascript
 fildes.access('./path/to/file.txt', 'rwx')
-.then(function(){
-    console.log('has read write execute');
-})
-.catch(function(error){
-    console.log(error);
-});
 ```
+
 
 ```javascript
 fildes.access('./path/to/file.txt', fs.R_OK | fs.W_OK)
@@ -398,6 +404,7 @@ fildes.access('./path/to/file.txt', {
     'mode': fs.R_OK | fs.W_OK
 })
 ```
+
 
 ```javascript
 fildes.access('./path/to/file.txt', {

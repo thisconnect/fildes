@@ -33,7 +33,7 @@ fildes.write('./path/to/file.txt', 'The quick green fix')
 ### Why?
 
 - I needed an API that returns Promises
-- provides smart defaults i.e. suitable flags for `open`, `read` and `write`, see [fildes/issues/1](https://github.com/thisconnect/fildes/issues/2)
+- provides smart defaults i.e. suitable flags for `open`, `read` and `write`, see [fildes/issues/1](https://github.com/thisconnect/fildes/issues/1)
 - creates a directories if flag is `w`, `w+`, `a` or `a+`
 - uses no magic
 - some very popular node modules use `fs.exists()` which is deprecated…

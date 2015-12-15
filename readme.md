@@ -6,6 +6,7 @@ Fildes
 [![Dependencies](https://img.shields.io/david/thisconnect/fildes.svg?style=flat-square)](https://david-dm.org/thisconnect/fildes)
 [![Dev Dependencies](https://img.shields.io/david/dev/thisconnect/fildes.svg?style=flat-square)](https://david-dm.org/thisconnect/fildes#info=devDependencies)
 [![MIT](https://img.shields.io/npm/l/fildes.svg?style=flat-square)](https://github.com/thisconnect/fildes/blob/master/license)
+[![NPM Version](https://img.shields.io/npm/v/fildes.svg?style=flat-square)](https://www.npmjs.com/package/fildes)
 
 Provides native promises for all file system methods involving file descriptors (FD), basically manages `fs.open` for you.
 

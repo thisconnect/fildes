@@ -167,7 +167,7 @@ It also helps with older Node.js environments, but not when using multiple proce
 - [sync](#sync-fd)
 - [unlink](#unlink-path)
 - [link](#link-src-dest)
-- [symlink](#symlink-dest-path)
+- [symlink](#symlink-target-path)
 - [readdir](#readdir-path)
 - [mkdir](#mkdir-path)
 
@@ -556,10 +556,10 @@ fildes.link('./from/file.txt', './to/new/path/file.txt')
 ```
 
 
-### symlink (dest, path)
+### symlink (target, path)
 
 Promise uses [fs.symlink](https://nodejs.org/api/fs.html#fs_fs_symlink_destination_path_type_callback) (Node.js File System API).
-Tries to symlink destination to path.
+Tries to symlink target to path.
 If an error occurs it tries to mkdir the directory of the path.
 
 ```javascript

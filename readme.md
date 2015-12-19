@@ -374,7 +374,9 @@ See also [fs.appendFile](https://nodejs.org/api/fs.html#fs_fs_appendfile_file_da
 ### access (path[, mode])
 
 Promise uses `fs.access`.
-`mode` is optional and can be 'r', 'rw', 'rwx', 'rx', 'w', 'wx', 'x' or a mask consisting of `fs.F_OK`, `fs.R_OK`, `fs.W_OK` or `fs.X_OK`,
+`mode` is optional and can be 'r', 'rw', 'rwx', 'rx', 'w', 'wx', 'x'
+or a mask consisting of `fs.F_OK`, `fs.R_OK`, `fs.W_OK` or `fs.X_OK`.
+`mode` is very limited on Windows, it should be possible to test for 'r'.
 
 - `path` String
 - `mode` | `options`

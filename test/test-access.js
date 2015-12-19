@@ -165,15 +165,18 @@ tape('access fail', function(t){
         t.equal(error.path, fileR);
     })
     .then(function(){
-        return file.access(fileW, 'r')
+        return file.access(fileR, 'w')
         .then(fail)
         .catch(function(error){
             t.ok(error, error);
-            t.equal(error.code, 'EACCES', 'error.code is EACCES');
-            t.equal(error.path, fileW);
+            t.ok(/^(EACCES|EPERM)$/.test(error.code), 'error.code is EACCES (or EPERM on Windows)');
+            t.equal(error.path, fileR);
         });
     })
     .then(function(){
+        if (process.platform == 'win32'){
+            return;
+        }
         return file.access(fileRX, {
             'mode': 'rw'
         })
@@ -186,6 +189,9 @@ tape('access fail', function(t){
         });
     })
     .then(function(){
+        if (process.platform == 'win32'){
+            return;
+        }
         return file.access(fileWX, {
             'mode': fs.R_OK
         })

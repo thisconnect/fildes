@@ -12,6 +12,7 @@ function isPermission(mode, permission){
     return mode === permission;
 }
 
+if (process.platform != 'win32'){
 
 tape('setup chmod', function(t){
     writeFileSync(filepath, 'chmod test\n');
@@ -73,3 +74,5 @@ tape('chmod error 2', function(t){
         t.end();
     });
 });
+
+}

@@ -479,7 +479,7 @@ See also [fs.futime](https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime
 
 ### chmod (path[, options])
 
-Promise chmod, alias for `fildes.fchmod`.
+Promise chmod, alias for `fildes.fchmod`. Kind of no support for Windows.
 
 - `path` String | file descriptor (FD)
 - `options` Object

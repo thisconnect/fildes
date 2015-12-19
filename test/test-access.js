@@ -65,6 +65,7 @@ tape('access without mode', function(t){
         })
         .catch(function(error){
             t.ok(error, error);
+            t.ok(error instanceof Error, 'is Error');
             t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
             t.equal(error.path, nofile);
         });
@@ -140,7 +141,8 @@ tape('access error with mode', function(t){
     })
     .catch(function(error){
         t.ok(error, error);
-        t.equal(error.code, 'EACCES', 'error.code is EACCES');
+        t.ok(error instanceof Error, 'is Error');
+        t.ok(/^(EACCES|EPERM)$/.test(error.code), 'error.code is EACCES (or EPERM on Windows)');
         t.ok([fileWX, fileX].indexOf(error.path) > -1, 'is fileWX or fileX');
         t.end();
     });
@@ -157,7 +159,8 @@ tape('access fail', function(t){
     .then(fail)
     .catch(function(error){
         t.ok(error, error);
-        t.equal(error.code, 'EACCES', 'error.code is EACCES');
+        t.ok(error instanceof Error, 'is Error');
+        t.ok(/^(EACCES|EPERM)$/.test(error.code), 'error.code is EACCES (or EPERM on Windows)');
         t.equal(error.syscall, 'access', 'error.syscall is access');
         t.equal(error.path, fileR);
     })
@@ -177,7 +180,8 @@ tape('access fail', function(t){
         .then(fail)
         .catch(function(error){
             t.ok(error, error);
-            t.equal(error.code, 'EACCES', 'error.code is EACCES');
+            t.ok(error instanceof Error, 'is Error');
+            t.ok(/^(EACCES|EPERM)$/.test(error.code), 'error.code is EACCES (or EPERM on Windows)');
             t.equal(error.path, fileRX);
         });
     })
@@ -188,7 +192,8 @@ tape('access fail', function(t){
         .then(fail)
         .catch(function(error){
             t.ok(error, error);
-            t.equal(error.code, 'EACCES', 'error.code is EACCES');
+            t.ok(error instanceof Error, 'is Error');
+            t.ok(/^(EACCES|EPERM)$/.test(error.code), 'error.code is EACCES (or EPERM on Windows)');
             t.equal(error.path, fileWX);
         });
     })

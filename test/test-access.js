@@ -165,7 +165,7 @@ tape('access fail', function(t){
         t.equal(error.path, fileR);
     })
     .then(function(){
-        return file.access(fileW, 'r', fs.W_OK | fs.X_OK)
+        return file.access(fileW, 'r')
         .then(fail)
         .catch(function(error){
             t.ok(error, error);

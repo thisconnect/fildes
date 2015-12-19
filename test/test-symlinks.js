@@ -12,6 +12,9 @@ var filepath2 = resolve(__dirname, './data/symlink/symlink2.txt');
 var dir1 = resolve(__dirname, './data/symlink/dir1');
 var dir2 = resolve(__dirname, './data/symlink/dir2');
 
+// Exclude symlink tests for now
+// test pass with administrators permisison
+if (process.platform != 'win32'){
 
 tape('setup symlink', function(t){
     writeFileSync(dest1, 'symlink test\n');
@@ -107,3 +110,5 @@ tape('symlink error', function(t){
         t.end();
     });
 });
+
+}

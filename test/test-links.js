@@ -79,7 +79,7 @@ tape('link dest error', function(t){
     .catch(function(error){
         t.ok(error, error);
         t.ok(error instanceof Error, 'is Error');
-        t.equal(error.code, 'ENOTDIR', 'error.code is ENOTDIR');
+        t.ok(/^(ENOTDIR|EEXIST)$/.test(error.code), 'error.code is ENOENT (or EEXIST on Windows)');
         t.equal(error.syscall, 'mkdir', 'error.syscal is mkdir');
         t.end();
     });

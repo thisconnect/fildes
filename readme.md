@@ -479,7 +479,8 @@ See also [fs.futime](https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime
 
 ### chmod (path[, options])
 
-Promise chmod, alias for `fildes.fchmod`. Kind of no support for Windows.
+Promise chmod, alias for `fildes.fchmod`.
+Kind of no support for Windows.
 
 - `path` String | file descriptor (FD)
 - `options` Object
@@ -498,6 +499,7 @@ See also [fs.fchmod](https://nodejs.org/api/fs.html#fs_fs_fchmod_fd_mode_callbac
 ### chown (path[, options])
 
 Promise chown, alias for `fildes.fchown`.
+Kind of no support for Windows.
 
 - `path` String | file descriptor (FD)
 - `options` Object

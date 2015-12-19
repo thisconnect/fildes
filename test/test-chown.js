@@ -7,6 +7,7 @@ var writeFileSync = require('fs').writeFileSync;
 
 var filepath = resolve(__dirname, './data/chown.txt');
 
+if (process.platform != 'win32'){
 
 tape('setup chown', function(t){
     writeFileSync(filepath, 'chown test\n');
@@ -46,3 +47,5 @@ tape('chown error', function(t){
         t.end();
     });
 });
+
+}

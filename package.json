@@ -43,8 +43,8 @@
   "devDependencies": {
     "coveralls": "^2.11.4",
     "istanbul": "^0.4.1",
-    "rimraf": "^2.4.4",
+    "rimraf": "^2.5.0",
     "tap-spec": "^4.1.1",
-    "tape": "^4.2.2"
+    "tape": "^4.4.0"
   }
 }

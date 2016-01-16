@@ -41,7 +41,7 @@
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
-    "coveralls": "^2.11.4",
+    "coveralls": "^2.11.6",
     "istanbul": "^0.4.1",
     "rimraf": "^2.5.0",
     "tap-spec": "^4.1.1",

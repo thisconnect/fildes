@@ -177,15 +177,15 @@ It also helps with older Node.js environments, but not when using multiple proce
 
 ### open (path[, options])
 
-Opens a file descriptor (FD).
-`fildes.open` is used internally for write, read, chmod, stats, truncate and utimes.
-If `flags` is 'w', 'w+', 'a' or 'a+' open will
-check for 'ENOENT: no such file or directory' error and try to mkdir.
+Opens a file descriptor (FD). `fildes.open` is **optional** and useful for multiple operations on the same open FD. *Note*: manually opened FD's have to be closed with `fildes.close`. Open and close is used internally for `fildes.write`, `fildes.read`, `fildes.chmod`, `fildes.stats`, `fildes.truncate` and `fildes.utimes`. 
 
 - `path` String
 - `options` Object
   - `flag` or `flags` String defaults to 'w+'
   - `mode` String defaults to '0666'
+
+If `flags` is 'w', 'w+', 'a' or 'a+' open will check for 'ENOENT: no such file or directory' error and try to mkdir.
+
 
 ```javascript
 fildes.open('./no/file/here.txt', {

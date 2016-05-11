@@ -154,8 +154,6 @@ It also helps with older Node.js environments, but not when using multiple proce
 
 ## API
 
-- [open](#open-path-options)
-- [close](#close-fd)
 - [write](#write-path-data-options)
 - [writeFile](#writefile-path-data-options)
 - [read](#read-path-buffer-options)
@@ -173,52 +171,8 @@ It also helps with older Node.js environments, but not when using multiple proce
 - [symlink](#symlink-target-path)
 - [readdir](#readdir-path)
 - [mkdir](#mkdir-path)
-
-
-### open (path[, options])
-
-Opens a file descriptor (FD). `fildes.open` is **optional** and useful for multiple operations on the same open FD. *Note*: manually opened FD's have to be closed with `fildes.close`. Open and close is used internally for `fildes.write`, `fildes.read`, `fildes.chmod`, `fildes.stats`, `fildes.truncate` and `fildes.utimes`. 
-
-- `path` String
-- `options` Object
-  - `flag` or `flags` String defaults to 'w+'
-  - `mode` String defaults to '0666'
-
-If `flags` is 'w', 'w+', 'a' or 'a+' open will check for 'ENOENT: no such file or directory' error and try to mkdir.
-
-
-```javascript
-fildes.open('./no/file/here.txt', {
-    'flag': 'r'
-})
-.then(function(fd){
-    // file descriptor (FD)
-})
-.catch(function(error){
-    // returns  { [Error: ENOENT: no such file or directory..
-});
-```
-
-See also [fs.open](https://nodejs.org/api/fs.html#fs_fs_open_path_flags_mode_callback) (Node.js File System API)
-
-
-### close (fd)
-
-Closes a file descriptor (FD).
-Methods generally take care about closing if a path was given.
-If a file descriptor (FD) was passed fildes will not close by itself.
-
-```javascript
-fildes.open('./file.txt')
-.then(function(fd){
-    // do something
-    // manually close fd
-    return fildes.close(fd);
-})
-.then(function(){
-    console.log('done!');
-});
-```
+- [open](#open-path-options)
+- [close](#close-fd)
 
 
 ### write (path, data[, options])
@@ -624,6 +578,52 @@ Promise uses [mkdirp](https://www.npmjs.com/package/mkdirp) (NPM Documentation).
 fildes.mkdir('./path/to/dir')
 .then(function(){
     console.log('directory created!');
+});
+```
+
+
+### open (path[, options])
+
+Opens a file descriptor (FD). `fildes.open` is **optional** and useful for multiple operations on the same open FD. *Note*: manually opened FD's have to be closed with `fildes.close`. Open and close is used internally for `fildes.write`, `fildes.read`, `fildes.chmod`, `fildes.stats`, `fildes.truncate` and `fildes.utimes`.
+
+- `path` String
+- `options` Object
+  - `flag` or `flags` String defaults to 'w+'
+  - `mode` String defaults to '0666'
+
+If `flags` is 'w', 'w+', 'a' or 'a+' open will check for 'ENOENT: no such file or directory' error and try to mkdir.
+
+
+```javascript
+fildes.open('./no/file/here.txt', {
+    'flag': 'r'
+})
+.then(function(fd){
+    // file descriptor (FD)
+})
+.catch(function(error){
+    // returns  { [Error: ENOENT: no such file or directory..
+});
+```
+
+See also [fs.open](https://nodejs.org/api/fs.html#fs_fs_open_path_flags_mode_callback) (Node.js File System API)
+
+
+### close (fd)
+
+Closes a file descriptor (FD).
+Methods generally take care about closing if a path was given.
+If a file descriptor (FD) was passed fildes will not close by itself.
+
+```javascript
+fildes.open('./file.txt')
+.then(function(fd){
+    // do something
+    // manually close fd
+    return fildes.close(fd);
+})
+.then(function(){
+    console.log('done!');
 });
 ```
 

@@ -41,10 +41,10 @@
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
-    "coveralls": "^2.11.9",
-    "istanbul": "^0.4.3",
-    "rimraf": "^2.5.2",
+    "coveralls": "^2.11.14",
+    "istanbul": "^0.4.5",
+    "rimraf": "^2.5.4",
     "tap-spec": "^4.1.1",
-    "tape": "^4.5.1"
+    "tape": "^4.6.2"
   }
 }

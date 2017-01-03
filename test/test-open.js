@@ -157,3 +157,39 @@ tape('close twice', function(t){
         t.end();
     });
 });
+
+
+// 'wx+' - Open file for reading and writing.
+// Fails if path exists.
+tape('open one fd with wx+ at the time', function(t){
+    var path = resolve(__dirname, './data/open-this-only-once.txt');
+    file.open(path, {
+        'flags': 'wx+'
+    })
+    .then(function(fd){
+        // ready to write data to the fd
+        t.ok(fd, 'has file descriptor');
+        t.equal(typeof fd, 'number', 'fd is Number');
+        // opening the same path again with wx+ errors,
+        // since file already exists
+        return file.open(path, {
+            'flags': 'wx+'
+        })
+        .then(function(fd2){
+            t.fail('should not open since file already exists');
+        })
+        .catch(function(error){
+            // expect an error since file path has been openend / created
+            t.ok(error, error);
+            // close the fd
+            return file.close(fd);
+        })
+        .then(function(){
+            t.end();
+        });
+    })
+    .catch(function(error){
+        t.error(error);
+        t.end();
+    });
+});

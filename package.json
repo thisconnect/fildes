@@ -5,6 +5,7 @@
   "main": "lib/main.js",
   "scripts": {
     "test": "tape test/test.js | tap-spec",
+    "posttest": "npm run lint",
     "test-length": "tape test/test-functions.js | tap-spec",
     "coverage": "istanbul cover test/test.js --report lcovonly",
     "codecov": "npm run coverage && codecov",

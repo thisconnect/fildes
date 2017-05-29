@@ -8,6 +8,7 @@
     "test-length": "tape test/test-functions.js | tap-spec",
     "coverage": "istanbul cover test/test.js",
     "coveralls": "istanbul cover test/test.js --report lcovonly && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
+    "codecov": "istanbul cover test/test.js && codecov",
     "prettier": "prettier-eslint --write \"{lib,test}/*.js\"",
     "lint": "eslint .",
     "lint-check": "eslint --print-config .eslintrc | eslint-config-prettier-check"
@@ -44,6 +45,7 @@
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
+    "codecov": "^2.2.0",
     "coveralls": "^2.11.16",
     "eslint": "^3.19.0",
     "eslint-config-prettier": "^2.1.1",

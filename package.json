@@ -4,6 +4,7 @@
   "description": "promises fs and takes care about fs.open",
   "main": "lib/main.js",
   "scripts": {
+    "lint": "eslint .",
     "test": "tape test/test.js | tap-spec",
     "test-length": "tape test/test-functions.js | tap-spec",
     "coverage": "istanbul cover test/test.js | tap-spec",
@@ -42,6 +43,8 @@
   },
   "devDependencies": {
     "coveralls": "^2.11.16",
+    "eslint": "^3.19.0",
+    "eslint-plugin-promise": "^3.5.0",
     "istanbul": "^0.4.5",
     "rimraf": "^2.5.4",
     "tap-spec": "^4.1.1",

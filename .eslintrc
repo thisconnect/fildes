@@ -1,7 +1,20 @@
 {
-    "rules": {
-        "semi": 2,
-        "quotes": [2, "single"]
-    },
-    "node": true
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "extends": ["prettier"],
+  "rules": {
+    "prettier/prettier": ["error", {
+      "singleQuote": true
+    }],
+    "no-mixed-operators": "warn"
+  },
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "plugins": [
+    "prettier",
+    "promise"
+  ]
 }

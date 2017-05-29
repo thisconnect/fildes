@@ -4,11 +4,13 @@
   "description": "promises fs and takes care about fs.open",
   "main": "lib/main.js",
   "scripts": {
-    "lint": "eslint .",
     "test": "tape test/test.js | tap-spec",
     "test-length": "tape test/test-functions.js | tap-spec",
-    "coverage": "istanbul cover test/test.js | tap-spec",
-    "coveralls": "istanbul cover test/test.js --report lcovonly && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
+    "coverage": "istanbul cover test/test.js",
+    "coveralls": "istanbul cover test/test.js --report lcovonly && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
+    "prettier": "prettier-eslint --write \"{lib,test}/*.js\"",
+    "lint": "eslint .",
+    "lint-check": "eslint --print-config .eslintrc | eslint-config-prettier-check"
   },
   "repository": {
     "type": "git",
@@ -44,8 +46,13 @@
   "devDependencies": {
     "coveralls": "^2.11.16",
     "eslint": "^3.19.0",
+    "eslint-config-prettier": "^2.1.1",
+    "eslint-plugin-prettier": "^2.1.1",
     "eslint-plugin-promise": "^3.5.0",
+    "faucet": "0.0.1",
     "istanbul": "^0.4.5",
+    "prettier": "^1.3.1",
+    "prettier-eslint-cli": "^3.6.1",
     "rimraf": "^2.5.4",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.3"

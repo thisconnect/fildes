@@ -2,20 +2,19 @@
   "parserOptions": {
     "ecmaVersion": 6
   },
-  "extends": ["eslint:recommended"],
+  "extends": ["prettier"],
   "rules": {
-    "comma-dangle": ["warn", "never"],
-    "indent": ["warn", 2, { "SwitchCase": 1 }],
-    "linebreak-style": ["warn", "unix"],
-    "no-console": "off",
-    "quotes": ["warn", "single", { "allowTemplateLiterals": true }],
-    "semi": ["warn", "always"]
+    "prettier/prettier": ["error", {
+      "singleQuote": true
+    }],
+    "no-mixed-operators": "warn"
   },
   "env": {
     "node": true,
     "es6": true
   },
   "plugins": [
+    "prettier",
     "promise"
   ]
 }

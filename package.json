@@ -1,6 +1,6 @@
 {
   "name": "fildes",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "promises fs and takes care about fs.open",
   "main": "lib/main.js",
   "scripts": {

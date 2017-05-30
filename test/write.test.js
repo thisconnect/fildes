@@ -9,7 +9,7 @@ var filepath2 = resolve(__dirname, './data/write.txt');
 var filepath3 = resolve(__dirname, './data/write2.txt');
 var filepath4 = resolve(__dirname, './data/dir/write/write3.txt');
 
-tape('write JSON', (t) => {
+tape('write JSON', t => {
   file
     .write(filepath1, { data: 1 })
     .then(() => {
@@ -17,13 +17,13 @@ tape('write JSON', (t) => {
       t.equal(readFileSync(filepath1, 'utf8'), '{"data":1}');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('write buffer', (t) => {
+tape('write buffer', t => {
   file
     .write(filepath2, new Buffer('Hi!'), {
       offset: 0,
@@ -34,13 +34,13 @@ tape('write buffer', (t) => {
       t.equal(readFileSync(filepath2, 'utf8'), 'Hi!');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('write string at position', (t) => {
+tape('write string at position', t => {
   file
     .write(filepath3, 'foo bar baz')
     .then(() => {
@@ -58,13 +58,13 @@ tape('write string at position', (t) => {
           t.end();
         });
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('write buffer at position', (t) => {
+tape('write buffer at position', t => {
   file
     .write(filepath3, 'foo bar baz')
     .then(() => {
@@ -81,13 +81,13 @@ tape('write buffer at position', (t) => {
           t.end();
         });
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('write file in a new directory', (t) => {
+tape('write file in a new directory', t => {
   file
     .write(filepath4, 'test\n')
     .then(() => {
@@ -95,16 +95,16 @@ tape('write file in a new directory', (t) => {
       t.equal(readFileSync(filepath4, 'utf8'), 'test\n');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('write twice with manually opened fd', (t) => {
+tape('write twice with manually opened fd', t => {
   file
     .open(filepath2)
-    .then((fd) => {
+    .then(fd => {
       return file
         .write(fd, 'Hi there!')
         .then(() => {
@@ -123,13 +123,13 @@ tape('write twice with manually opened fd', (t) => {
       t.equal(readFileSync(filepath2, 'utf8'), 'Hi again!');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('write with invalid offset', (t) => {
+tape('write with invalid offset', t => {
   file
     .write(filepath2, new Buffer(0), {
       offset: -1
@@ -138,21 +138,21 @@ tape('write with invalid offset', (t) => {
       t.fail('file written');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.ok(error instanceof RangeError, 'is RangeError');
       t.end();
     });
 });
 
-tape('write buffer fd error', (t) => {
+tape('write buffer fd error', t => {
   file
     .write(-1, new Buffer(0))
-    .then((data) => {
+    .then(data => {
       t.fail('should have no data');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'write', 'error.syscall is write');
@@ -160,14 +160,14 @@ tape('write buffer fd error', (t) => {
     });
 });
 
-tape('write fd error', (t) => {
+tape('write fd error', t => {
   file
     .write(-1)
-    .then((data) => {
+    .then(data => {
       t.fail('should have no data');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'write', 'error.syscall is write');

@@ -6,10 +6,10 @@ var resolve = require('path').resolve;
 var debug = require('debug');
 debug.log = console.log.bind(console);
 
-tape('setup', (t) => {
+tape('setup', t => {
   var path = resolve(__dirname, './data');
 
-  rimraf(path, (error) => {
+  rimraf(path, error => {
     if (error) {
       t.error(error);
       t.end();
@@ -19,7 +19,7 @@ tape('setup', (t) => {
       .then(() => {
         t.end();
       })
-      .catch((error) => {
+      .catch(error => {
         t.error(error);
         t.end();
       });

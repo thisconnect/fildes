@@ -13,7 +13,7 @@ var fileW = resolve(dir, 'file-w.txt');
 var fileWX = resolve(dir, 'file-wx.txt');
 var fileX = resolve(dir, 'file-x.txt');
 
-tape('setup access', (t) => {
+tape('setup access', t => {
   file
     .mkdir(dir)
     .then(() => {
@@ -27,27 +27,27 @@ tape('setup access', (t) => {
         file.write(fileX, 'execute only', { mode: '0111' })
       ];
     })
-    .then((files) => {
+    .then(files => {
       return Promise.all(files);
     })
     .then(() => {
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('access without mode', (t) => {
+tape('access without mode', t => {
   var files = [fileR, fileRW, fileRWX, fileRX, fileW, fileWX, fileX];
 
   Promise.all(
-    files.map((path) => {
+    files.map(path => {
       return file.access(path);
     })
   )
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     })
@@ -58,7 +58,7 @@ tape('access without mode', (t) => {
       var nofile = resolve(dir, 'file-does-not-exist.txt');
       files.push(nofile);
       return Promise.all(
-        files.map((path) => {
+        files.map(path => {
           return file.access(path);
         })
       )
@@ -66,7 +66,7 @@ tape('access without mode', (t) => {
           t.fail('should not pass');
           t.end();
         })
-        .catch((error) => {
+        .catch(error => {
           t.ok(error, error);
           t.ok(error instanceof Error, 'is Error');
           t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
@@ -78,7 +78,7 @@ tape('access without mode', (t) => {
     });
 });
 
-tape('access with mode', (t) => {
+tape('access with mode', t => {
   Promise.all([
     file.access(fileR, 'r'),
     file.access(fileRW, 'rw'),
@@ -120,13 +120,13 @@ tape('access with mode', (t) => {
       t.pass('test option.mode');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('access error with mode', (t) => {
+tape('access error with mode', t => {
   Promise.all([
     file.access(fileR, 'r'),
     file.access(fileRW, fs.R_OK | fs.W_OK),
@@ -140,7 +140,7 @@ tape('access error with mode', (t) => {
       t.fail('should not pass');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.ok(error instanceof Error, 'is Error');
       t.ok(
@@ -152,7 +152,7 @@ tape('access error with mode', (t) => {
     });
 });
 
-tape('access fail', (t) => {
+tape('access fail', t => {
   function fail() {
     t.fail('should not pass');
     t.end();
@@ -161,7 +161,7 @@ tape('access fail', (t) => {
   file
     .access(fileR, 'rwx')
     .then(fail)
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.ok(error instanceof Error, 'is Error');
       t.ok(
@@ -172,7 +172,7 @@ tape('access fail', (t) => {
       t.equal(error.path, fileR);
     })
     .then(() => {
-      return file.access(fileR, 'w').then(fail).catch((error) => {
+      return file.access(fileR, 'w').then(fail).catch(error => {
         t.ok(error, error);
         t.ok(
           /^(EACCES|EPERM)$/.test(error.code),
@@ -190,7 +190,7 @@ tape('access fail', (t) => {
           mode: 'rw'
         })
         .then(fail)
-        .catch((error) => {
+        .catch(error => {
           t.ok(error, error);
           t.ok(error instanceof Error, 'is Error');
           t.ok(
@@ -209,7 +209,7 @@ tape('access fail', (t) => {
           mode: fs.R_OK
         })
         .then(fail)
-        .catch((error) => {
+        .catch(error => {
           t.ok(error, error);
           t.ok(error instanceof Error, 'is Error');
           t.ok(

@@ -9,7 +9,7 @@ var file2 = resolve(__dirname, './data/writefile-2.json');
 var file3 = resolve(__dirname, './data/writefile-3.txt');
 var file4 = resolve(__dirname, './data/writefile/new/file.txt');
 
-tape('writeFile', (t) => {
+tape('writeFile', t => {
   file
     .writeFile(file1, 'Hello File!')
     .then(() => {
@@ -17,13 +17,13 @@ tape('writeFile', (t) => {
       t.equal(readFileSync(file1, 'utf8'), 'Hello File!');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('writeFile JSON', (t) => {
+tape('writeFile JSON', t => {
   file
     .writeFile(file2, { data: 1 })
     .then(() => {
@@ -31,13 +31,13 @@ tape('writeFile JSON', (t) => {
       t.equal(readFileSync(file2, 'utf8'), '{"data":1}');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('writeFile Buffer', (t) => {
+tape('writeFile Buffer', t => {
   file
     .writeFile(file3, new Buffer("I'm a buffer"))
     .then(() => {
@@ -45,13 +45,13 @@ tape('writeFile Buffer', (t) => {
       t.equal(readFileSync(file3, 'utf8'), "I'm a buffer");
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('writeFile to a new directory', (t) => {
+tape('writeFile to a new directory', t => {
   file
     .writeFile(file4, 'In a new directory')
     .then(() => {
@@ -59,27 +59,27 @@ tape('writeFile to a new directory', (t) => {
       t.equal(readFileSync(file4, 'utf8'), 'In a new directory');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('writeFile error', (t) => {
+tape('writeFile error', t => {
   file
     .writeFile()
     .then(() => {
       t.fail('should not write');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.ok(error instanceof TypeError, 'is TypeError');
       t.end();
     });
 });
 
-tape('writeFile on a dir error', (t) => {
+tape('writeFile on a dir error', t => {
   var dir = resolve(__dirname, './data/writefile/new');
   file
     .writeFile(dir, 'here is a dir')
@@ -87,7 +87,7 @@ tape('writeFile on a dir error', (t) => {
       t.fail('should not write');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.ok(error instanceof Error, 'is Error');
       t.equal(error.code, 'EISDIR', 'error.code is EISDIR');

@@ -9,12 +9,12 @@ var filepath2 = resolve(__dirname, './data/open.txt');
 // 'w' - Open file for writing.
 // The file is created (if it does not exist)
 // or truncated (if it exists).
-tape('open w file and dir created', (t) => {
+tape('open w file and dir created', t => {
   file
     .open(filepath1, {
       flags: 'w'
     })
-    .then((fd) => {
+    .then(fd => {
       t.ok(fd, 'has file descriptor');
       t.equal(typeof fd, 'number', 'fd is Number');
       return file.close(fd);
@@ -22,7 +22,7 @@ tape('open w file and dir created', (t) => {
     .then(() => {
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
@@ -30,12 +30,12 @@ tape('open w file and dir created', (t) => {
 
 // 'wx' - Open file for writing.
 // Fails if path exists.
-tape('open wx (fails if path exists)', (t) => {
+tape('open wx (fails if path exists)', t => {
   file
     .open(filepath2, {
       flags: 'wx'
     })
-    .then((fd) => {
+    .then(fd => {
       t.ok(fd, 'has file descriptor');
       t.equal(typeof fd, 'number', 'fd is Number');
       return file.close(fd);
@@ -49,7 +49,7 @@ tape('open wx (fails if path exists)', (t) => {
       t.fail('should fail');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.equal(error.code, 'EEXIST', 'error.code is EEXIST');
       t.equal(error.syscall, 'open', 'error.syscall is open');
@@ -57,13 +57,13 @@ tape('open wx (fails if path exists)', (t) => {
     });
 });
 
-tape('open twice', (t) => {
+tape('open twice', t => {
   file
     .open(filepath2)
-    .then((fd1) => {
+    .then(fd1 => {
       return file
         .open(filepath2)
-        .then((fd2) => {
+        .then(fd2 => {
           t.ok(fd1, 'has file descriptor 1');
           t.ok(fd2, 'has file descriptor 2');
           t.equal(typeof fd1, 'number', 'fd1 is Number');
@@ -74,7 +74,7 @@ tape('open twice', (t) => {
           t.end();
         });
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
@@ -82,17 +82,17 @@ tape('open twice', (t) => {
 
 // 'r' - Open file for reading.
 // An exception occurs if the file does not exist.
-tape('open r', (t) => {
+tape('open r', t => {
   var path = resolve(__dirname, './data/not/here.txt');
   file
     .open(path, {
       flags: 'r'
     })
-    .then((fd) => {
+    .then(fd => {
       t.fail('should not return fd');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.equal(error.syscall, 'open', 'error.syscall is open');
@@ -103,17 +103,17 @@ tape('open r', (t) => {
 
 // 'wx+' - Open file for reading and writing.
 // Fails if path exists.
-tape('open wx+ error', (t) => {
+tape('open wx+ error', t => {
   var path = resolve(__dirname, './data/not/here.txt');
   file
     .open(path, {
       flags: 'wx+'
     })
-    .then((fd) => {
+    .then(fd => {
       t.fail('should not return fd');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.equal(error.syscall, 'open', 'error.syscall is open');
@@ -122,14 +122,14 @@ tape('open wx+ error', (t) => {
     });
 });
 
-tape('close', (t) => {
+tape('close', t => {
   file
     .close(-1)
-    .then((fd) => {
+    .then(fd => {
       t.fail('should not close nothing');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'close', 'error.syscall is close');
@@ -137,10 +137,10 @@ tape('close', (t) => {
     });
 });
 
-tape('close twice', (t) => {
+tape('close twice', t => {
   file
     .open(filepath2)
-    .then((fd) => {
+    .then(fd => {
       return file.close(fd).then(() => {
         t.pass('close first time');
         return file.close(fd);
@@ -150,7 +150,7 @@ tape('close twice', (t) => {
       t.fail('should not close twice');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'close', 'error.syscall is close');
@@ -160,13 +160,13 @@ tape('close twice', (t) => {
 
 // 'wx+' - Open file for reading and writing.
 // Fails if path exists.
-tape('open one fd with wx+ at the time', (t) => {
+tape('open one fd with wx+ at the time', t => {
   var path = resolve(__dirname, './data/open-this-only-once.txt');
   file
     .open(path, {
       flags: 'wx+'
     })
-    .then((fd) => {
+    .then(fd => {
       // ready to write data to the fd
       t.ok(fd, 'has file descriptor');
       t.equal(typeof fd, 'number', 'fd is Number');
@@ -176,10 +176,10 @@ tape('open one fd with wx+ at the time', (t) => {
         .open(path, {
           flags: 'wx+'
         })
-        .then((fd2) => {
+        .then(fd2 => {
           t.fail('should not open since file already exists');
         })
-        .catch((error) => {
+        .catch(error => {
           // expect an error since file path has been openend / created
           t.ok(error, error);
           // close the fd
@@ -189,7 +189,7 @@ tape('open one fd with wx+ at the time', (t) => {
           t.end();
         });
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });

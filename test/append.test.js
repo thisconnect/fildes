@@ -7,12 +7,12 @@ var writeFileSync = require('fs').writeFileSync;
 
 var filepath = resolve(__dirname, './data/append.txt');
 
-tape('setup append', (t) => {
+tape('setup append', t => {
   writeFileSync(filepath, 'abc');
   t.end();
 });
 
-tape('append', (t) => {
+tape('append', t => {
   file
     .appendFile(filepath, 'def')
     .then(() => {
@@ -20,13 +20,13 @@ tape('append', (t) => {
       t.equal(readFileSync(filepath, 'utf8'), 'abcdef');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('append a buffer', (t) => {
+tape('append a buffer', t => {
   file
     .appendFile(filepath, new Buffer('ghi'))
     .then(() => {
@@ -34,13 +34,13 @@ tape('append a buffer', (t) => {
       t.equal(readFileSync(filepath, 'utf8'), 'abcdefghi');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('append error', (t) => {
+tape('append error', t => {
   file
     .appendFile(filepath, '', {
       flag: 'r'
@@ -49,7 +49,7 @@ tape('append error', (t) => {
       t.fail('should not truncate');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.ok(
         /^(EBADF|EPERM)$/.test(error.code),

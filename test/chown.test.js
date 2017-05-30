@@ -8,12 +8,12 @@ var writeFileSync = require('fs').writeFileSync;
 var filepath = resolve(__dirname, './data/chown.txt');
 
 if (process.platform != 'win32') {
-  tape('setup chown', (t) => {
+  tape('setup chown', t => {
     writeFileSync(filepath, 'chown test\n');
     t.end();
   });
 
-  tape('chown', (t) => {
+  tape('chown', t => {
     file
       .chown(filepath)
       .then(() => {
@@ -27,20 +27,20 @@ if (process.platform != 'win32') {
         t.equal(stats.gid, process.getgid(), 'gid is process.getgid');
         t.end();
       })
-      .catch((error) => {
+      .catch(error => {
         t.error(error);
         t.end();
       });
   });
 
-  tape('chown error', (t) => {
+  tape('chown error', t => {
     file
       .chown(-1)
       .then(() => {
         t.fail('should not chown');
         t.end();
       })
-      .catch((error) => {
+      .catch(error => {
         t.ok(error, error);
         t.equal(error.code, 'EBADF', 'error.code is EBADF');
         t.equal(error.syscall, 'fchown', 'error.syscal is fchown');

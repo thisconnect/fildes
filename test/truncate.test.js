@@ -7,12 +7,12 @@ var writeFileSync = require('fs').writeFileSync;
 
 var filepath1 = resolve(__dirname, './data/truncate.txt');
 
-tape('setup truncate', (t) => {
+tape('setup truncate', t => {
   writeFileSync(filepath1, 'abcdefghijklmnopqrstuvwxyz\n');
   t.end();
 });
 
-tape('truncate', (t) => {
+tape('truncate', t => {
   file
     .truncate(filepath1, {
       length: 9
@@ -23,13 +23,13 @@ tape('truncate', (t) => {
       t.equal(text, 'abcdefghi');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('truncate all', (t) => {
+tape('truncate all', t => {
   file
     .truncate(filepath1)
     .then(() => {
@@ -38,13 +38,13 @@ tape('truncate all', (t) => {
       t.equal(text, '');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('truncate error', (t) => {
+tape('truncate error', t => {
   file
     .truncate(filepath1, {
       length: -1
@@ -53,7 +53,7 @@ tape('truncate error', (t) => {
       t.fail('should not truncate');
       t.end();
     })
-    .catch((error) => {
+    .catch(error => {
       t.ok(error, error);
       t.equal(error.code, 'EINVAL', 'error.code is EINVAL');
       t.equal(error.syscall, 'ftruncate', 'error.syscall is ftruncate');

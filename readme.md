@@ -2,6 +2,7 @@ Fildes
 ------
 
 [![Build Status](https://img.shields.io/travis/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://travis-ci.org/thisconnect/fildes)
+[![Build Status](https://img.shields.io/appveyor/ci/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://ci.appveyor.com/project/thisconnect/fildes)
 [![Coverage Status](https://img.shields.io/coveralls/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://coveralls.io/github/thisconnect/fildes?branch=master)
 [![Dependencies](https://img.shields.io/david/thisconnect/fildes.svg?style=flat-square&maxAge=1800)](https://david-dm.org/thisconnect/fildes)
 [![Dev Dependencies](https://img.shields.io/david/dev/thisconnect/fildes.svg?style=flat-square&maxAge=1800)](https://david-dm.org/thisconnect/fildes?type=dev)

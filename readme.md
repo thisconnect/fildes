@@ -53,6 +53,8 @@ fildes.write('./path/to/file.txt', 'The quick green fix')
 npm i --save fildes
 ```
 
+`fildes` with support for Node.js 4.x can be found here https://github.com/thisconnect/fildes/tree/v1.x
+
 
 ### Examples
 

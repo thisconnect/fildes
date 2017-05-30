@@ -15,76 +15,76 @@ var dir2 = resolve(__dirname, './data/symlink/dir2');
 // Exclude symlink tests for now
 // test pass with administrators permisison
 if (process.platform != 'win32') {
-  tape('setup symlink', function(t) {
+  tape('setup symlink', (t) => {
     writeFileSync(dest1, 'symlink test\n');
     t.end();
   });
 
-  tape('symlink', function(t) {
+  tape('symlink', (t) => {
     file
       .symlink(dest1, filepath1)
-      .then(function() {
+      .then(() => {
         t.pass('file symlinked');
         return file.readFile(filepath1, { encoding: 'utf8' });
       })
-      .then(function(content) {
+      .then((content) => {
         t.equal(content, 'symlink test\n', 'symlink has content of dest1');
         t.end();
       })
-      .catch(function(error) {
+      .catch((error) => {
         t.error(error);
         t.end();
       });
   });
 
-  tape('symlink dir', function(t) {
+  tape('symlink dir', (t) => {
     var file1 = resolve(dir1, 'file.txt');
     var file2 = resolve(dir2, 'file.txt');
 
     file
       .mkdir(dir1)
-      .then(function() {
+      .then(() => {
         return file.symlink(dir1, dir2);
       })
-      .then(function() {
+      .then(() => {
         return file.writeFile(file1, 'test in dir1');
       })
-      .then(function() {
+      .then(() => {
         t.pass('dir symlinked');
         return file.readdir(dir2);
       })
-      .then(function(files) {
+      .then((files) => {
         t.ok(Array.isArray(files), 'files is Array');
         t.ok(files.length == 1, 'has some files');
         t.equal(files[0], 'file.txt', 'dir 2 has file.txt');
         return file.readFile(file2, { encoding: 'utf8' });
       })
-      .then(function(content) {
+      .then((content) => {
         t.equal(content, 'test in dir1', 'has same content');
         t.end();
       })
-      .catch(function(error) {
+      .catch((error) => {
         t.error(error);
         t.end();
       });
   });
 
-  tape('symlink dest that doesnt exist yet', function(t) {
+  tape('symlink dest that doesnt exist yet', (t) => {
     file
       .symlink(dest2, filepath2)
-      .then(function() {
+      .then(() => {
         t.pass('symlink created');
         t.ok(lstatSync(filepath2).isSymbolicLink(), 'is symbolic link');
         return file.readFile(filepath2);
       })
-      .catch(function() {
+      .catch(() => {
         t.pass('no file there yet');
         return file.writeFile(dest2, 'text after symlink\n');
       })
-      .then(function() {
+      .then(() => {
         return file.readFile(filepath2, { encoding: 'utf8' });
       })
-      .then(function(content) {
+      .then((content) => {
         t.equal(
           content,
           'text after symlink\n',
@@ -92,20 +92,20 @@ if (process.platform != 'win32') {
         );
         t.end();
       })
-      .catch(function(error) {
+      .catch((error) => {
         t.error(error);
         t.end();
       });
   });
 
-  tape('symlink error', function(t) {
+  tape('symlink error', (t) => {
     file
       .symlink(dest1, filepath1)
-      .then(function() {
+      .then(() => {
         t.fail('should not symlink');
         t.end();
       })
-      .catch(function(error) {
+      .catch((error) => {
         t.ok(error, error);
         t.ok(error instanceof Error, 'instance of Error');
         t.equal(error.code, 'EEXIST', 'error.code is EEXIST');

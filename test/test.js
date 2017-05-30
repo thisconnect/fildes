@@ -6,20 +6,20 @@ var resolve = require('path').resolve;
 var debug = require('debug');
 debug.log = console.log.bind(console);
 
-tape('setup', function(t) {
+tape('setup', (t) => {
   var path = resolve(__dirname, './data');
 
-  rimraf(path, function(error) {
+  rimraf(path, (error) => {
     if (error) {
       t.error(error);
       t.end();
     }
     file
       .mkdir(path)
-      .then(function() {
+      .then(() => {
         t.end();
       })
-      .catch(function(error) {
+      .catch((error) => {
         t.error(error);
         t.end();
       });

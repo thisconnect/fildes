@@ -13,17 +13,17 @@ function isPermission(mode, permission) {
 }
 
 if (process.platform != 'win32') {
-  tape('setup chmod', function(t) {
+  tape('setup chmod', (t) => {
     writeFileSync(filepath, 'chmod test\n');
     t.end();
   });
 
-  tape('chmod', function(t) {
+  tape('chmod', (t) => {
     file
       .chmod(filepath, {
         mode: '0700' // nobody else
       })
-      .then(function() {
+      .then(() => {
         var stats = statSync(filepath);
         t.ok(isPermission(stats.mode, '0700'), 'permission set to 0700');
 
@@ -31,27 +31,27 @@ if (process.platform != 'win32') {
           mode: parseInt('0755', 8)
         });
       })
-      .then(function() {
+      .then(() => {
         var stats = statSync(filepath);
         t.ok(isPermission(stats.mode, '0755'), 'permission set to 0755');
         t.end();
       })
-      .catch(function(error) {
+      .catch((error) => {
         t.error(error);
         t.end();
       });
   });
 
-  tape('chmod error', function(t) {
+  tape('chmod error', (t) => {
     file
       .chmod(-1, {
         mode: '0777'
       })
-      .then(function() {
+      .then(() => {
         t.fail('should not chmod');
         t.end();
       })
-      .catch(function(error) {
+      .catch((error) => {
         t.ok(error, error);
         t.equal(error.code, 'EBADF', 'error.code is EBADF');
         t.equal(error.syscall, 'fchmod', 'error.syscal is fchmod');
@@ -59,14 +59,14 @@ if (process.platform != 'win32') {
       });
   });
 
-  tape('chmod error 2', function(t) {
+  tape('chmod error 2', (t) => {
     file
       .chmod(filepath)
-      .then(function() {
+      .then(() => {
         t.fail('should not chmod');
         t.end();
       })
-      .catch(function(error) {
+      .catch((error) => {
         t.ok(error, error);
         t.ok(error instanceof TypeError, 'is TypeError');
         t.end();

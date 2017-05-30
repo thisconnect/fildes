@@ -24,10 +24,10 @@ Provides native promises for all file system methods involving file descriptors 
 var fildes = require('fildes');
 
 fildes.write('./path/to/file.txt', 'The quick green fix')
-.then(function(){
-    console.log('done!');
+.then(() => {
+  console.log('done!');
 })
-.catch(function(error){
+.catch((error) => {
     // error
 });
 ```
@@ -62,15 +62,15 @@ npm i --save fildes
 #### Get the size of many files
 
 ```javascript
-function getSize(file){
+function getSize(file) {
     return fildes.fstat(file)
-    .then(function(stat){
+    .then((stat) => {
         return stat.size;
     });
 }
 
 Promise.all(['a.txt', 'b.json', 'c.txt'].map(getSize))
-.then(function(sizes){
+.then((sizes) => {
     console.log('got filesizes', sizes);
 });
 ```
@@ -80,19 +80,19 @@ Promise.all(['a.txt', 'b.json', 'c.txt'].map(getSize))
 
 ```javascript
 var files = ['buffer.txt', 'nothere.txt', 'dir']
-.map(function(file){
-    return fildes.fstat(file)
-    .then(function(stat){
-        return stat.isFile();
-    })
-    .catch(function(){
-        return false;
-    });
+.map((file) => {
+  return fildes.fstat(file)
+  .then((stat) => {
+    return stat.isFile();
+  })
+  .catch(() => {
+    return false;
+  });
 });
 
 Promise.all(files)
-.then(function(result){
-    console.log(result);
+.then((result) => {
+  console.log(result);
 });
 ```
 
@@ -100,13 +100,13 @@ Promise.all(files)
 #### Read chunk of many files
 
 ```javascript
-Promise.all(['file.txt', 'file2.txt'].map(function(path){
-    return fildes.read(path, {
-        'length': 262,
-        'position': 0
-    });
+Promise.all(['file.txt', 'file2.txt'].map((path) => {
+  return fildes.read(path, {
+    'length': 262,
+    'position': 0
+  });
 }))
-.then(function(result){
+.then((result) => {
     // chunk of file 1
     console.log(result[0]);
     // chunk of file 2
@@ -119,29 +119,29 @@ Promise.all(['file.txt', 'file2.txt'].map(function(path){
 
 ```javascript
 fildes.open(path)
-.then(function(fd){
-    // write first time
-    return fildes.write(fd, 'Hi there!')
-    .then(function(){
-        var word = new Buffer('again');
-        // write second time on the same fd
-        return fildes.write(fd, word, {
-            'offset': 0,
-            'length': 5,
-            'position': 3
-        });
-    })
-    .then(function(){
-        return fildes.stats(fd);
-    })
-    .then(function(stats){
-        console.log(stats);
-        // manually close fd
-        return fildes.close(fd);
+.then((fd) => {
+  // write first time
+  return fildes.write(fd, 'Hi there!')
+  .then(() => {
+    var word = new Buffer('again');
+    // write second time on the same fd
+    return fildes.write(fd, word, {
+      'offset': 0,
+      'length': 5,
+      'position': 3
     });
+  })
+  .then(() => {
+    return fildes.stats(fd);
+  })
+  .then((stats) => {
+    console.log(stats);
+    // manually close fd
+    return fildes.close(fd);
+  });
 })
-.catch(function(error){
-    console.error(err.stack);
+.catch((error) => {
+  console.error(err.stack);
 });
 ```
 
@@ -205,8 +205,8 @@ If data is type of `Object` it will be converted to JSON.
 
 ```javascript
 fildes.write('./new/dir/file.txt', 'some data\n')
-.then(function(){
-    console.log('dir created and file written!');
+.then(() => {
+  console.log('dir created and file written!');
 });
 ```
 
@@ -215,7 +215,7 @@ fildes.write('./new/dir/file.txt', 'some data\n')
 
 ```javascript
 fildes.write('./path/to/file.json', {
-    'some': 'data'
+  'some': 'data'
 });
 ```
 
@@ -226,8 +226,8 @@ fildes.write('./path/to/file.json', {
 var buffer = new Buffer('Hello World!');
 
 fildes.write('./path/to/file.txt', buffer, {
-    'offset': 0,
-    'length': buffer.length
+  'offset': 0,
+  'length': buffer.length
 });
 ```
 
@@ -267,11 +267,11 @@ Promise to read a file to a buffer.
 
 ```javascript
 fildes.read('./path/to/file.txt', {
-    'length': 8,
-    'encoding': 'utf8'
+  'length': 8,
+  'encoding': 'utf8'
 })
-.then(function(content){
-    console.log(content);
+.then((content) => {
+  console.log(content);
 });
 ```
 
@@ -282,12 +282,12 @@ fildes.read('./path/to/file.txt', {
 var buffer = new Buffer(8);
 
 fildes.read('./path/to/file.txt', buffer, {
-    'offset': 0,
-    'length': 8,
-    'position': 0
+  'offset': 0,
+  'length': 8,
+  'position': 0
 })
-.then(function(){
-    console.log(buffer.toString());
+.then(() => {
+  console.log(buffer.toString());
 });
 ```
 
@@ -302,8 +302,8 @@ Promise uses `fs.readFile`.
 
 ```javascript
 fildes.readFile('./path/to/file.json')
-.then(function(buffer){
-    console.log('got', buffer.toString());
+.then((buffer) => {
+  console.log('got', buffer.toString());
 });
 ```
 
@@ -321,8 +321,8 @@ Promise uses `fs.appendFile`.
 
 ```javascript
 fildes.appendFile('./path/to/file.txt', '2015-11-07 GET /robots.txt')
-.then(function(){
-    console.log('added some data');
+.then(() => {
+  console.log('added some data');
 });
 ```
 
@@ -342,10 +342,10 @@ or a mask consisting of `fs.F_OK`, `fs.R_OK`, `fs.W_OK` or `fs.X_OK`.
 
 ```javascript
 fildes.access('./path/to/file.txt')
-.then(function(){
+.then(() => {
   console.log('file exists');
 })
-.catch(function(error){
+.catch((error) => {
   console.log(error);
 });
 ```
@@ -363,14 +363,14 @@ fildes.access('./path/to/file.txt', fs.R_OK | fs.W_OK)
 
 ```javascript
 fildes.access('./path/to/file.txt', {
-    'mode': fs.R_OK | fs.W_OK
+  'mode': fs.R_OK | fs.W_OK
 })
 ```
 
 
 ```javascript
 fildes.access('./path/to/file.txt', {
-    'mode': 'rwx'
+  'mode': 'rwx'
 })
 ```
 
@@ -389,8 +389,8 @@ Promise file stats. alias for `fildes.fstat`.
 
 ```javascript
 fildes.stats('./path/to/file.txt')
-.then(function(stats){
-    console.log(stats);
+.then((stats) => {
+  console.log(stats);
 });
 ```
 
@@ -408,7 +408,7 @@ Promise truncate, alias for `fildes.ftruncate`.
 
 ```javascript
 fildes.truncate('./path/to/file.txt', {
-    'length': 8
+  'length': 8
 });
 ```
 
@@ -427,8 +427,8 @@ Promise utime, alias for `fildes.futime`.
 
 ```javascript
 fildes.utimes('./path/to/file.txt', {
-    'access': Date.now() - (60 * 60 * 1000),
-    'modification': new Date('2015-10-26')
+  'access': Date.now() - (60 * 60 * 1000),
+  'modification': new Date('2015-10-26')
 });
 ```
 
@@ -447,7 +447,7 @@ Kind of no support for Windows.
 
 ```javascript
 fildes.chmod('./path/to/file.txt', {
-    'mode': 0700 // nobody else
+  'mode': 0700 // nobody else
 });
 ```
 
@@ -466,8 +466,8 @@ Kind of no support for Windows.
 
 ```javascript
 fildes.chown('./path/to/file.txt')
-.then(function(){
-    // mine
+.then(() => {
+  // mine
 });
 ```
 
@@ -483,8 +483,8 @@ Flushes modified data of the file descriptor (FD) to the disk device or other pe
 
 ```javascript
 fildes.sync(fd)
-.then(function(){
-    // data flushed to storage
+.then(() => {
+  // data flushed to storage
 });
 ```
 
@@ -497,11 +497,11 @@ Promise uses [fs.unlink](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callba
 
 ```javascript
 fildes.unlink('./path/to/file.txt')
-.then(function(){
-    console.log('file removed!');
+.then(() => {
+  console.log('file removed!');
 })
-.catch(function(error){
-    // unlink thorws an error if file not found
+.catch((error) => {
+  // unlink thorws an error if file not found
 });
 ```
 
@@ -514,8 +514,8 @@ If an error is caught tries to mkdir destination directory if that fails it reje
 
 ```javascript
 fildes.link('./from/file.txt', './to/new/path/file.txt')
-.then(function(){
-    console.log('file linked!');
+.then(() => {
+  console.log('file linked!');
 });
 ```
 
@@ -531,8 +531,8 @@ and [#6342](https://github.com/nodejs/node-v0.x-archive/issues/6342).
 
 ```javascript
 fildes.symlink('./from/file.txt', './to/new/path/symlink.txt')
-.then(function(){
-    console.log('created symlink to file.txt!');
+.then(() => {
+  console.log('created symlink to file.txt!');
 });
 ```
 
@@ -543,11 +543,11 @@ Promise uses [fs.rename](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_new
 
 ```javascript
 fildes.rename('./path/to/old.txt', './path/moved/to/new.txt')
-.then(function(){
-    console.log('file moved!');
+.then(() => {
+  console.log('file moved!');
 })
-.catch(function(error){
-    // rename thorws an error if file not found
+.catch((error) => {
+  // rename thorws an error if file not found
 });
 ```
 
@@ -560,11 +560,11 @@ Promise uses [fs.readdir](https://nodejs.org/api/fs.html#fs_fs_readdir_path_call
 
 ```javascript
 fildes.readdir('./path/to/dir')
-.then(function(files){
-    console.log(files);
+.then((files) => {
+  console.log(files);
 })
-.catch(function(error){
-    // readdir thorws an error no such file or directory
+.catch((error) => {
+  // readdir thorws an error no such file or directory
 });
 ```
 
@@ -579,8 +579,8 @@ Promise uses [mkdirp](https://www.npmjs.com/package/mkdirp) (NPM Documentation).
 
 ```javascript
 fildes.mkdir('./path/to/dir')
-.then(function(){
-    console.log('directory created!');
+.then(() => {
+  console.log('directory created!');
 });
 ```
 
@@ -599,13 +599,13 @@ If `flags` is 'w', 'w+', 'a' or 'a+' open will check for 'ENOENT: no such file o
 
 ```javascript
 fildes.open('./no/file/here.txt', {
-    'flag': 'r'
+  'flag': 'r'
 })
-.then(function(fd){
-    // file descriptor (FD)
+.then((fd) => {
+  // file descriptor (FD)
 })
-.catch(function(error){
-    // returns  { [Error: ENOENT: no such file or directory..
+.catch((error) => {
+  // returns  { [Error: ENOENT: no such file or directory..
 });
 ```
 
@@ -620,13 +620,13 @@ If a file descriptor (FD) was passed fildes will not close by itself.
 
 ```javascript
 fildes.open('./file.txt')
-.then(function(fd){
-    // do something
-    // manually close fd
-    return fildes.close(fd);
+.then((fd) => {
+  // do something
+  // manually close fd
+  return fildes.close(fd);
 })
-.then(function(){
-    console.log('done!');
+.then(() => {
+  console.log('done!');
 });
 ```
 

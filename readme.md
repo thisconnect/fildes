@@ -49,8 +49,10 @@ fildes.write('./path/to/file.txt', 'The quick green fix')
 
 ### Install
 
+To install fildes with Node.js 4.x support use
+
 ```bash
-npm i --save fildes
+npm i --save fildes@v1.x
 ```
 
 

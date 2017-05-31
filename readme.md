@@ -1,5 +1,4 @@
-Fildes
-------
+# Fildes
 
 [![Build Status](https://img.shields.io/travis/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://travis-ci.org/thisconnect/fildes)
 [![Build Status](https://img.shields.io/appveyor/ci/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://ci.appveyor.com/project/thisconnect/fildes)
@@ -21,14 +20,14 @@ Provides native promises for all file system methods involving file descriptors 
 `fildes` always return a new [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)!
 
 ```javascript
-var fildes = require('fildes');
+var { write } = require('fildes');
 
-fildes.write('./path/to/file.txt', 'The quick green fix')
+write('./path/to/file.txt', 'The quick green fix')
 .then(() => {
   console.log('done!');
 })
 .catch((error) => {
-    // error
+  // error
 });
 ```
 
@@ -63,16 +62,12 @@ npm i --save fildes
 
 ```javascript
 function getSize(file) {
-    return fildes.fstat(file)
-    .then((stat) => {
-        return stat.size;
-    });
+  return fildes.fstat(file)
+  .then((stat) => stat.size);
 }
 
 Promise.all(['a.txt', 'b.json', 'c.txt'].map(getSize))
-.then((sizes) => {
-    console.log('got filesizes', sizes);
-});
+.then((sizes) => console.log('got filesizes', sizes));
 ```
 
 
@@ -82,18 +77,12 @@ Promise.all(['a.txt', 'b.json', 'c.txt'].map(getSize))
 var files = ['buffer.txt', 'nothere.txt', 'dir']
 .map((file) => {
   return fildes.fstat(file)
-  .then((stat) => {
-    return stat.isFile();
-  })
-  .catch(() => {
-    return false;
-  });
+  .then((stat) => stat.isFile())
+  .catch(() => false);
 });
 
 Promise.all(files)
-.then((result) => {
-  console.log(result);
-});
+.then(result => console.log(result));
 ```
 
 

@@ -25,7 +25,7 @@ test('write JSON', t => {
 
 test('write buffer', t => {
   file
-    .write(filepath2, new Buffer('Hi!'), {
+    .write(filepath2, Buffer.from('Hi!'), {
       offset: 0,
       length: 3
     })
@@ -69,7 +69,7 @@ test('write buffer at position', t => {
     .write(filepath3, 'foo bar baz')
     .then(() => {
       return file
-        .write(filepath3, new Buffer('bOz'), {
+        .write(filepath3, Buffer.from('bOz'), {
           flags: 'r+', // fails with 'w' or 'w+'
           offset: 0,
           length: 3,
@@ -108,7 +108,7 @@ test('write twice with manually opened fd', t => {
       return file
         .write(fd, 'Hi there!')
         .then(() => {
-          return file.write(fd, new Buffer('again'), {
+          return file.write(fd, Buffer.from('again'), {
             offset: 0,
             length: 5,
             position: 3
@@ -131,7 +131,7 @@ test('write twice with manually opened fd', t => {
 
 test('write with invalid offset', t => {
   file
-    .write(filepath2, new Buffer(0), {
+    .write(filepath2, Buffer.alloc(0), {
       offset: -1
     })
     .then(() => {
@@ -147,7 +147,7 @@ test('write with invalid offset', t => {
 
 test('write buffer fd error', t => {
   file
-    .write(-1, new Buffer(0))
+    .write(-1, Buffer.alloc(0))
     .then(() => {
       t.fail('should have no data');
       t.end();

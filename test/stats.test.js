@@ -31,20 +31,13 @@ test('stats', t => {
 
 test('get size of many files', t => {
   const getSizes = [filepath1, filepath2, filepath3].map(filepath => {
-    return file.fstat(filepath).then(stat => {
-      return stat.size;
-    });
+    return file.fstat(filepath).then(stat => stat.size);
   });
 
   Promise.all(getSizes)
     .then(sizes => {
       t.equal(sizes.length, 3, 'stats.length is 3');
-      t.true(
-        sizes.every(size => {
-          return size > 1;
-        }),
-        'each gt 1'
-      );
+      t.true(sizes.every(size => size > 1), 'each gt 1');
       t.end();
     })
     .catch(error => {
@@ -76,14 +69,7 @@ test('check if many files exist', t => {
 
   function isFile(filename) {
     const filepath = resolve(__dirname, 'data', filename);
-    return file
-      .fstat(filepath)
-      .then(stat => {
-        return stat.isFile();
-      })
-      .catch(() => {
-        return false;
-      });
+    return file.fstat(filepath).then(stat => stat.isFile()).catch(() => false);
   }
 
   Promise.all(files.map(isFile))

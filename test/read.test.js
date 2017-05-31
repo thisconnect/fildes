@@ -19,7 +19,7 @@ test('read', t => {
       length: 4
     })
     .then(buffer => {
-      t.deepEqual(buffer, new Buffer('Hi!!'));
+      t.deepEqual(buffer, Buffer.from('Hi!!'));
       t.end();
     })
     .catch(error => {
@@ -29,7 +29,7 @@ test('read', t => {
 });
 
 test('read to buffer', t => {
-  const buffer = new Buffer(3);
+  const buffer = Buffer.alloc(3);
   file
     .read(filepath1, buffer, {
       offset: 0,
@@ -100,7 +100,7 @@ test('read many', t => {
 });
 
 test('read partly to buffer', t => {
-  const buffer = new Buffer(3);
+  const buffer = Buffer.alloc(3);
 
   file
     .read(filepath2, buffer, {
@@ -157,7 +157,7 @@ test('read from fd', t => {
 
 test('read fd error', t => {
   file
-    .read(-1, new Buffer(3), {
+    .read(-1, Buffer.alloc(3), {
       offset: 0,
       length: 3
     })

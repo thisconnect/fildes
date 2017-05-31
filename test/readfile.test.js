@@ -16,7 +16,7 @@ test('readFile', t => {
     .readFile(filepath1)
     .then(buffer => {
       t.true(Buffer.isBuffer(buffer), 'is Buffer');
-      t.deepEqual(buffer, new Buffer('0123456789\n'));
+      t.deepEqual(buffer, Buffer.from('0123456789\n'));
       t.pass('file read');
       t.end();
     })

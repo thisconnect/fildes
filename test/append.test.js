@@ -28,7 +28,7 @@ test('append', t => {
 
 test('append a buffer', t => {
   file
-    .appendFile(filepath, new Buffer('ghi'))
+    .appendFile(filepath, Buffer.from('ghi'))
     .then(() => {
       t.pass('appended data');
       t.equal(readFileSync(filepath, 'utf8'), 'abcdefghi');

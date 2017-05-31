@@ -39,7 +39,7 @@ test('writeFile JSON', t => {
 
 test('writeFile Buffer', t => {
   file
-    .writeFile(file3, new Buffer("I'm a buffer"))
+    .writeFile(file3, Buffer.from("I'm a buffer"))
     .then(() => {
       t.pass('Buffer written');
       t.equal(readFileSync(file3, 'utf8'), "I'm a buffer");

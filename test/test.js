@@ -3,8 +3,6 @@ var file = require('../');
 var tape = require('tape');
 var rimraf = require('rimraf');
 var resolve = require('path').resolve;
-var debug = require('debug');
-debug.log = console.log.bind(console);
 
 tape('setup', t => {
   var path = resolve(__dirname, './data');

@@ -148,7 +148,7 @@ tape('write with invalid offset', t => {
 tape('write buffer fd error', t => {
   file
     .write(-1, new Buffer(0))
-    .then(data => {
+    .then(() => {
       t.fail('should have no data');
       t.end();
     })
@@ -163,7 +163,7 @@ tape('write buffer fd error', t => {
 tape('write fd error', t => {
   file
     .write(-1)
-    .then(data => {
+    .then(() => {
       t.fail('should have no data');
       t.end();
     })

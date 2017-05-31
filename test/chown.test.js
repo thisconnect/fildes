@@ -17,10 +17,6 @@ if (process.platform != 'win32') {
     file
       .chown(filepath)
       .then(() => {
-        // TODO: REMOVE???
-        var stats = statSync(filepath);
-      })
-      .then(() => {
         var stats = statSync(filepath);
 
         t.equal(stats.uid, process.getuid(), 'uid is process.getuid');

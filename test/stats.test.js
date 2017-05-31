@@ -58,7 +58,7 @@ tape('stats non-existing file', t => {
 
   file
     .fstat(path)
-    .then(stats => {
+    .then(() => {
       t.fail('should have no stats');
       t.end();
     })
@@ -99,11 +99,9 @@ tape('check if many files exist', t => {
 });
 
 tape('stats wrong fd', t => {
-  var path = resolve(__dirname, './data/nothing-here.txt');
-
   file
     .stats(-1)
-    .then(stats => {
+    .then(() => {
       t.fail('should have no stats');
       t.end();
     })

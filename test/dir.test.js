@@ -5,7 +5,6 @@ var resolve = require('path').resolve;
 var writeFileSync = require('fs').writeFileSync;
 
 var dirpath1 = resolve(__dirname, './data/dir/dir/sub/subsub');
-var dirpath2 = resolve(__dirname, './data/dir/dir/sub');
 var filepath = resolve(__dirname, './data/dir.txt');
 
 tape('setup dirs', t => {
@@ -16,7 +15,7 @@ tape('setup dirs', t => {
 tape('mkdir', t => {
   file
     .mkdir(dirpath1)
-    .then(data => {
+    .then(() => {
       t.pass('dir created');
       t.end();
     })
@@ -29,7 +28,7 @@ tape('mkdir', t => {
 tape('mkdir on file', t => {
   file
     .mkdir(filepath)
-    .then(data => {
+    .then(() => {
       t.fail('dir created');
       t.end();
     })
@@ -44,8 +43,8 @@ tape('mkdir on file', t => {
 tape('mkdir error', t => {
   file
     .mkdir(-1)
-    .then(data => {
-      t.fail('dir deleted');
+    .then(() => {
+      t.fail('should not create dir');
       t.end();
     })
     .catch(error => {
@@ -77,8 +76,8 @@ tape('readdir error', t => {
 
   file
     .readdir(dir)
-    .then(files => {
-      t.fail('should have no files');
+    .then(() => {
+      t.fail('should read directory that is not there');
       t.end();
     })
     .catch(error => {

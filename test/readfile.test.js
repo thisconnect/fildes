@@ -48,7 +48,7 @@ tape('readFile non-existing file', t => {
 
   file
     .readFile(path)
-    .then(data => {
+    .then(() => {
       t.fail('should have no data');
       t.end();
     })

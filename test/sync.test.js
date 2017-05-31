@@ -5,13 +5,12 @@ var resolve = require('path').resolve;
 var fs = require('fs');
 
 var filepath1 = resolve(__dirname, './data/sync.txt');
-var filepath2 = resolve(__dirname, './data/sync2.txt');
 
 tape('sync', t => {
   fs.open(filepath1, 'w', (error, fd) => {
     t.error(error, 'no error');
 
-    fs.write(fd, 'abcdef\n', (error, written, string) => {
+    fs.write(fd, 'abcdef\n', error => {
       t.error(error, 'no error');
 
       file

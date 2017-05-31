@@ -88,7 +88,7 @@ tape('open r', t => {
     .open(path, {
       flags: 'r'
     })
-    .then(fd => {
+    .then(() => {
       t.fail('should not return fd');
       t.end();
     })
@@ -109,7 +109,7 @@ tape('open wx+ error', t => {
     .open(path, {
       flags: 'wx+'
     })
-    .then(fd => {
+    .then(() => {
       t.fail('should not return fd');
       t.end();
     })
@@ -125,7 +125,7 @@ tape('open wx+ error', t => {
 tape('close', t => {
   file
     .close(-1)
-    .then(fd => {
+    .then(() => {
       t.fail('should not close nothing');
       t.end();
     })
@@ -176,7 +176,7 @@ tape('open one fd with wx+ at the time', t => {
         .open(path, {
           flags: 'wx+'
         })
-        .then(fd2 => {
+        .then(() => {
           t.fail('should not open since file already exists');
         })
         .catch(error => {

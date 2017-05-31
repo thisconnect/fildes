@@ -40,7 +40,6 @@
   },
   "homepage": "https://github.com/thisconnect/fildes#readme",
   "dependencies": {
-    "debug": "^2.6.1",
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {

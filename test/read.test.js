@@ -122,7 +122,7 @@ tape('read partly to buffer', t => {
 tape('read path error', t => {
   file
     .read(filepath2)
-    .then(data => {
+    .then(() => {
       t.fail('should have no data');
       t.end();
     })
@@ -139,7 +139,7 @@ tape('read fd error', t => {
       offset: 0,
       length: 3
     })
-    .then(data => {
+    .then(() => {
       t.fail('should have no data');
       t.end();
     })

@@ -1,9 +1,9 @@
 const file = require('../');
 
 const test = require('tape');
-const resolve = require('path').resolve;
+const { resolve } = require('path');
 const lstatSync = require('fs').lstatSync;
-const writeFileSync = require('fs').writeFileSync;
+const { writeFileSync } = require('fs');
 
 const dest1 = resolve(__dirname, './data/symlink.txt');
 const dest2 = resolve(__dirname, './data/symlink/dest.txt');

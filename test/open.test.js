@@ -1,7 +1,7 @@
 const file = require('../');
 
 const test = require('tape');
-const resolve = require('path').resolve;
+const { resolve } = require('path');
 
 const filepath1 = resolve(__dirname, './data/dir/open/open.txt');
 const filepath2 = resolve(__dirname, './data/open.txt');

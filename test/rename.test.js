@@ -1,9 +1,9 @@
 const file = require('../');
 
 const test = require('tape');
-const resolve = require('path').resolve;
-const readFileSync = require('fs').readFileSync;
-const writeFileSync = require('fs').writeFileSync;
+const { resolve } = require('path');
+const { readFileSync } = require('fs');
+const { writeFileSync } = require('fs');
 
 const filepath1 = resolve(__dirname, './data/rename1.txt');
 const filepath2 = resolve(__dirname, './data/rename2.txt');

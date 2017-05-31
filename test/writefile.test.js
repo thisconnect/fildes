@@ -1,8 +1,8 @@
 const file = require('../');
 
 const test = require('tape');
-const resolve = require('path').resolve;
-const readFileSync = require('fs').readFileSync;
+const { resolve } = require('path');
+const { readFileSync } = require('fs');
 
 const file1 = resolve(__dirname, './data/writefile-1.txt');
 const file2 = resolve(__dirname, './data/writefile-2.json');

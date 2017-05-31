@@ -1,7 +1,7 @@
 const file = require('../');
 
 const test = require('tape');
-const resolve = require('path').resolve;
+const { resolve } = require('path');
 const fs = require('fs');
 
 const filepath1 = resolve(__dirname, './data/sync.txt');

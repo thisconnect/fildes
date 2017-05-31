@@ -1,8 +1,8 @@
 const file = require('../');
 
 const test = require('tape');
-const resolve = require('path').resolve;
-const writeFileSync = require('fs').writeFileSync;
+const { resolve } = require('path');
+const { writeFileSync } = require('fs');
 
 const dirpath1 = resolve(__dirname, './data/dir/dir/sub/subsub');
 const filepath = resolve(__dirname, './data/dir.txt');

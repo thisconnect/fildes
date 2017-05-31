@@ -1,9 +1,9 @@
 const file = require('../');
 
 const test = require('tape');
-const resolve = require('path').resolve;
-const statSync = require('fs').statSync;
-const writeFileSync = require('fs').writeFileSync;
+const { resolve } = require('path');
+const { statSync } = require('fs');
+const { writeFileSync } = require('fs');
 
 const filepath = resolve(__dirname, './data/chown.txt');
 

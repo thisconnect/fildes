@@ -1,9 +1,9 @@
 const file = require('../');
 
 const test = require('tape');
-const resolve = require('path').resolve;
-const readFileSync = require('fs').readFileSync;
-const writeFileSync = require('fs').writeFileSync;
+const { resolve } = require('path');
+const { readFileSync } = require('fs');
+const { writeFileSync } = require('fs');
 
 const filepath = resolve(__dirname, './data/append.txt');
 

@@ -1,15 +1,15 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var readFileSync = require('fs').readFileSync;
+const test = require('tape');
+const { resolve } = require('path');
+const { readFileSync } = require('fs');
 
-var file1 = resolve(__dirname, './data/writefile-1.txt');
-var file2 = resolve(__dirname, './data/writefile-2.json');
-var file3 = resolve(__dirname, './data/writefile-3.txt');
-var file4 = resolve(__dirname, './data/writefile/new/file.txt');
+const file1 = resolve(__dirname, './data/writefile-1.txt');
+const file2 = resolve(__dirname, './data/writefile-2.json');
+const file3 = resolve(__dirname, './data/writefile-3.txt');
+const file4 = resolve(__dirname, './data/writefile/new/file.txt');
 
-tape('writeFile', t => {
+test('writeFile', t => {
   file
     .writeFile(file1, 'Hello File!')
     .then(() => {
@@ -23,7 +23,7 @@ tape('writeFile', t => {
     });
 });
 
-tape('writeFile JSON', t => {
+test('writeFile JSON', t => {
   file
     .writeFile(file2, { data: 1 })
     .then(() => {
@@ -37,7 +37,7 @@ tape('writeFile JSON', t => {
     });
 });
 
-tape('writeFile Buffer', t => {
+test('writeFile Buffer', t => {
   file
     .writeFile(file3, new Buffer("I'm a buffer"))
     .then(() => {
@@ -51,7 +51,7 @@ tape('writeFile Buffer', t => {
     });
 });
 
-tape('writeFile to a new directory', t => {
+test('writeFile to a new directory', t => {
   file
     .writeFile(file4, 'In a new directory')
     .then(() => {
@@ -65,7 +65,27 @@ tape('writeFile to a new directory', t => {
     });
 });
 
-tape('writeFile error', t => {
+test('readFile to fd', t => {
+  file
+    .open(file4, {
+      flags: 'r+'
+    })
+    .then(fd => {
+      return file
+        .writeFile(fd, '_ an old')
+        .then(() => {
+          t.equal(readFileSync(file4, 'utf8'), '_ an old directory');
+          return file.close(fd);
+        })
+        .then(t.end);
+    })
+    .catch(error => {
+      t.error(error);
+      t.end();
+    });
+});
+
+test('writeFile error', t => {
   file
     .writeFile()
     .then(() => {
@@ -73,14 +93,14 @@ tape('writeFile error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof TypeError, 'is TypeError');
+      t.true(error, error);
+      t.true(error instanceof TypeError, 'is TypeError');
       t.end();
     });
 });
 
-tape('writeFile on a dir error', t => {
-  var dir = resolve(__dirname, './data/writefile/new');
+test('writeFile on a dir error', t => {
+  const dir = resolve(__dirname, './data/writefile/new');
   file
     .writeFile(dir, 'here is a dir')
     .then(() => {
@@ -88,8 +108,8 @@ tape('writeFile on a dir error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof Error, 'is Error');
+      t.true(error, error);
+      t.true(error instanceof Error, 'is Error');
       t.equal(error.code, 'EISDIR', 'error.code is EISDIR');
       t.end();
     });

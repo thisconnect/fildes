@@ -1,26 +1,26 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var lstatSync = require('fs').lstatSync;
-var writeFileSync = require('fs').writeFileSync;
+const test = require('tape');
+const { resolve } = require('path');
+const lstatSync = require('fs').lstatSync;
+const { writeFileSync } = require('fs');
 
-var dest1 = resolve(__dirname, './data/symlink.txt');
-var dest2 = resolve(__dirname, './data/symlink/dest.txt');
-var filepath1 = resolve(__dirname, './data/symlink/symlink.txt');
-var filepath2 = resolve(__dirname, './data/symlink/symlink2.txt');
-var dir1 = resolve(__dirname, './data/symlink/dir1');
-var dir2 = resolve(__dirname, './data/symlink/dir2');
+const dest1 = resolve(__dirname, './data/symlink.txt');
+const dest2 = resolve(__dirname, './data/symlink/dest.txt');
+const filepath1 = resolve(__dirname, './data/symlink/symlink.txt');
+const filepath2 = resolve(__dirname, './data/symlink/symlink2.txt');
+const dir1 = resolve(__dirname, './data/symlink/dir1');
+const dir2 = resolve(__dirname, './data/symlink/dir2');
 
 // Exclude symlink tests for now
 // test pass with administrators permisison
 if (process.platform != 'win32') {
-  tape('setup symlink', t => {
+  test('setup symlink', t => {
     writeFileSync(dest1, 'symlink test\n');
     t.end();
   });
 
-  tape('symlink', t => {
+  test('symlink', t => {
     file
       .symlink(dest1, filepath1)
       .then(() => {
@@ -37,9 +37,9 @@ if (process.platform != 'win32') {
       });
   });
 
-  tape('symlink dir', t => {
-    var file1 = resolve(dir1, 'file.txt');
-    var file2 = resolve(dir2, 'file.txt');
+  test('symlink dir', t => {
+    const file1 = resolve(dir1, 'file.txt');
+    const file2 = resolve(dir2, 'file.txt');
 
     file
       .mkdir(dir1)
@@ -54,8 +54,8 @@ if (process.platform != 'win32') {
         return file.readdir(dir2);
       })
       .then(files => {
-        t.ok(Array.isArray(files), 'files is Array');
-        t.ok(files.length == 1, 'has some files');
+        t.true(Array.isArray(files), 'files is Array');
+        t.true(files.length == 1, 'has some files');
         t.equal(files[0], 'file.txt', 'dir 2 has file.txt');
         return file.readFile(file2, { encoding: 'utf8' });
       })
@@ -69,12 +69,12 @@ if (process.platform != 'win32') {
       });
   });
 
-  tape('symlink dest that doesnt exist yet', t => {
+  test('symlink dest that doesnt exist yet', t => {
     file
       .symlink(dest2, filepath2)
       .then(() => {
         t.pass('symlink created');
-        t.ok(lstatSync(filepath2).isSymbolicLink(), 'is symbolic link');
+        t.true(lstatSync(filepath2).isSymbolicLink(), 'is symbolic link');
         return file.readFile(filepath2);
       })
       .catch(() => {
@@ -98,7 +98,7 @@ if (process.platform != 'win32') {
       });
   });
 
-  tape('symlink error', t => {
+  test('symlink error', t => {
     file
       .symlink(dest1, filepath1)
       .then(() => {
@@ -106,8 +106,8 @@ if (process.platform != 'win32') {
         t.end();
       })
       .catch(error => {
-        t.ok(error, error);
-        t.ok(error instanceof Error, 'instance of Error');
+        t.true(error, error);
+        t.true(error instanceof Error, 'instance of Error');
         t.equal(error.code, 'EEXIST', 'error.code is EEXIST');
         t.equal(error.syscall, 'symlink', 'error.syscal is symlink');
         t.end();

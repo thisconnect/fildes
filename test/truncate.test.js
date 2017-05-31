@@ -1,24 +1,24 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var readFileSync = require('fs').readFileSync;
-var writeFileSync = require('fs').writeFileSync;
+const test = require('tape');
+const { resolve } = require('path');
+const { readFileSync } = require('fs');
+const { writeFileSync } = require('fs');
 
-var filepath1 = resolve(__dirname, './data/truncate.txt');
+const filepath1 = resolve(__dirname, './data/truncate.txt');
 
-tape('setup truncate', t => {
+test('setup truncate', t => {
   writeFileSync(filepath1, 'abcdefghijklmnopqrstuvwxyz\n');
   t.end();
 });
 
-tape('truncate', t => {
+test('truncate', t => {
   file
     .truncate(filepath1, {
       length: 9
     })
     .then(() => {
-      var text = readFileSync(filepath1, 'utf8');
+      const text = readFileSync(filepath1, 'utf8');
       t.equal(text.length, 9, 'text.length is 9');
       t.equal(text, 'abcdefghi');
       t.end();
@@ -29,11 +29,35 @@ tape('truncate', t => {
     });
 });
 
-tape('truncate all', t => {
+test('truncate with fd', t => {
+  file
+    .open(filepath1, {
+      flags: 'r+'
+    })
+    .then(fd => {
+      return file
+        .truncate(fd, {
+          length: 8
+        })
+        .then(() => {
+          const text = readFileSync(filepath1, 'utf8');
+          t.equal(text.length, 8, 'text.length is 8');
+          t.equal(text, 'abcdefgh');
+          return file.close(fd);
+        })
+        .then(t.end);
+    })
+    .catch(error => {
+      t.error(error);
+      t.end();
+    });
+});
+
+test('truncate all', t => {
   file
     .truncate(filepath1)
     .then(() => {
-      var text = readFileSync(filepath1, 'utf8');
+      const text = readFileSync(filepath1, 'utf8');
       t.equal(text.length, 0, 'text.length is 0');
       t.equal(text, '');
       t.end();
@@ -44,7 +68,7 @@ tape('truncate all', t => {
     });
 });
 
-tape('truncate error', t => {
+test('truncate error', t => {
   file
     .truncate(filepath1, {
       length: -1
@@ -54,7 +78,7 @@ tape('truncate error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EINVAL', 'error.code is EINVAL');
       t.equal(error.syscall, 'ftruncate', 'error.syscall is ftruncate');
       t.end();

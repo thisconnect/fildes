@@ -1,18 +1,18 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var writeFileSync = require('fs').writeFileSync;
+const test = require('tape');
+const { resolve } = require('path');
+const { writeFileSync } = require('fs');
 
-var dirpath1 = resolve(__dirname, './data/dir/dir/sub/subsub');
-var filepath = resolve(__dirname, './data/dir.txt');
+const dirpath1 = resolve(__dirname, './data/dir/dir/sub/subsub');
+const filepath = resolve(__dirname, './data/dir.txt');
 
-tape('setup dirs', t => {
+test('setup dirs', t => {
   writeFileSync(filepath, 'chmod test\n');
   t.end();
 });
 
-tape('mkdir', t => {
+test('mkdir', t => {
   file
     .mkdir(dirpath1)
     .then(() => {
@@ -25,7 +25,7 @@ tape('mkdir', t => {
     });
 });
 
-tape('mkdir on file', t => {
+test('mkdir on file', t => {
   file
     .mkdir(filepath)
     .then(() => {
@@ -33,14 +33,14 @@ tape('mkdir on file', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EEXIST', 'error.code is EEXIST');
       t.equal(error.syscall, 'mkdir', 'error.syscall is mkdir');
       t.end();
     });
 });
 
-tape('mkdir error', t => {
+test('mkdir error', t => {
   file
     .mkdir(-1)
     .then(() => {
@@ -48,21 +48,21 @@ tape('mkdir error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof TypeError, 'is TypeError');
+      t.true(error, error);
+      t.true(error instanceof TypeError, 'is TypeError');
       t.end();
     });
 });
 
-tape('readdir', t => {
-  var dir = resolve(__dirname, './data/dir');
+test('readdir', t => {
+  const dir = resolve(__dirname, './data/dir');
 
   file
     .readdir(dir)
     .then(files => {
-      t.ok(files, 'has files');
-      t.ok(Array.isArray(files), 'files is Array');
-      t.ok(files.length > 1, 'has some files');
+      t.true(files, 'has files');
+      t.true(Array.isArray(files), 'files is Array');
+      t.true(files.length > 1, 'has some files');
       t.end();
     })
     .catch(error => {
@@ -71,8 +71,8 @@ tape('readdir', t => {
     });
 });
 
-tape('readdir error', t => {
-  var dir = resolve(__dirname, './data/dir/that/is/not/here');
+test('readdir error', t => {
+  const dir = resolve(__dirname, './data/dir/that/is/not/here');
 
   file
     .readdir(dir)
@@ -81,7 +81,7 @@ tape('readdir error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.end();
     });

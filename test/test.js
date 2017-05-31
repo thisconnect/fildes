@@ -1,10 +1,10 @@
 var file = require('../');
 
-var tape = require('tape');
+var test = require('tape');
 var rimraf = require('rimraf');
-var resolve = require('path').resolve;
+var { resolve } = require('path');
 
-tape('setup', t => {
+test('setup', t => {
   var path = resolve(__dirname, './data');
 
   rimraf(path, error => {

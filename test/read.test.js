@@ -1,19 +1,19 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var writeFileSync = require('fs').writeFileSync;
+const test = require('tape');
+const { resolve } = require('path');
+const { writeFileSync } = require('fs');
 
-var filepath1 = resolve(__dirname, './data/read.txt');
-var filepath2 = resolve(__dirname, './data/read-foo-bar.txt');
+const filepath1 = resolve(__dirname, './data/read.txt');
+const filepath2 = resolve(__dirname, './data/read-foo-bar.txt');
 
-tape('setup read', t => {
+test('setup read', t => {
   writeFileSync(filepath1, 'Hi!!!\n');
   writeFileSync(filepath2, 'foo bar bOz\n');
   t.end();
 });
 
-tape('read', t => {
+test('read', t => {
   file
     .read(filepath1, {
       length: 4
@@ -28,8 +28,8 @@ tape('read', t => {
     });
 });
 
-tape('read to buffer', t => {
-  var buffer = new Buffer(3);
+test('read to buffer', t => {
+  const buffer = new Buffer(3);
   file
     .read(filepath1, buffer, {
       offset: 0,
@@ -45,7 +45,7 @@ tape('read to buffer', t => {
     });
 });
 
-tape('read partly', t => {
+test('read partly', t => {
   file
     .read(filepath2, {
       length: 3,
@@ -62,13 +62,13 @@ tape('read partly', t => {
     });
 });
 
-tape('read too much', t => {
+test('read too much', t => {
   file
     .read(filepath2, {
       length: 128
     })
     .then(buffer => {
-      t.ok(buffer.length == 'foo bar bOz\n'.length, 'length is correct');
+      t.true(buffer.length == 'foo bar bOz\n'.length, 'length is correct');
       t.equal(buffer.toString(), 'foo bar bOz\n');
       t.end();
     })
@@ -78,7 +78,7 @@ tape('read too much', t => {
     });
 });
 
-tape('read many', t => {
+test('read many', t => {
   Promise.all(
     [filepath1, filepath2].map(path => {
       return file.read(path, {
@@ -99,8 +99,8 @@ tape('read many', t => {
     });
 });
 
-tape('read partly to buffer', t => {
-  var buffer = new Buffer(3);
+test('read partly to buffer', t => {
+  const buffer = new Buffer(3);
 
   file
     .read(filepath2, buffer, {
@@ -119,7 +119,7 @@ tape('read partly to buffer', t => {
     });
 });
 
-tape('read path error', t => {
+test('read path error', t => {
   file
     .read(filepath2)
     .then(() => {
@@ -127,13 +127,35 @@ tape('read path error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof TypeError, 'is TypeError');
+      t.true(error, error);
+      t.true(error instanceof TypeError, 'is TypeError');
       t.end();
     });
 });
 
-tape('read fd error', t => {
+test('read from fd', t => {
+  file
+    .open(filepath1, {
+      flags: 'r'
+    })
+    .then(fd => {
+      return file
+        .read(fd, {
+          length: 3
+        })
+        .then(result => {
+          t.equal(result.toString(), 'Hi!');
+          return file.close(fd);
+        })
+        .then(t.end);
+    })
+    .catch(error => {
+      t.error(error);
+      t.end();
+    });
+});
+
+test('read fd error', t => {
   file
     .read(-1, new Buffer(3), {
       offset: 0,
@@ -144,7 +166,7 @@ tape('read fd error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'read', 'error.syscall is read');
       t.end();

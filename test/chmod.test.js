@@ -1,11 +1,11 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var statSync = require('fs').statSync;
-var writeFileSync = require('fs').writeFileSync;
+const test = require('tape');
+const { resolve } = require('path');
+const { statSync } = require('fs');
+const { writeFileSync } = require('fs');
 
-var filepath = resolve(__dirname, './data/chmod.txt');
+const filepath = resolve(__dirname, './data/chmod.txt');
 
 function isPermission(mode, permission) {
   mode = '0' + (mode & parseInt('0777', 8)).toString(8);
@@ -13,27 +13,27 @@ function isPermission(mode, permission) {
 }
 
 if (process.platform != 'win32') {
-  tape('setup chmod', t => {
+  test('setup chmod', t => {
     writeFileSync(filepath, 'chmod test\n');
     t.end();
   });
 
-  tape('chmod', t => {
+  test('chmod', t => {
     file
       .chmod(filepath, {
         mode: '0700' // nobody else
       })
       .then(() => {
-        var stats = statSync(filepath);
-        t.ok(isPermission(stats.mode, '0700'), 'permission set to 0700');
+        const stats = statSync(filepath);
+        t.true(isPermission(stats.mode, '0700'), 'permission set to 0700');
 
         return file.chmod(filepath, {
           mode: parseInt('0755', 8)
         });
       })
       .then(() => {
-        var stats = statSync(filepath);
-        t.ok(isPermission(stats.mode, '0755'), 'permission set to 0755');
+        const stats = statSync(filepath);
+        t.true(isPermission(stats.mode, '0755'), 'permission set to 0755');
         t.end();
       })
       .catch(error => {
@@ -42,7 +42,7 @@ if (process.platform != 'win32') {
       });
   });
 
-  tape('chmod error', t => {
+  test('chmod error', t => {
     file
       .chmod(-1, {
         mode: '0777'
@@ -52,14 +52,14 @@ if (process.platform != 'win32') {
         t.end();
       })
       .catch(error => {
-        t.ok(error, error);
+        t.true(error, error);
         t.equal(error.code, 'EBADF', 'error.code is EBADF');
         t.equal(error.syscall, 'fchmod', 'error.syscal is fchmod');
         t.end();
       });
   });
 
-  tape('chmod error 2', t => {
+  test('chmod error 2', t => {
     file
       .chmod(filepath)
       .then(() => {
@@ -67,8 +67,8 @@ if (process.platform != 'win32') {
         t.end();
       })
       .catch(error => {
-        t.ok(error, error);
-        t.ok(error instanceof TypeError, 'is TypeError');
+        t.true(error, error);
+        t.true(error instanceof TypeError, 'is TypeError');
         t.end();
       });
   });

@@ -1,18 +1,18 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var readFileSync = require('fs').readFileSync;
-var writeFileSync = require('fs').writeFileSync;
+const test = require('tape');
+const { resolve } = require('path');
+const { readFileSync } = require('fs');
+const { writeFileSync } = require('fs');
 
-var filepath = resolve(__dirname, './data/append.txt');
+const filepath = resolve(__dirname, './data/append.txt');
 
-tape('setup append', t => {
+test('setup append', t => {
   writeFileSync(filepath, 'abc');
   t.end();
 });
 
-tape('append', t => {
+test('append', t => {
   file
     .appendFile(filepath, 'def')
     .then(() => {
@@ -26,7 +26,7 @@ tape('append', t => {
     });
 });
 
-tape('append a buffer', t => {
+test('append a buffer', t => {
   file
     .appendFile(filepath, new Buffer('ghi'))
     .then(() => {
@@ -40,7 +40,28 @@ tape('append a buffer', t => {
     });
 });
 
-tape('append error', t => {
+test('append to fd', t => {
+  file
+    .open(filepath, {
+      flags: 'a+'
+    })
+    .then(fd => {
+      return file.appendFile(fd, 'jkl').then(() => fd);
+    })
+    .then(fd => file.appendFile(fd, 'mno'))
+    // .then(fd => file.close(fd))
+    .then(() => {
+      t.pass('appended data to fd');
+      t.equal(readFileSync(filepath, 'utf8'), 'abcdefghijklmno');
+      t.end();
+    })
+    .catch(error => {
+      t.error(error);
+      t.end();
+    });
+});
+
+test('append error', t => {
   file
     .appendFile(filepath, '', {
       flag: 'r'
@@ -50,8 +71,8 @@ tape('append error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(
+      t.true(error, error);
+      t.true(
         /^(EBADF|EPERM)$/.test(error.code),
         'error.code is EBADF (or EPERM on Windows)'
       );

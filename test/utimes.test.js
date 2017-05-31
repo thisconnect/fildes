@@ -1,20 +1,20 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var statSync = require('fs').statSync;
-var writeFileSync = require('fs').writeFileSync;
+const test = require('tape');
+const { resolve } = require('path');
+const { statSync } = require('fs');
+const { writeFileSync } = require('fs');
 
-var filepath1 = resolve(__dirname, './data/utimes.txt');
+const filepath1 = resolve(__dirname, './data/utimes.txt');
 
-tape('setup utimes', t => {
+test('setup utimes', t => {
   writeFileSync(filepath1, 'file content\n');
   t.end();
 });
 
-tape('utimes', t => {
-  var now = Date.now();
-  var firstoct = new Date('2015-10-01');
+test('utimes', t => {
+  const now = Date.now();
+  const firstoct = new Date('2015-10-01');
 
   file
     .utimes(filepath1, {
@@ -22,10 +22,10 @@ tape('utimes', t => {
       modification: firstoct
     })
     .then(() => {
-      var stats = statSync(filepath1);
-      t.ok(stats.atime instanceof Date, 'atime instanceof Date');
-      t.ok(stats.mtime instanceof Date, 'mtime instanceof Date');
-      t.ok(
+      const stats = statSync(filepath1);
+      t.true(stats.atime instanceof Date, 'atime instanceof Date');
+      t.true(stats.mtime instanceof Date, 'mtime instanceof Date');
+      t.true(
         stats.atime.getTime() > new Date(now - 3000).getTime(),
         'access was 2 seconds ago'
       );
@@ -42,15 +42,15 @@ tape('utimes', t => {
     });
 });
 
-tape('utimes defaults to now', t => {
-  var before = new Date(Date.now() - 1000);
+test('utimes defaults to now', t => {
+  const before = new Date(Date.now() - 1000);
 
   file
     .utimes(filepath1)
     .then(() => {
-      var stats = statSync(filepath1);
-      t.ok(stats.atime >= before, 'access before');
-      t.ok(stats.mtime >= before, 'modification before');
+      const stats = statSync(filepath1);
+      t.true(stats.atime >= before, 'access before');
+      t.true(stats.mtime >= before, 'modification before');
       t.end();
     })
     .catch(error => {
@@ -59,7 +59,7 @@ tape('utimes defaults to now', t => {
     });
 });
 
-tape('utimes error', t => {
+test('utimes error', t => {
   file
     .utimes(filepath1, {
       access: '2015-10-01',
@@ -70,12 +70,12 @@ tape('utimes error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.end();
     });
 });
 
-tape('utimes fd error', t => {
+test('utimes fd error', t => {
   file
     .utimes(-1)
     .then(() => {
@@ -83,7 +83,7 @@ tape('utimes fd error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'futime', 'error.syscall is futime');
       t.end();

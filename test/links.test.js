@@ -1,19 +1,19 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var writeFileSync = require('fs').writeFileSync;
+const test = require('tape');
+const { resolve } = require('path');
+const { writeFileSync } = require('fs');
 
-var filepath1 = resolve(__dirname, './data/link.txt');
-var filepath2 = resolve(__dirname, './data/link/link.txt');
-var filepath3 = resolve(__dirname, './data/link/link2.txt');
+const filepath1 = resolve(__dirname, './data/link.txt');
+const filepath2 = resolve(__dirname, './data/link/link.txt');
+const filepath3 = resolve(__dirname, './data/link/link2.txt');
 
-tape('setup link', t => {
+test('setup link', t => {
   writeFileSync(filepath1, 'link test\n');
   t.end();
 });
 
-tape('link', t => {
+test('link', t => {
   file
     .link(filepath1, filepath2)
     .then(() => {
@@ -30,7 +30,7 @@ tape('link', t => {
     });
 });
 
-tape('link link', t => {
+test('link link', t => {
   file
     .link(filepath2, filepath3)
     .then(() => {
@@ -50,8 +50,8 @@ tape('link link', t => {
     });
 });
 
-tape('link without src', t => {
-  var src = resolve(__dirname, './data/not/here.txt');
+test('link without src', t => {
+  const src = resolve(__dirname, './data/not/here.txt');
   file
     .link(src, filepath2)
     .then(() => {
@@ -59,16 +59,16 @@ tape('link without src', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof Error, 'is Error');
+      t.true(error, error);
+      t.true(error instanceof Error, 'is Error');
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.equal(error.syscall, 'access', 'error.syscal is access');
       t.end();
     });
 });
 
-tape('link dest error', t => {
-  var dest = resolve(__dirname, './data/link/link.txt/sub/not/work.txt');
+test('link dest error', t => {
+  const dest = resolve(__dirname, './data/link/link.txt/sub/not/work.txt');
   file
     .link(filepath1, dest)
     .then(() => {
@@ -76,9 +76,9 @@ tape('link dest error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof Error, 'is Error');
-      t.ok(
+      t.true(error, error);
+      t.true(error instanceof Error, 'is Error');
+      t.true(
         /^(ENOTDIR|EEXIST)$/.test(error.code),
         'error.code is ENOENT (or EEXIST on Windows)'
       );

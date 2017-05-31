@@ -1,19 +1,19 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var readFileSync = require('fs').readFileSync;
-var writeFileSync = require('fs').writeFileSync;
+const test = require('tape');
+const { resolve } = require('path');
+const { readFileSync } = require('fs');
+const { writeFileSync } = require('fs');
 
-var filepath1 = resolve(__dirname, './data/rename1.txt');
-var filepath2 = resolve(__dirname, './data/rename2.txt');
+const filepath1 = resolve(__dirname, './data/rename1.txt');
+const filepath2 = resolve(__dirname, './data/rename2.txt');
 
-tape('setup rename', t => {
+test('setup rename', t => {
   writeFileSync(filepath1, '0123456789\n');
   t.end();
 });
 
-tape('rename', t => {
+test('rename', t => {
   file
     .rename(filepath1, filepath2)
     .then(() => {
@@ -27,7 +27,7 @@ tape('rename', t => {
     });
 });
 
-tape('rename error', t => {
+test('rename error', t => {
   file
     .rename('./does/not/exits.txt', './there/is/no/such/dir/file.txt')
     .then(() => {
@@ -35,7 +35,7 @@ tape('rename error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.end();
     });

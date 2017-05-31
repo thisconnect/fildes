@@ -1,23 +1,23 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var statSync = require('fs').statSync;
-var writeFileSync = require('fs').writeFileSync;
+const test = require('tape');
+const { resolve } = require('path');
+const { statSync } = require('fs');
+const { writeFileSync } = require('fs');
 
-var filepath = resolve(__dirname, './data/chown.txt');
+const filepath = resolve(__dirname, './data/chown.txt');
 
 if (process.platform != 'win32') {
-  tape('setup chown', t => {
+  test('setup chown', t => {
     writeFileSync(filepath, 'chown test\n');
     t.end();
   });
 
-  tape('chown', t => {
+  test('chown', t => {
     file
       .chown(filepath)
       .then(() => {
-        var stats = statSync(filepath);
+        const stats = statSync(filepath);
 
         t.equal(stats.uid, process.getuid(), 'uid is process.getuid');
         t.equal(stats.gid, process.getgid(), 'gid is process.getgid');
@@ -29,7 +29,7 @@ if (process.platform != 'win32') {
       });
   });
 
-  tape('chown error', t => {
+  test('chown error', t => {
     file
       .chown(-1)
       .then(() => {
@@ -37,7 +37,7 @@ if (process.platform != 'win32') {
         t.end();
       })
       .catch(error => {
-        t.ok(error, error);
+        t.true(error, error);
         t.equal(error.code, 'EBADF', 'error.code is EBADF');
         t.equal(error.syscall, 'fchown', 'error.syscal is fchown');
         t.end();

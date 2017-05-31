@@ -1,17 +1,17 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var writeFileSync = require('fs').writeFileSync;
+const test = require('tape');
+const { resolve } = require('path');
+const { writeFileSync } = require('fs');
 
-var filepath1 = resolve(__dirname, './data/unlink.txt');
+const filepath1 = resolve(__dirname, './data/unlink.txt');
 
-tape('setup unlink', t => {
+test('setup unlink', t => {
   writeFileSync(filepath1, 'file content\n');
   t.end();
 });
 
-tape('unlink', t => {
+test('unlink', t => {
   file
     .unlink(filepath1)
     .then(() => {
@@ -24,8 +24,8 @@ tape('unlink', t => {
     });
 });
 
-tape('unlink non-existing file', t => {
-  var path = resolve(__dirname, './data/nothing-here.txt');
+test('unlink non-existing file', t => {
+  const path = resolve(__dirname, './data/nothing-here.txt');
 
   file
     .unlink(path)
@@ -34,7 +34,7 @@ tape('unlink non-existing file', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.equal(error.syscall, 'unlink', 'error.syscall is unlink');
       t.equal(error.path, path);

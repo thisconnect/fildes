@@ -1,12 +1,12 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var fs = require('fs');
+const test = require('tape');
+const { resolve } = require('path');
+const fs = require('fs');
 
-var filepath1 = resolve(__dirname, './data/sync.txt');
+const filepath1 = resolve(__dirname, './data/sync.txt');
 
-tape('sync', t => {
+test('sync', t => {
   fs.open(filepath1, 'w', (error, fd) => {
     t.error(error, 'no error');
 
@@ -29,7 +29,7 @@ tape('sync', t => {
   });
 });
 
-tape('sync error', t => {
+test('sync error', t => {
   file
     .sync(-1)
     .then(() => {
@@ -37,7 +37,7 @@ tape('sync error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'fsync', 'error.syscall is fsync');
       t.end();

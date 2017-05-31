@@ -1,21 +1,21 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var writeFileSync = require('fs').writeFileSync;
+const test = require('tape');
+const { resolve } = require('path');
+const { writeFileSync } = require('fs');
 
-var filepath1 = resolve(__dirname, './data/stats.txt');
-var filepath2 = resolve(__dirname, './data/stats2.txt');
-var filepath3 = resolve(__dirname, './data/stats3.txt');
+const filepath1 = resolve(__dirname, './data/stats.txt');
+const filepath2 = resolve(__dirname, './data/stats2.txt');
+const filepath3 = resolve(__dirname, './data/stats3.txt');
 
-tape('setup stats', t => {
+test('setup stats', t => {
   writeFileSync(filepath1, 'Hi\n');
   writeFileSync(filepath2, 'Hi\n');
   writeFileSync(filepath3, 'Hi\n');
   t.end();
 });
 
-tape('stats', t => {
+test('stats', t => {
   file
     .stats(filepath1)
     .then(stats => {
@@ -29,8 +29,8 @@ tape('stats', t => {
     });
 });
 
-tape('get size of many files', t => {
-  var getSizes = [filepath1, filepath2, filepath3].map(filepath => {
+test('get size of many files', t => {
+  const getSizes = [filepath1, filepath2, filepath3].map(filepath => {
     return file.fstat(filepath).then(stat => {
       return stat.size;
     });
@@ -39,7 +39,7 @@ tape('get size of many files', t => {
   Promise.all(getSizes)
     .then(sizes => {
       t.equal(sizes.length, 3, 'stats.length is 3');
-      t.ok(
+      t.true(
         sizes.every(size => {
           return size > 1;
         }),
@@ -53,8 +53,8 @@ tape('get size of many files', t => {
     });
 });
 
-tape('stats non-existing file', t => {
-  var path = resolve(__dirname, './data/nothing-here.txt');
+test('stats non-existing file', t => {
+  const path = resolve(__dirname, './data/nothing-here.txt');
 
   file
     .fstat(path)
@@ -63,7 +63,7 @@ tape('stats non-existing file', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.equal(error.syscall, 'open', 'error.syscall is open');
       t.equal(error.path, path);
@@ -71,11 +71,11 @@ tape('stats non-existing file', t => {
     });
 });
 
-tape('check if many files exist', t => {
-  var files = [filepath1, 'nothere.txt', 'dir'];
+test('check if many files exist', t => {
+  const files = [filepath1, 'nothere.txt', 'dir'];
 
   function isFile(filename) {
-    var filepath = resolve(__dirname, 'data', filename);
+    const filepath = resolve(__dirname, 'data', filename);
     return file
       .fstat(filepath)
       .then(stat => {
@@ -98,7 +98,7 @@ tape('check if many files exist', t => {
     });
 });
 
-tape('stats wrong fd', t => {
+test('stats wrong fd', t => {
   file
     .stats(-1)
     .then(() => {
@@ -106,7 +106,7 @@ tape('stats wrong fd', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'fstat', 'error.syscall is fstat');
       t.end();

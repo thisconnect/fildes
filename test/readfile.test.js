@@ -43,6 +43,26 @@ test('readFile utf8', t => {
     });
 });
 
+test('readFile from fd', t => {
+  file
+    .open(filepath1, {
+      flags: 'r'
+    })
+    .then(fd => {
+      return file
+        .readFile(fd)
+        .then(result => {
+          t.equal(result.toString(), '0123456789\n');
+          return file.close(fd);
+        })
+        .then(t.end);
+    })
+    .catch(error => {
+      t.error(error);
+      t.end();
+    });
+});
+
 test('readFile non-existing file', t => {
   const path = resolve(__dirname, './data/nothing-here.txt');
 

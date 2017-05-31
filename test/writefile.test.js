@@ -65,6 +65,26 @@ test('writeFile to a new directory', t => {
     });
 });
 
+test('readFile to fd', t => {
+  file
+    .open(file4, {
+      flags: 'r+'
+    })
+    .then(fd => {
+      return file
+        .writeFile(fd, '_ an old')
+        .then(() => {
+          t.equal(readFileSync(file4, 'utf8'), '_ an old directory');
+          return file.close(fd);
+        })
+        .then(t.end);
+    })
+    .catch(error => {
+      t.error(error);
+      t.end();
+    });
+});
+
 test('writeFile error', t => {
   file
     .writeFile()

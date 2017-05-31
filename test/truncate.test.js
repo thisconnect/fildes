@@ -29,6 +29,30 @@ test('truncate', t => {
     });
 });
 
+test('truncate with fd', t => {
+  file
+    .open(filepath1, {
+      flags: 'r+'
+    })
+    .then(fd => {
+      return file
+        .truncate(fd, {
+          length: 8
+        })
+        .then(() => {
+          const text = readFileSync(filepath1, 'utf8');
+          t.equal(text.length, 8, 'text.length is 8');
+          t.equal(text, 'abcdefgh');
+          return file.close(fd);
+        })
+        .then(t.end);
+    })
+    .catch(error => {
+      t.error(error);
+      t.end();
+    });
+});
+
 test('truncate all', t => {
   file
     .truncate(filepath1)

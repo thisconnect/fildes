@@ -139,10 +139,15 @@ test('read from fd', t => {
       flags: 'r'
     })
     .then(fd => {
-      return file.read(fd).then(result => {
-        t.equal(result.toString(), 'Hi!!!\n');
-        return file.close(fd);
-      });
+      return file
+        .read(fd, {
+          length: 3
+        })
+        .then(result => {
+          t.equal(result.toString(), 'Hi!');
+          return file.close(fd);
+        })
+        .then(t.end);
     })
     .catch(error => {
       t.error(error);

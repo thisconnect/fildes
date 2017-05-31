@@ -37,7 +37,7 @@ if (process.platform != 'win32') {
         t.end();
       })
       .catch(error => {
-        t.ok(error, error);
+        t.true(error, error);
         t.equal(error.code, 'EBADF', 'error.code is EBADF');
         t.equal(error.syscall, 'fchown', 'error.syscal is fchown');
         t.end();

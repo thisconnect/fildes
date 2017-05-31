@@ -15,7 +15,7 @@ test('readFile', t => {
   file
     .readFile(filepath1)
     .then(buffer => {
-      t.ok(Buffer.isBuffer(buffer), 'is Buffer');
+      t.true(Buffer.isBuffer(buffer), 'is Buffer');
       t.deepEqual(buffer, new Buffer('0123456789\n'));
       t.pass('file read');
       t.end();
@@ -32,7 +32,7 @@ test('readFile utf8', t => {
       encoding: 'utf8'
     })
     .then(data => {
-      t.ok(typeof data == 'string', 'is String');
+      t.true(typeof data == 'string', 'is String');
       t.equal(data, '0123456789\n');
       t.pass('file read');
       t.end();
@@ -53,7 +53,7 @@ test('readFile non-existing file', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.equal(error.syscall, 'open', 'error.syscall is open');
       t.equal(error.path, path);

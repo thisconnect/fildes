@@ -23,9 +23,9 @@ test('utimes', t => {
     })
     .then(() => {
       const stats = statSync(filepath1);
-      t.ok(stats.atime instanceof Date, 'atime instanceof Date');
-      t.ok(stats.mtime instanceof Date, 'mtime instanceof Date');
-      t.ok(
+      t.true(stats.atime instanceof Date, 'atime instanceof Date');
+      t.true(stats.mtime instanceof Date, 'mtime instanceof Date');
+      t.true(
         stats.atime.getTime() > new Date(now - 3000).getTime(),
         'access was 2 seconds ago'
       );
@@ -49,8 +49,8 @@ test('utimes defaults to now', t => {
     .utimes(filepath1)
     .then(() => {
       const stats = statSync(filepath1);
-      t.ok(stats.atime >= before, 'access before');
-      t.ok(stats.mtime >= before, 'modification before');
+      t.true(stats.atime >= before, 'access before');
+      t.true(stats.mtime >= before, 'modification before');
       t.end();
     })
     .catch(error => {
@@ -70,7 +70,7 @@ test('utimes error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.end();
     });
 });
@@ -83,7 +83,7 @@ test('utimes fd error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'futime', 'error.syscall is futime');
       t.end();

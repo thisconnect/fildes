@@ -37,7 +37,7 @@ test('sync error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'fsync', 'error.syscall is fsync');
       t.end();

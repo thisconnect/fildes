@@ -68,7 +68,7 @@ test('read too much', t => {
       length: 128
     })
     .then(buffer => {
-      t.ok(buffer.length == 'foo bar bOz\n'.length, 'length is correct');
+      t.true(buffer.length == 'foo bar bOz\n'.length, 'length is correct');
       t.equal(buffer.toString(), 'foo bar bOz\n');
       t.end();
     })
@@ -127,8 +127,8 @@ test('read path error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof TypeError, 'is TypeError');
+      t.true(error, error);
+      t.true(error instanceof TypeError, 'is TypeError');
       t.end();
     });
 });
@@ -144,7 +144,7 @@ test('read fd error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'read', 'error.syscall is read');
       t.end();

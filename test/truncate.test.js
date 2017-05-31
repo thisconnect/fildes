@@ -54,7 +54,7 @@ test('truncate error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EINVAL', 'error.code is EINVAL');
       t.equal(error.syscall, 'ftruncate', 'error.syscall is ftruncate');
       t.end();

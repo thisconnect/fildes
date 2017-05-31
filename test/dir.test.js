@@ -33,7 +33,7 @@ test('mkdir on file', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EEXIST', 'error.code is EEXIST');
       t.equal(error.syscall, 'mkdir', 'error.syscall is mkdir');
       t.end();
@@ -48,8 +48,8 @@ test('mkdir error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof TypeError, 'is TypeError');
+      t.true(error, error);
+      t.true(error instanceof TypeError, 'is TypeError');
       t.end();
     });
 });
@@ -60,9 +60,9 @@ test('readdir', t => {
   file
     .readdir(dir)
     .then(files => {
-      t.ok(files, 'has files');
-      t.ok(Array.isArray(files), 'files is Array');
-      t.ok(files.length > 1, 'has some files');
+      t.true(files, 'has files');
+      t.true(Array.isArray(files), 'files is Array');
+      t.true(files.length > 1, 'has some files');
       t.end();
     })
     .catch(error => {
@@ -81,7 +81,7 @@ test('readdir error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.end();
     });

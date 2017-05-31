@@ -73,8 +73,8 @@ test('writeFile error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof TypeError, 'is TypeError');
+      t.true(error, error);
+      t.true(error instanceof TypeError, 'is TypeError');
       t.end();
     });
 });
@@ -88,8 +88,8 @@ test('writeFile on a dir error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof Error, 'is Error');
+      t.true(error, error);
+      t.true(error instanceof Error, 'is Error');
       t.equal(error.code, 'EISDIR', 'error.code is EISDIR');
       t.end();
     });

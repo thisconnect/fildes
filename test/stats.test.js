@@ -39,7 +39,7 @@ test('get size of many files', t => {
   Promise.all(getSizes)
     .then(sizes => {
       t.equal(sizes.length, 3, 'stats.length is 3');
-      t.ok(
+      t.true(
         sizes.every(size => {
           return size > 1;
         }),
@@ -63,7 +63,7 @@ test('stats non-existing file', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.equal(error.syscall, 'open', 'error.syscall is open');
       t.equal(error.path, path);
@@ -106,7 +106,7 @@ test('stats wrong fd', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'fstat', 'error.syscall is fstat');
       t.end();

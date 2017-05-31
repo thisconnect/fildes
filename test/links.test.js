@@ -59,8 +59,8 @@ test('link without src', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof Error, 'is Error');
+      t.true(error, error);
+      t.true(error instanceof Error, 'is Error');
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.equal(error.syscall, 'access', 'error.syscal is access');
       t.end();
@@ -76,9 +76,9 @@ test('link dest error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof Error, 'is Error');
-      t.ok(
+      t.true(error, error);
+      t.true(error instanceof Error, 'is Error');
+      t.true(
         /^(ENOTDIR|EEXIST)$/.test(error.code),
         'error.code is ENOENT (or EEXIST on Windows)'
       );

@@ -67,8 +67,8 @@ test('access without mode', t => {
           t.end();
         })
         .catch(error => {
-          t.ok(error, error);
-          t.ok(error instanceof Error, 'is Error');
+          t.true(error, error);
+          t.true(error instanceof Error, 'is Error');
           t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
           t.equal(error.path, nofile);
         });
@@ -141,13 +141,13 @@ test('access error with mode', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof Error, 'is Error');
-      t.ok(
+      t.true(error, error);
+      t.true(error instanceof Error, 'is Error');
+      t.true(
         /^(EACCES|EPERM)$/.test(error.code),
         'error.code is EACCES (or EPERM on Windows)'
       );
-      t.ok([fileWX, fileX].indexOf(error.path) > -1, 'is fileWX or fileX');
+      t.true([fileWX, fileX].indexOf(error.path) > -1, 'is fileWX or fileX');
       t.end();
     });
 });
@@ -162,9 +162,9 @@ test('access fail', t => {
     .access(fileR, 'rwx')
     .then(fail)
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof Error, 'is Error');
-      t.ok(
+      t.true(error, error);
+      t.true(error instanceof Error, 'is Error');
+      t.true(
         /^(EACCES|EPERM)$/.test(error.code),
         'error.code is EACCES (or EPERM on Windows)'
       );
@@ -173,8 +173,8 @@ test('access fail', t => {
     })
     .then(() => {
       return file.access(fileR, 'w').then(fail).catch(error => {
-        t.ok(error, error);
-        t.ok(
+        t.true(error, error);
+        t.true(
           /^(EACCES|EPERM)$/.test(error.code),
           'error.code is EACCES (or EPERM on Windows)'
         );
@@ -191,9 +191,9 @@ test('access fail', t => {
         })
         .then(fail)
         .catch(error => {
-          t.ok(error, error);
-          t.ok(error instanceof Error, 'is Error');
-          t.ok(
+          t.true(error, error);
+          t.true(error instanceof Error, 'is Error');
+          t.true(
             /^(EACCES|EPERM)$/.test(error.code),
             'error.code is EACCES (or EPERM on Windows)'
           );
@@ -210,9 +210,9 @@ test('access fail', t => {
         })
         .then(fail)
         .catch(error => {
-          t.ok(error, error);
-          t.ok(error instanceof Error, 'is Error');
-          t.ok(
+          t.true(error, error);
+          t.true(error instanceof Error, 'is Error');
+          t.true(
             /^(EACCES|EPERM)$/.test(error.code),
             'error.code is EACCES (or EPERM on Windows)'
           );

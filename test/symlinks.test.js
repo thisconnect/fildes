@@ -54,8 +54,8 @@ if (process.platform != 'win32') {
         return file.readdir(dir2);
       })
       .then(files => {
-        t.ok(Array.isArray(files), 'files is Array');
-        t.ok(files.length == 1, 'has some files');
+        t.true(Array.isArray(files), 'files is Array');
+        t.true(files.length == 1, 'has some files');
         t.equal(files[0], 'file.txt', 'dir 2 has file.txt');
         return file.readFile(file2, { encoding: 'utf8' });
       })
@@ -74,7 +74,7 @@ if (process.platform != 'win32') {
       .symlink(dest2, filepath2)
       .then(() => {
         t.pass('symlink created');
-        t.ok(lstatSync(filepath2).isSymbolicLink(), 'is symbolic link');
+        t.true(lstatSync(filepath2).isSymbolicLink(), 'is symbolic link');
         return file.readFile(filepath2);
       })
       .catch(() => {
@@ -106,8 +106,8 @@ if (process.platform != 'win32') {
         t.end();
       })
       .catch(error => {
-        t.ok(error, error);
-        t.ok(error instanceof Error, 'instance of Error');
+        t.true(error, error);
+        t.true(error instanceof Error, 'instance of Error');
         t.equal(error.code, 'EEXIST', 'error.code is EEXIST');
         t.equal(error.syscall, 'symlink', 'error.syscal is symlink');
         t.end();

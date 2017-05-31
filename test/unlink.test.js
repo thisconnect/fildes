@@ -34,7 +34,7 @@ test('unlink non-existing file', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.equal(error.syscall, 'unlink', 'error.syscall is unlink');
       t.equal(error.path, path);

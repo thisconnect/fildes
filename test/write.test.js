@@ -139,8 +139,8 @@ test('write with invalid offset', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(error instanceof RangeError, 'is RangeError');
+      t.true(error, error);
+      t.true(error instanceof RangeError, 'is RangeError');
       t.end();
     });
 });
@@ -153,7 +153,7 @@ test('write buffer fd error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'write', 'error.syscall is write');
       t.end();
@@ -168,7 +168,7 @@ test('write fd error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'write', 'error.syscall is write');
       t.end();

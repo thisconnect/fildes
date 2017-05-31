@@ -50,8 +50,8 @@ test('append error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
-      t.ok(
+      t.true(error, error);
+      t.true(
         /^(EBADF|EPERM)$/.test(error.code),
         'error.code is EBADF (or EPERM on Windows)'
       );

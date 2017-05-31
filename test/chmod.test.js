@@ -25,7 +25,7 @@ if (process.platform != 'win32') {
       })
       .then(() => {
         const stats = statSync(filepath);
-        t.ok(isPermission(stats.mode, '0700'), 'permission set to 0700');
+        t.true(isPermission(stats.mode, '0700'), 'permission set to 0700');
 
         return file.chmod(filepath, {
           mode: parseInt('0755', 8)
@@ -33,7 +33,7 @@ if (process.platform != 'win32') {
       })
       .then(() => {
         const stats = statSync(filepath);
-        t.ok(isPermission(stats.mode, '0755'), 'permission set to 0755');
+        t.true(isPermission(stats.mode, '0755'), 'permission set to 0755');
         t.end();
       })
       .catch(error => {
@@ -52,7 +52,7 @@ if (process.platform != 'win32') {
         t.end();
       })
       .catch(error => {
-        t.ok(error, error);
+        t.true(error, error);
         t.equal(error.code, 'EBADF', 'error.code is EBADF');
         t.equal(error.syscall, 'fchmod', 'error.syscal is fchmod');
         t.end();
@@ -67,8 +67,8 @@ if (process.platform != 'win32') {
         t.end();
       })
       .catch(error => {
-        t.ok(error, error);
-        t.ok(error instanceof TypeError, 'is TypeError');
+        t.true(error, error);
+        t.true(error instanceof TypeError, 'is TypeError');
         t.end();
       });
   });

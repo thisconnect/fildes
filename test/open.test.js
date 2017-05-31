@@ -15,7 +15,7 @@ test('open w file and dir created', t => {
       flags: 'w'
     })
     .then(fd => {
-      t.ok(fd, 'has file descriptor');
+      t.true(fd, 'has file descriptor');
       t.equal(typeof fd, 'number', 'fd is Number');
       return file.close(fd);
     })
@@ -36,7 +36,7 @@ test('open wx (fails if path exists)', t => {
       flags: 'wx'
     })
     .then(fd => {
-      t.ok(fd, 'has file descriptor');
+      t.true(fd, 'has file descriptor');
       t.equal(typeof fd, 'number', 'fd is Number');
       return file.close(fd);
     })
@@ -50,7 +50,7 @@ test('open wx (fails if path exists)', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EEXIST', 'error.code is EEXIST');
       t.equal(error.syscall, 'open', 'error.syscall is open');
       t.end();
@@ -64,8 +64,8 @@ test('open twice', t => {
       return file
         .open(filepath2)
         .then(fd2 => {
-          t.ok(fd1, 'has file descriptor 1');
-          t.ok(fd2, 'has file descriptor 2');
+          t.true(fd1, 'has file descriptor 1');
+          t.true(fd2, 'has file descriptor 2');
           t.equal(typeof fd1, 'number', 'fd1 is Number');
           t.equal(typeof fd2, 'number', 'fd2 is Number');
           return Promise.all([file.close(fd1), file.close(fd2)]);
@@ -93,7 +93,7 @@ test('open r', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.equal(error.syscall, 'open', 'error.syscall is open');
       t.equal(error.path, path);
@@ -114,7 +114,7 @@ test('open wx+ error', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.equal(error.syscall, 'open', 'error.syscall is open');
       t.equal(error.path, path);
@@ -130,7 +130,7 @@ test('close', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'close', 'error.syscall is close');
       t.end();
@@ -151,7 +151,7 @@ test('close twice', t => {
       t.end();
     })
     .catch(error => {
-      t.ok(error, error);
+      t.true(error, error);
       t.equal(error.code, 'EBADF', 'error.code is EBADF');
       t.equal(error.syscall, 'close', 'error.syscall is close');
       t.end();
@@ -168,7 +168,7 @@ test('open one fd with wx+ at the time', t => {
     })
     .then(fd => {
       // ready to write data to the fd
-      t.ok(fd, 'has file descriptor');
+      t.true(fd, 'has file descriptor');
       t.equal(typeof fd, 'number', 'fd is Number');
       // opening the same path again with wx+ errors,
       // since file already exists
@@ -181,7 +181,7 @@ test('open one fd with wx+ at the time', t => {
         })
         .catch(error => {
           // expect an error since file path has been openend / created
-          t.ok(error, error);
+          t.true(error, error);
           // close the fd
           return file.close(fd);
         })

@@ -40,7 +40,7 @@
   },
   "homepage": "https://github.com/thisconnect/fildes#readme",
   "dependencies": {
-    "mkdirp": "^0.5.1"
+    "make-dir": "^1.0.0"
   },
   "devDependencies": {
     "codecov": "^2.2.0",

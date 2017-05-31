@@ -571,7 +571,7 @@ fildes.readdir('./path/to/dir')
 
 ### mkdir (path)
 
-Promise uses [mkdirp](https://www.npmjs.com/package/mkdirp) (NPM Documentation).
+Provides [make-dir](https://www.npmjs.com/package/make-dir) (NPM Documentation).
 
 - `path` String
 - `options` Object (optional)

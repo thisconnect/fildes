@@ -1,17 +1,17 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var fs = require('fs');
+const tape = require('tape');
+const resolve = require('path').resolve;
+const fs = require('fs');
 
-var dir = resolve(__dirname, 'data/access');
-var fileR = resolve(dir, 'file-r.txt');
-var fileRW = resolve(dir, 'file-rw.txt');
-var fileRWX = resolve(dir, 'file-rwx.txt');
-var fileRX = resolve(dir, 'file-rx.txt');
-var fileW = resolve(dir, 'file-w.txt');
-var fileWX = resolve(dir, 'file-wx.txt');
-var fileX = resolve(dir, 'file-x.txt');
+const dir = resolve(__dirname, 'data/access');
+const fileR = resolve(dir, 'file-r.txt');
+const fileRW = resolve(dir, 'file-rw.txt');
+const fileRWX = resolve(dir, 'file-rwx.txt');
+const fileRX = resolve(dir, 'file-rx.txt');
+const fileW = resolve(dir, 'file-w.txt');
+const fileWX = resolve(dir, 'file-wx.txt');
+const fileX = resolve(dir, 'file-x.txt');
 
 tape('setup access', t => {
   file
@@ -40,7 +40,7 @@ tape('setup access', t => {
 });
 
 tape('access without mode', t => {
-  var files = [fileR, fileRW, fileRWX, fileRX, fileW, fileWX, fileX];
+  const files = [fileR, fileRW, fileRWX, fileRX, fileW, fileWX, fileX];
 
   Promise.all(
     files.map(path => {
@@ -55,7 +55,7 @@ tape('access without mode', t => {
       t.pass('access correct');
     })
     .then(() => {
-      var nofile = resolve(dir, 'file-does-not-exist.txt');
+      const nofile = resolve(dir, 'file-does-not-exist.txt');
       files.push(nofile);
       return Promise.all(
         files.map(path => {

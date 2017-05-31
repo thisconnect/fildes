@@ -1,10 +1,10 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var fs = require('fs');
+const tape = require('tape');
+const resolve = require('path').resolve;
+const fs = require('fs');
 
-var filepath1 = resolve(__dirname, './data/sync.txt');
+const filepath1 = resolve(__dirname, './data/sync.txt');
 
 tape('sync', t => {
   fs.open(filepath1, 'w', (error, fd) => {

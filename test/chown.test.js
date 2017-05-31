@@ -1,11 +1,11 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var statSync = require('fs').statSync;
-var writeFileSync = require('fs').writeFileSync;
+const tape = require('tape');
+const resolve = require('path').resolve;
+const statSync = require('fs').statSync;
+const writeFileSync = require('fs').writeFileSync;
 
-var filepath = resolve(__dirname, './data/chown.txt');
+const filepath = resolve(__dirname, './data/chown.txt');
 
 if (process.platform != 'win32') {
   tape('setup chown', t => {
@@ -17,7 +17,7 @@ if (process.platform != 'win32') {
     file
       .chown(filepath)
       .then(() => {
-        var stats = statSync(filepath);
+        const stats = statSync(filepath);
 
         t.equal(stats.uid, process.getuid(), 'uid is process.getuid');
         t.equal(stats.gid, process.getgid(), 'gid is process.getgid');

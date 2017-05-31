@@ -1,13 +1,13 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var readFileSync = require('fs').readFileSync;
+const tape = require('tape');
+const resolve = require('path').resolve;
+const readFileSync = require('fs').readFileSync;
 
-var filepath1 = resolve(__dirname, './data/write.json');
-var filepath2 = resolve(__dirname, './data/write.txt');
-var filepath3 = resolve(__dirname, './data/write2.txt');
-var filepath4 = resolve(__dirname, './data/dir/write/write3.txt');
+const filepath1 = resolve(__dirname, './data/write.json');
+const filepath2 = resolve(__dirname, './data/write.txt');
+const filepath3 = resolve(__dirname, './data/write2.txt');
+const filepath4 = resolve(__dirname, './data/dir/write/write3.txt');
 
 tape('write JSON', t => {
   file

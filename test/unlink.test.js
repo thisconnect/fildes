@@ -1,10 +1,10 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var writeFileSync = require('fs').writeFileSync;
+const tape = require('tape');
+const resolve = require('path').resolve;
+const writeFileSync = require('fs').writeFileSync;
 
-var filepath1 = resolve(__dirname, './data/unlink.txt');
+const filepath1 = resolve(__dirname, './data/unlink.txt');
 
 tape('setup unlink', t => {
   writeFileSync(filepath1, 'file content\n');
@@ -25,7 +25,7 @@ tape('unlink', t => {
 });
 
 tape('unlink non-existing file', t => {
-  var path = resolve(__dirname, './data/nothing-here.txt');
+  const path = resolve(__dirname, './data/nothing-here.txt');
 
   file
     .unlink(path)

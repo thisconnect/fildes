@@ -1,11 +1,11 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var statSync = require('fs').statSync;
-var writeFileSync = require('fs').writeFileSync;
+const tape = require('tape');
+const resolve = require('path').resolve;
+const statSync = require('fs').statSync;
+const writeFileSync = require('fs').writeFileSync;
 
-var filepath = resolve(__dirname, './data/chmod.txt');
+const filepath = resolve(__dirname, './data/chmod.txt');
 
 function isPermission(mode, permission) {
   mode = '0' + (mode & parseInt('0777', 8)).toString(8);
@@ -24,7 +24,7 @@ if (process.platform != 'win32') {
         mode: '0700' // nobody else
       })
       .then(() => {
-        var stats = statSync(filepath);
+        const stats = statSync(filepath);
         t.ok(isPermission(stats.mode, '0700'), 'permission set to 0700');
 
         return file.chmod(filepath, {
@@ -32,7 +32,7 @@ if (process.platform != 'win32') {
         });
       })
       .then(() => {
-        var stats = statSync(filepath);
+        const stats = statSync(filepath);
         t.ok(isPermission(stats.mode, '0755'), 'permission set to 0755');
         t.end();
       })

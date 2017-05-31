@@ -1,11 +1,11 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var writeFileSync = require('fs').writeFileSync;
+const tape = require('tape');
+const resolve = require('path').resolve;
+const writeFileSync = require('fs').writeFileSync;
 
-var dirpath1 = resolve(__dirname, './data/dir/dir/sub/subsub');
-var filepath = resolve(__dirname, './data/dir.txt');
+const dirpath1 = resolve(__dirname, './data/dir/dir/sub/subsub');
+const filepath = resolve(__dirname, './data/dir.txt');
 
 tape('setup dirs', t => {
   writeFileSync(filepath, 'chmod test\n');
@@ -55,7 +55,7 @@ tape('mkdir error', t => {
 });
 
 tape('readdir', t => {
-  var dir = resolve(__dirname, './data/dir');
+  const dir = resolve(__dirname, './data/dir');
 
   file
     .readdir(dir)
@@ -72,7 +72,7 @@ tape('readdir', t => {
 });
 
 tape('readdir error', t => {
-  var dir = resolve(__dirname, './data/dir/that/is/not/here');
+  const dir = resolve(__dirname, './data/dir/that/is/not/here');
 
   file
     .readdir(dir)

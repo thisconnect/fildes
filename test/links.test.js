@@ -1,12 +1,12 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var writeFileSync = require('fs').writeFileSync;
+const tape = require('tape');
+const resolve = require('path').resolve;
+const writeFileSync = require('fs').writeFileSync;
 
-var filepath1 = resolve(__dirname, './data/link.txt');
-var filepath2 = resolve(__dirname, './data/link/link.txt');
-var filepath3 = resolve(__dirname, './data/link/link2.txt');
+const filepath1 = resolve(__dirname, './data/link.txt');
+const filepath2 = resolve(__dirname, './data/link/link.txt');
+const filepath3 = resolve(__dirname, './data/link/link2.txt');
 
 tape('setup link', t => {
   writeFileSync(filepath1, 'link test\n');
@@ -51,7 +51,7 @@ tape('link link', t => {
 });
 
 tape('link without src', t => {
-  var src = resolve(__dirname, './data/not/here.txt');
+  const src = resolve(__dirname, './data/not/here.txt');
   file
     .link(src, filepath2)
     .then(() => {
@@ -68,7 +68,7 @@ tape('link without src', t => {
 });
 
 tape('link dest error', t => {
-  var dest = resolve(__dirname, './data/link/link.txt/sub/not/work.txt');
+  const dest = resolve(__dirname, './data/link/link.txt/sub/not/work.txt');
   file
     .link(filepath1, dest)
     .then(() => {

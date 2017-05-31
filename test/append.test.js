@@ -1,11 +1,11 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var readFileSync = require('fs').readFileSync;
-var writeFileSync = require('fs').writeFileSync;
+const tape = require('tape');
+const resolve = require('path').resolve;
+const readFileSync = require('fs').readFileSync;
+const writeFileSync = require('fs').writeFileSync;
 
-var filepath = resolve(__dirname, './data/append.txt');
+const filepath = resolve(__dirname, './data/append.txt');
 
 tape('setup append', t => {
   writeFileSync(filepath, 'abc');

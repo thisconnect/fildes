@@ -1,13 +1,13 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var readFileSync = require('fs').readFileSync;
+const tape = require('tape');
+const resolve = require('path').resolve;
+const readFileSync = require('fs').readFileSync;
 
-var file1 = resolve(__dirname, './data/writefile-1.txt');
-var file2 = resolve(__dirname, './data/writefile-2.json');
-var file3 = resolve(__dirname, './data/writefile-3.txt');
-var file4 = resolve(__dirname, './data/writefile/new/file.txt');
+const file1 = resolve(__dirname, './data/writefile-1.txt');
+const file2 = resolve(__dirname, './data/writefile-2.json');
+const file3 = resolve(__dirname, './data/writefile-3.txt');
+const file4 = resolve(__dirname, './data/writefile/new/file.txt');
 
 tape('writeFile', t => {
   file
@@ -80,7 +80,7 @@ tape('writeFile error', t => {
 });
 
 tape('writeFile on a dir error', t => {
-  var dir = resolve(__dirname, './data/writefile/new');
+  const dir = resolve(__dirname, './data/writefile/new');
   file
     .writeFile(dir, 'here is a dir')
     .then(() => {

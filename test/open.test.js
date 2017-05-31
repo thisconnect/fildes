@@ -1,10 +1,10 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
+const tape = require('tape');
+const resolve = require('path').resolve;
 
-var filepath1 = resolve(__dirname, './data/dir/open/open.txt');
-var filepath2 = resolve(__dirname, './data/open.txt');
+const filepath1 = resolve(__dirname, './data/dir/open/open.txt');
+const filepath2 = resolve(__dirname, './data/open.txt');
 
 // 'w' - Open file for writing.
 // The file is created (if it does not exist)
@@ -83,7 +83,7 @@ tape('open twice', t => {
 // 'r' - Open file for reading.
 // An exception occurs if the file does not exist.
 tape('open r', t => {
-  var path = resolve(__dirname, './data/not/here.txt');
+  const path = resolve(__dirname, './data/not/here.txt');
   file
     .open(path, {
       flags: 'r'
@@ -104,7 +104,7 @@ tape('open r', t => {
 // 'wx+' - Open file for reading and writing.
 // Fails if path exists.
 tape('open wx+ error', t => {
-  var path = resolve(__dirname, './data/not/here.txt');
+  const path = resolve(__dirname, './data/not/here.txt');
   file
     .open(path, {
       flags: 'wx+'
@@ -161,7 +161,7 @@ tape('close twice', t => {
 // 'wx+' - Open file for reading and writing.
 // Fails if path exists.
 tape('open one fd with wx+ at the time', t => {
-  var path = resolve(__dirname, './data/open-this-only-once.txt');
+  const path = resolve(__dirname, './data/open-this-only-once.txt');
   file
     .open(path, {
       flags: 'wx+'

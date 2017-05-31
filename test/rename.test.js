@@ -1,12 +1,12 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var readFileSync = require('fs').readFileSync;
-var writeFileSync = require('fs').writeFileSync;
+const tape = require('tape');
+const resolve = require('path').resolve;
+const readFileSync = require('fs').readFileSync;
+const writeFileSync = require('fs').writeFileSync;
 
-var filepath1 = resolve(__dirname, './data/rename1.txt');
-var filepath2 = resolve(__dirname, './data/rename2.txt');
+const filepath1 = resolve(__dirname, './data/rename1.txt');
+const filepath2 = resolve(__dirname, './data/rename2.txt');
 
 tape('setup rename', t => {
   writeFileSync(filepath1, '0123456789\n');

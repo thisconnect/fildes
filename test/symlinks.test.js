@@ -1,16 +1,16 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var lstatSync = require('fs').lstatSync;
-var writeFileSync = require('fs').writeFileSync;
+const tape = require('tape');
+const resolve = require('path').resolve;
+const lstatSync = require('fs').lstatSync;
+const writeFileSync = require('fs').writeFileSync;
 
-var dest1 = resolve(__dirname, './data/symlink.txt');
-var dest2 = resolve(__dirname, './data/symlink/dest.txt');
-var filepath1 = resolve(__dirname, './data/symlink/symlink.txt');
-var filepath2 = resolve(__dirname, './data/symlink/symlink2.txt');
-var dir1 = resolve(__dirname, './data/symlink/dir1');
-var dir2 = resolve(__dirname, './data/symlink/dir2');
+const dest1 = resolve(__dirname, './data/symlink.txt');
+const dest2 = resolve(__dirname, './data/symlink/dest.txt');
+const filepath1 = resolve(__dirname, './data/symlink/symlink.txt');
+const filepath2 = resolve(__dirname, './data/symlink/symlink2.txt');
+const dir1 = resolve(__dirname, './data/symlink/dir1');
+const dir2 = resolve(__dirname, './data/symlink/dir2');
 
 // Exclude symlink tests for now
 // test pass with administrators permisison
@@ -38,8 +38,8 @@ if (process.platform != 'win32') {
   });
 
   tape('symlink dir', t => {
-    var file1 = resolve(dir1, 'file.txt');
-    var file2 = resolve(dir2, 'file.txt');
+    const file1 = resolve(dir1, 'file.txt');
+    const file2 = resolve(dir2, 'file.txt');
 
     file
       .mkdir(dir1)

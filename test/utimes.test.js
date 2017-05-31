@@ -1,11 +1,11 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var statSync = require('fs').statSync;
-var writeFileSync = require('fs').writeFileSync;
+const tape = require('tape');
+const resolve = require('path').resolve;
+const statSync = require('fs').statSync;
+const writeFileSync = require('fs').writeFileSync;
 
-var filepath1 = resolve(__dirname, './data/utimes.txt');
+const filepath1 = resolve(__dirname, './data/utimes.txt');
 
 tape('setup utimes', t => {
   writeFileSync(filepath1, 'file content\n');
@@ -13,8 +13,8 @@ tape('setup utimes', t => {
 });
 
 tape('utimes', t => {
-  var now = Date.now();
-  var firstoct = new Date('2015-10-01');
+  const now = Date.now();
+  const firstoct = new Date('2015-10-01');
 
   file
     .utimes(filepath1, {
@@ -22,7 +22,7 @@ tape('utimes', t => {
       modification: firstoct
     })
     .then(() => {
-      var stats = statSync(filepath1);
+      const stats = statSync(filepath1);
       t.ok(stats.atime instanceof Date, 'atime instanceof Date');
       t.ok(stats.mtime instanceof Date, 'mtime instanceof Date');
       t.ok(
@@ -43,12 +43,12 @@ tape('utimes', t => {
 });
 
 tape('utimes defaults to now', t => {
-  var before = new Date(Date.now() - 1000);
+  const before = new Date(Date.now() - 1000);
 
   file
     .utimes(filepath1)
     .then(() => {
-      var stats = statSync(filepath1);
+      const stats = statSync(filepath1);
       t.ok(stats.atime >= before, 'access before');
       t.ok(stats.mtime >= before, 'modification before');
       t.end();

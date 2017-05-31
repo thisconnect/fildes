@@ -1,11 +1,11 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var writeFileSync = require('fs').writeFileSync;
+const tape = require('tape');
+const resolve = require('path').resolve;
+const writeFileSync = require('fs').writeFileSync;
 
-var filepath1 = resolve(__dirname, './data/read.txt');
-var filepath2 = resolve(__dirname, './data/read-foo-bar.txt');
+const filepath1 = resolve(__dirname, './data/read.txt');
+const filepath2 = resolve(__dirname, './data/read-foo-bar.txt');
 
 tape('setup read', t => {
   writeFileSync(filepath1, 'Hi!!!\n');
@@ -29,7 +29,7 @@ tape('read', t => {
 });
 
 tape('read to buffer', t => {
-  var buffer = new Buffer(3);
+  const buffer = new Buffer(3);
   file
     .read(filepath1, buffer, {
       offset: 0,
@@ -100,7 +100,7 @@ tape('read many', t => {
 });
 
 tape('read partly to buffer', t => {
-  var buffer = new Buffer(3);
+  const buffer = new Buffer(3);
 
   file
     .read(filepath2, buffer, {

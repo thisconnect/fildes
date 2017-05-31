@@ -1,11 +1,11 @@
-var file = require('../');
+const file = require('../');
 
-var tape = require('tape');
-var resolve = require('path').resolve;
-var readFileSync = require('fs').readFileSync;
-var writeFileSync = require('fs').writeFileSync;
+const tape = require('tape');
+const resolve = require('path').resolve;
+const readFileSync = require('fs').readFileSync;
+const writeFileSync = require('fs').writeFileSync;
 
-var filepath1 = resolve(__dirname, './data/truncate.txt');
+const filepath1 = resolve(__dirname, './data/truncate.txt');
 
 tape('setup truncate', t => {
   writeFileSync(filepath1, 'abcdefghijklmnopqrstuvwxyz\n');
@@ -18,7 +18,7 @@ tape('truncate', t => {
       length: 9
     })
     .then(() => {
-      var text = readFileSync(filepath1, 'utf8');
+      const text = readFileSync(filepath1, 'utf8');
       t.equal(text.length, 9, 'text.length is 9');
       t.equal(text, 'abcdefghi');
       t.end();
@@ -33,7 +33,7 @@ tape('truncate all', t => {
   file
     .truncate(filepath1)
     .then(() => {
-      var text = readFileSync(filepath1, 'utf8');
+      const text = readFileSync(filepath1, 'utf8');
       t.equal(text.length, 0, 'text.length is 0');
       t.equal(text, '');
       t.end();

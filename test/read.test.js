@@ -133,6 +133,23 @@ test('read path error', t => {
     });
 });
 
+test('read from fd', t => {
+  file
+    .open(filepath1, {
+      flags: 'r'
+    })
+    .then(fd => {
+      return file.read(fd).then(result => {
+        t.equal(result.toString(), 'Hi!!!\n');
+        return file.close(fd);
+      });
+    })
+    .catch(error => {
+      t.error(error);
+      t.end();
+    });
+});
+
 test('read fd error', t => {
   file
     .read(-1, new Buffer(3), {

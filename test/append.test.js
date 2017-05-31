@@ -40,6 +40,27 @@ test('append a buffer', t => {
     });
 });
 
+test('append to fd', t => {
+  file
+    .open(filepath, {
+      flags: 'a+'
+    })
+    .then(fd => {
+      return file.appendFile(fd, 'jkl').then(() => fd);
+    })
+    .then(fd => file.appendFile(fd, 'mno'))
+    // .then(fd => file.close(fd))
+    .then(() => {
+      t.pass('appended data to fd');
+      t.equal(readFileSync(filepath, 'utf8'), 'abcdefghijklmno');
+      t.end();
+    })
+    .catch(error => {
+      t.error(error);
+      t.end();
+    });
+});
+
 test('append error', t => {
   file
     .appendFile(filepath, '', {

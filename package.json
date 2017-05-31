@@ -10,8 +10,7 @@
     "codecov": "npm run coverage && codecov",
     "prettier": "prettier-eslint --write \"{lib,test}/*.js\"",
     "lint": "eslint .",
-    "lint-check": "eslint --print-config .eslintrc | eslint-config-prettier-check",
-    "ci": "npm run codecov && npm run lint"
+    "lint-check": "eslint --print-config .eslintrc | eslint-config-prettier-check"
   },
   "repository": {
     "type": "git",

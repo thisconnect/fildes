@@ -12,4 +12,5 @@ cache:
 install:
   - npm install
 script:
-  - npm run ci
+  - npm run codecov
+  - npm run lint

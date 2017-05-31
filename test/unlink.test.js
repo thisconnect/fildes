@@ -6,34 +6,34 @@ var writeFileSync = require('fs').writeFileSync;
 
 var filepath1 = resolve(__dirname, './data/unlink.txt');
 
-tape('setup unlink', function(t) {
+tape('setup unlink', t => {
   writeFileSync(filepath1, 'file content\n');
   t.end();
 });
 
-tape('unlink', function(t) {
+tape('unlink', t => {
   file
     .unlink(filepath1)
-    .then(function() {
+    .then(() => {
       t.pass('file deleted');
       t.end();
     })
-    .catch(function(error) {
+    .catch(error => {
       t.error(error);
       t.end();
     });
 });
 
-tape('unlink non-existing file', function(t) {
+tape('unlink non-existing file', t => {
   var path = resolve(__dirname, './data/nothing-here.txt');
 
   file
     .unlink(path)
-    .then(function() {
+    .then(() => {
       t.fail('should not unlink non-existing file');
       t.end();
     })
-    .catch(function(error) {
+    .catch(error => {
       t.ok(error, error);
       t.equal(error.code, 'ENOENT', 'error.code is ENOENT');
       t.equal(error.syscall, 'unlink', 'error.syscall is unlink');

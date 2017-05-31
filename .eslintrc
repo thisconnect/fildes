@@ -2,7 +2,7 @@
   "parserOptions": {
     "ecmaVersion": 6
   },
-  "extends": ["prettier"],
+  "extends": ["eslint:recommended", "prettier"],
   "rules": {
     "prettier/prettier": ["error", {
       "singleQuote": true

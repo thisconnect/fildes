@@ -1,17 +1,17 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const writeFileSync = require('fs').writeFileSync;
 
 const filepath1 = resolve(__dirname, './data/unlink.txt');
 
-tape('setup unlink', t => {
+test('setup unlink', t => {
   writeFileSync(filepath1, 'file content\n');
   t.end();
 });
 
-tape('unlink', t => {
+test('unlink', t => {
   file
     .unlink(filepath1)
     .then(() => {
@@ -24,7 +24,7 @@ tape('unlink', t => {
     });
 });
 
-tape('unlink non-existing file', t => {
+test('unlink non-existing file', t => {
   const path = resolve(__dirname, './data/nothing-here.txt');
 
   file

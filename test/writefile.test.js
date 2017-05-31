@@ -1,6 +1,6 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const readFileSync = require('fs').readFileSync;
 
@@ -9,7 +9,7 @@ const file2 = resolve(__dirname, './data/writefile-2.json');
 const file3 = resolve(__dirname, './data/writefile-3.txt');
 const file4 = resolve(__dirname, './data/writefile/new/file.txt');
 
-tape('writeFile', t => {
+test('writeFile', t => {
   file
     .writeFile(file1, 'Hello File!')
     .then(() => {
@@ -23,7 +23,7 @@ tape('writeFile', t => {
     });
 });
 
-tape('writeFile JSON', t => {
+test('writeFile JSON', t => {
   file
     .writeFile(file2, { data: 1 })
     .then(() => {
@@ -37,7 +37,7 @@ tape('writeFile JSON', t => {
     });
 });
 
-tape('writeFile Buffer', t => {
+test('writeFile Buffer', t => {
   file
     .writeFile(file3, new Buffer("I'm a buffer"))
     .then(() => {
@@ -51,7 +51,7 @@ tape('writeFile Buffer', t => {
     });
 });
 
-tape('writeFile to a new directory', t => {
+test('writeFile to a new directory', t => {
   file
     .writeFile(file4, 'In a new directory')
     .then(() => {
@@ -65,7 +65,7 @@ tape('writeFile to a new directory', t => {
     });
 });
 
-tape('writeFile error', t => {
+test('writeFile error', t => {
   file
     .writeFile()
     .then(() => {
@@ -79,7 +79,7 @@ tape('writeFile error', t => {
     });
 });
 
-tape('writeFile on a dir error', t => {
+test('writeFile on a dir error', t => {
   const dir = resolve(__dirname, './data/writefile/new');
   file
     .writeFile(dir, 'here is a dir')

@@ -1,6 +1,6 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const writeFileSync = require('fs').writeFileSync;
 
@@ -8,14 +8,14 @@ const filepath1 = resolve(__dirname, './data/stats.txt');
 const filepath2 = resolve(__dirname, './data/stats2.txt');
 const filepath3 = resolve(__dirname, './data/stats3.txt');
 
-tape('setup stats', t => {
+test('setup stats', t => {
   writeFileSync(filepath1, 'Hi\n');
   writeFileSync(filepath2, 'Hi\n');
   writeFileSync(filepath3, 'Hi\n');
   t.end();
 });
 
-tape('stats', t => {
+test('stats', t => {
   file
     .stats(filepath1)
     .then(stats => {
@@ -29,7 +29,7 @@ tape('stats', t => {
     });
 });
 
-tape('get size of many files', t => {
+test('get size of many files', t => {
   const getSizes = [filepath1, filepath2, filepath3].map(filepath => {
     return file.fstat(filepath).then(stat => {
       return stat.size;
@@ -53,7 +53,7 @@ tape('get size of many files', t => {
     });
 });
 
-tape('stats non-existing file', t => {
+test('stats non-existing file', t => {
   const path = resolve(__dirname, './data/nothing-here.txt');
 
   file
@@ -71,7 +71,7 @@ tape('stats non-existing file', t => {
     });
 });
 
-tape('check if many files exist', t => {
+test('check if many files exist', t => {
   const files = [filepath1, 'nothere.txt', 'dir'];
 
   function isFile(filename) {
@@ -98,7 +98,7 @@ tape('check if many files exist', t => {
     });
 });
 
-tape('stats wrong fd', t => {
+test('stats wrong fd', t => {
   file
     .stats(-1)
     .then(() => {

@@ -1,6 +1,6 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const readFileSync = require('fs').readFileSync;
 const writeFileSync = require('fs').writeFileSync;
@@ -8,12 +8,12 @@ const writeFileSync = require('fs').writeFileSync;
 const filepath1 = resolve(__dirname, './data/rename1.txt');
 const filepath2 = resolve(__dirname, './data/rename2.txt');
 
-tape('setup rename', t => {
+test('setup rename', t => {
   writeFileSync(filepath1, '0123456789\n');
   t.end();
 });
 
-tape('rename', t => {
+test('rename', t => {
   file
     .rename(filepath1, filepath2)
     .then(() => {
@@ -27,7 +27,7 @@ tape('rename', t => {
     });
 });
 
-tape('rename error', t => {
+test('rename error', t => {
   file
     .rename('./does/not/exits.txt', './there/is/no/such/dir/file.txt')
     .then(() => {

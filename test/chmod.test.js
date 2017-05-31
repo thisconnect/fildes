@@ -1,6 +1,6 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const statSync = require('fs').statSync;
 const writeFileSync = require('fs').writeFileSync;
@@ -13,12 +13,12 @@ function isPermission(mode, permission) {
 }
 
 if (process.platform != 'win32') {
-  tape('setup chmod', t => {
+  test('setup chmod', t => {
     writeFileSync(filepath, 'chmod test\n');
     t.end();
   });
 
-  tape('chmod', t => {
+  test('chmod', t => {
     file
       .chmod(filepath, {
         mode: '0700' // nobody else
@@ -42,7 +42,7 @@ if (process.platform != 'win32') {
       });
   });
 
-  tape('chmod error', t => {
+  test('chmod error', t => {
     file
       .chmod(-1, {
         mode: '0777'
@@ -59,7 +59,7 @@ if (process.platform != 'win32') {
       });
   });
 
-  tape('chmod error 2', t => {
+  test('chmod error 2', t => {
     file
       .chmod(filepath)
       .then(() => {

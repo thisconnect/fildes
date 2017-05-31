@@ -1,6 +1,6 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 
 const filepath1 = resolve(__dirname, './data/dir/open/open.txt');
@@ -9,7 +9,7 @@ const filepath2 = resolve(__dirname, './data/open.txt');
 // 'w' - Open file for writing.
 // The file is created (if it does not exist)
 // or truncated (if it exists).
-tape('open w file and dir created', t => {
+test('open w file and dir created', t => {
   file
     .open(filepath1, {
       flags: 'w'
@@ -30,7 +30,7 @@ tape('open w file and dir created', t => {
 
 // 'wx' - Open file for writing.
 // Fails if path exists.
-tape('open wx (fails if path exists)', t => {
+test('open wx (fails if path exists)', t => {
   file
     .open(filepath2, {
       flags: 'wx'
@@ -57,7 +57,7 @@ tape('open wx (fails if path exists)', t => {
     });
 });
 
-tape('open twice', t => {
+test('open twice', t => {
   file
     .open(filepath2)
     .then(fd1 => {
@@ -82,7 +82,7 @@ tape('open twice', t => {
 
 // 'r' - Open file for reading.
 // An exception occurs if the file does not exist.
-tape('open r', t => {
+test('open r', t => {
   const path = resolve(__dirname, './data/not/here.txt');
   file
     .open(path, {
@@ -103,7 +103,7 @@ tape('open r', t => {
 
 // 'wx+' - Open file for reading and writing.
 // Fails if path exists.
-tape('open wx+ error', t => {
+test('open wx+ error', t => {
   const path = resolve(__dirname, './data/not/here.txt');
   file
     .open(path, {
@@ -122,7 +122,7 @@ tape('open wx+ error', t => {
     });
 });
 
-tape('close', t => {
+test('close', t => {
   file
     .close(-1)
     .then(() => {
@@ -137,7 +137,7 @@ tape('close', t => {
     });
 });
 
-tape('close twice', t => {
+test('close twice', t => {
   file
     .open(filepath2)
     .then(fd => {
@@ -160,7 +160,7 @@ tape('close twice', t => {
 
 // 'wx+' - Open file for reading and writing.
 // Fails if path exists.
-tape('open one fd with wx+ at the time', t => {
+test('open one fd with wx+ at the time', t => {
   const path = resolve(__dirname, './data/open-this-only-once.txt');
   file
     .open(path, {

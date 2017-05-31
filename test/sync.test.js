@@ -1,12 +1,12 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const fs = require('fs');
 
 const filepath1 = resolve(__dirname, './data/sync.txt');
 
-tape('sync', t => {
+test('sync', t => {
   fs.open(filepath1, 'w', (error, fd) => {
     t.error(error, 'no error');
 
@@ -29,7 +29,7 @@ tape('sync', t => {
   });
 });
 
-tape('sync error', t => {
+test('sync error', t => {
   file
     .sync(-1)
     .then(() => {

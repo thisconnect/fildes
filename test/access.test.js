@@ -1,6 +1,6 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const fs = require('fs');
 
@@ -13,7 +13,7 @@ const fileW = resolve(dir, 'file-w.txt');
 const fileWX = resolve(dir, 'file-wx.txt');
 const fileX = resolve(dir, 'file-x.txt');
 
-tape('setup access', t => {
+test('setup access', t => {
   file
     .mkdir(dir)
     .then(() => {
@@ -39,7 +39,7 @@ tape('setup access', t => {
     });
 });
 
-tape('access without mode', t => {
+test('access without mode', t => {
   const files = [fileR, fileRW, fileRWX, fileRX, fileW, fileWX, fileX];
 
   Promise.all(
@@ -78,7 +78,7 @@ tape('access without mode', t => {
     });
 });
 
-tape('access with mode', t => {
+test('access with mode', t => {
   Promise.all([
     file.access(fileR, 'r'),
     file.access(fileRW, 'rw'),
@@ -126,7 +126,7 @@ tape('access with mode', t => {
     });
 });
 
-tape('access error with mode', t => {
+test('access error with mode', t => {
   Promise.all([
     file.access(fileR, 'r'),
     file.access(fileRW, fs.R_OK | fs.W_OK),
@@ -152,7 +152,7 @@ tape('access error with mode', t => {
     });
 });
 
-tape('access fail', t => {
+test('access fail', t => {
   function fail() {
     t.fail('should not pass');
     t.end();

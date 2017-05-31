@@ -1,18 +1,18 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const statSync = require('fs').statSync;
 const writeFileSync = require('fs').writeFileSync;
 
 const filepath1 = resolve(__dirname, './data/utimes.txt');
 
-tape('setup utimes', t => {
+test('setup utimes', t => {
   writeFileSync(filepath1, 'file content\n');
   t.end();
 });
 
-tape('utimes', t => {
+test('utimes', t => {
   const now = Date.now();
   const firstoct = new Date('2015-10-01');
 
@@ -42,7 +42,7 @@ tape('utimes', t => {
     });
 });
 
-tape('utimes defaults to now', t => {
+test('utimes defaults to now', t => {
   const before = new Date(Date.now() - 1000);
 
   file
@@ -59,7 +59,7 @@ tape('utimes defaults to now', t => {
     });
 });
 
-tape('utimes error', t => {
+test('utimes error', t => {
   file
     .utimes(filepath1, {
       access: '2015-10-01',
@@ -75,7 +75,7 @@ tape('utimes error', t => {
     });
 });
 
-tape('utimes fd error', t => {
+test('utimes fd error', t => {
   file
     .utimes(-1)
     .then(() => {

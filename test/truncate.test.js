@@ -1,18 +1,18 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const readFileSync = require('fs').readFileSync;
 const writeFileSync = require('fs').writeFileSync;
 
 const filepath1 = resolve(__dirname, './data/truncate.txt');
 
-tape('setup truncate', t => {
+test('setup truncate', t => {
   writeFileSync(filepath1, 'abcdefghijklmnopqrstuvwxyz\n');
   t.end();
 });
 
-tape('truncate', t => {
+test('truncate', t => {
   file
     .truncate(filepath1, {
       length: 9
@@ -29,7 +29,7 @@ tape('truncate', t => {
     });
 });
 
-tape('truncate all', t => {
+test('truncate all', t => {
   file
     .truncate(filepath1)
     .then(() => {
@@ -44,7 +44,7 @@ tape('truncate all', t => {
     });
 });
 
-tape('truncate error', t => {
+test('truncate error', t => {
   file
     .truncate(filepath1, {
       length: -1

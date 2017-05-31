@@ -1,19 +1,19 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const writeFileSync = require('fs').writeFileSync;
 
 const filepath1 = resolve(__dirname, './data/read.txt');
 const filepath2 = resolve(__dirname, './data/read-foo-bar.txt');
 
-tape('setup read', t => {
+test('setup read', t => {
   writeFileSync(filepath1, 'Hi!!!\n');
   writeFileSync(filepath2, 'foo bar bOz\n');
   t.end();
 });
 
-tape('read', t => {
+test('read', t => {
   file
     .read(filepath1, {
       length: 4
@@ -28,7 +28,7 @@ tape('read', t => {
     });
 });
 
-tape('read to buffer', t => {
+test('read to buffer', t => {
   const buffer = new Buffer(3);
   file
     .read(filepath1, buffer, {
@@ -45,7 +45,7 @@ tape('read to buffer', t => {
     });
 });
 
-tape('read partly', t => {
+test('read partly', t => {
   file
     .read(filepath2, {
       length: 3,
@@ -62,7 +62,7 @@ tape('read partly', t => {
     });
 });
 
-tape('read too much', t => {
+test('read too much', t => {
   file
     .read(filepath2, {
       length: 128
@@ -78,7 +78,7 @@ tape('read too much', t => {
     });
 });
 
-tape('read many', t => {
+test('read many', t => {
   Promise.all(
     [filepath1, filepath2].map(path => {
       return file.read(path, {
@@ -99,7 +99,7 @@ tape('read many', t => {
     });
 });
 
-tape('read partly to buffer', t => {
+test('read partly to buffer', t => {
   const buffer = new Buffer(3);
 
   file
@@ -119,7 +119,7 @@ tape('read partly to buffer', t => {
     });
 });
 
-tape('read path error', t => {
+test('read path error', t => {
   file
     .read(filepath2)
     .then(() => {
@@ -133,7 +133,7 @@ tape('read path error', t => {
     });
 });
 
-tape('read fd error', t => {
+test('read fd error', t => {
   file
     .read(-1, new Buffer(3), {
       offset: 0,

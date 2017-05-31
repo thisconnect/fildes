@@ -1,17 +1,17 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const writeFileSync = require('fs').writeFileSync;
 
 const filepath1 = resolve(__dirname, './data/readfile.txt');
 
-tape('setup readFile', t => {
+test('setup readFile', t => {
   writeFileSync(filepath1, '0123456789\n');
   t.end();
 });
 
-tape('readFile', t => {
+test('readFile', t => {
   file
     .readFile(filepath1)
     .then(buffer => {
@@ -26,7 +26,7 @@ tape('readFile', t => {
     });
 });
 
-tape('readFile utf8', t => {
+test('readFile utf8', t => {
   file
     .readFile(filepath1, {
       encoding: 'utf8'
@@ -43,7 +43,7 @@ tape('readFile utf8', t => {
     });
 });
 
-tape('readFile non-existing file', t => {
+test('readFile non-existing file', t => {
   const path = resolve(__dirname, './data/nothing-here.txt');
 
   file

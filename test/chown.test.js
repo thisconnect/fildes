@@ -1,6 +1,6 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const statSync = require('fs').statSync;
 const writeFileSync = require('fs').writeFileSync;
@@ -8,12 +8,12 @@ const writeFileSync = require('fs').writeFileSync;
 const filepath = resolve(__dirname, './data/chown.txt');
 
 if (process.platform != 'win32') {
-  tape('setup chown', t => {
+  test('setup chown', t => {
     writeFileSync(filepath, 'chown test\n');
     t.end();
   });
 
-  tape('chown', t => {
+  test('chown', t => {
     file
       .chown(filepath)
       .then(() => {
@@ -29,7 +29,7 @@ if (process.platform != 'win32') {
       });
   });
 
-  tape('chown error', t => {
+  test('chown error', t => {
     file
       .chown(-1)
       .then(() => {

@@ -1,6 +1,6 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const lstatSync = require('fs').lstatSync;
 const writeFileSync = require('fs').writeFileSync;
@@ -15,12 +15,12 @@ const dir2 = resolve(__dirname, './data/symlink/dir2');
 // Exclude symlink tests for now
 // test pass with administrators permisison
 if (process.platform != 'win32') {
-  tape('setup symlink', t => {
+  test('setup symlink', t => {
     writeFileSync(dest1, 'symlink test\n');
     t.end();
   });
 
-  tape('symlink', t => {
+  test('symlink', t => {
     file
       .symlink(dest1, filepath1)
       .then(() => {
@@ -37,7 +37,7 @@ if (process.platform != 'win32') {
       });
   });
 
-  tape('symlink dir', t => {
+  test('symlink dir', t => {
     const file1 = resolve(dir1, 'file.txt');
     const file2 = resolve(dir2, 'file.txt');
 
@@ -69,7 +69,7 @@ if (process.platform != 'win32') {
       });
   });
 
-  tape('symlink dest that doesnt exist yet', t => {
+  test('symlink dest that doesnt exist yet', t => {
     file
       .symlink(dest2, filepath2)
       .then(() => {
@@ -98,7 +98,7 @@ if (process.platform != 'win32') {
       });
   });
 
-  tape('symlink error', t => {
+  test('symlink error', t => {
     file
       .symlink(dest1, filepath1)
       .then(() => {

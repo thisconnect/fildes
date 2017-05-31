@@ -1,18 +1,18 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const readFileSync = require('fs').readFileSync;
 const writeFileSync = require('fs').writeFileSync;
 
 const filepath = resolve(__dirname, './data/append.txt');
 
-tape('setup append', t => {
+test('setup append', t => {
   writeFileSync(filepath, 'abc');
   t.end();
 });
 
-tape('append', t => {
+test('append', t => {
   file
     .appendFile(filepath, 'def')
     .then(() => {
@@ -26,7 +26,7 @@ tape('append', t => {
     });
 });
 
-tape('append a buffer', t => {
+test('append a buffer', t => {
   file
     .appendFile(filepath, new Buffer('ghi'))
     .then(() => {
@@ -40,7 +40,7 @@ tape('append a buffer', t => {
     });
 });
 
-tape('append error', t => {
+test('append error', t => {
   file
     .appendFile(filepath, '', {
       flag: 'r'

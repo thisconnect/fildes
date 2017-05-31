@@ -1,18 +1,18 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const writeFileSync = require('fs').writeFileSync;
 
 const dirpath1 = resolve(__dirname, './data/dir/dir/sub/subsub');
 const filepath = resolve(__dirname, './data/dir.txt');
 
-tape('setup dirs', t => {
+test('setup dirs', t => {
   writeFileSync(filepath, 'chmod test\n');
   t.end();
 });
 
-tape('mkdir', t => {
+test('mkdir', t => {
   file
     .mkdir(dirpath1)
     .then(() => {
@@ -25,7 +25,7 @@ tape('mkdir', t => {
     });
 });
 
-tape('mkdir on file', t => {
+test('mkdir on file', t => {
   file
     .mkdir(filepath)
     .then(() => {
@@ -40,7 +40,7 @@ tape('mkdir on file', t => {
     });
 });
 
-tape('mkdir error', t => {
+test('mkdir error', t => {
   file
     .mkdir(-1)
     .then(() => {
@@ -54,7 +54,7 @@ tape('mkdir error', t => {
     });
 });
 
-tape('readdir', t => {
+test('readdir', t => {
   const dir = resolve(__dirname, './data/dir');
 
   file
@@ -71,7 +71,7 @@ tape('readdir', t => {
     });
 });
 
-tape('readdir error', t => {
+test('readdir error', t => {
   const dir = resolve(__dirname, './data/dir/that/is/not/here');
 
   file

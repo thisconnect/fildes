@@ -1,6 +1,6 @@
 const file = require('../');
 
-const tape = require('tape');
+const test = require('tape');
 const resolve = require('path').resolve;
 const readFileSync = require('fs').readFileSync;
 
@@ -9,7 +9,7 @@ const filepath2 = resolve(__dirname, './data/write.txt');
 const filepath3 = resolve(__dirname, './data/write2.txt');
 const filepath4 = resolve(__dirname, './data/dir/write/write3.txt');
 
-tape('write JSON', t => {
+test('write JSON', t => {
   file
     .write(filepath1, { data: 1 })
     .then(() => {
@@ -23,7 +23,7 @@ tape('write JSON', t => {
     });
 });
 
-tape('write buffer', t => {
+test('write buffer', t => {
   file
     .write(filepath2, new Buffer('Hi!'), {
       offset: 0,
@@ -40,7 +40,7 @@ tape('write buffer', t => {
     });
 });
 
-tape('write string at position', t => {
+test('write string at position', t => {
   file
     .write(filepath3, 'foo bar baz')
     .then(() => {
@@ -64,7 +64,7 @@ tape('write string at position', t => {
     });
 });
 
-tape('write buffer at position', t => {
+test('write buffer at position', t => {
   file
     .write(filepath3, 'foo bar baz')
     .then(() => {
@@ -87,7 +87,7 @@ tape('write buffer at position', t => {
     });
 });
 
-tape('write file in a new directory', t => {
+test('write file in a new directory', t => {
   file
     .write(filepath4, 'test\n')
     .then(() => {
@@ -101,7 +101,7 @@ tape('write file in a new directory', t => {
     });
 });
 
-tape('write twice with manually opened fd', t => {
+test('write twice with manually opened fd', t => {
   file
     .open(filepath2)
     .then(fd => {
@@ -129,7 +129,7 @@ tape('write twice with manually opened fd', t => {
     });
 });
 
-tape('write with invalid offset', t => {
+test('write with invalid offset', t => {
   file
     .write(filepath2, new Buffer(0), {
       offset: -1
@@ -145,7 +145,7 @@ tape('write with invalid offset', t => {
     });
 });
 
-tape('write buffer fd error', t => {
+test('write buffer fd error', t => {
   file
     .write(-1, new Buffer(0))
     .then(() => {
@@ -160,7 +160,7 @@ tape('write buffer fd error', t => {
     });
 });
 
-tape('write fd error', t => {
+test('write fd error', t => {
   file
     .write(-1)
     .then(() => {

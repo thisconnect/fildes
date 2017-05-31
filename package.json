@@ -6,7 +6,7 @@
   "scripts": {
     "test": "tape test/test.js | tap-difflet",
     "test-length": "tape test/test-functions.js | tap-spec",
-    "coverage": "nyc tape test/test.js",
+    "coverage": "nyc --reporter=lcov --reporter=text tape test/test.js",
     "codecov": "npm run coverage && codecov",
     "prettier": "prettier-eslint --write \"{lib,test}/*.js\"",
     "lint": "eslint .",

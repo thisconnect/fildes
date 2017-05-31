@@ -62,7 +62,8 @@ test('readdir', t => {
     .then(files => {
       t.true(files, 'has files');
       t.true(Array.isArray(files), 'files is Array');
-      t.true(files.length > 1, 'has some files');
+      t.true(files.length > 0, 'has some files');
+      t.true(files.includes('dir'), 'has dir in dir');
       t.end();
     })
     .catch(error => {

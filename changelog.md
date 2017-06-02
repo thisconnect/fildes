@@ -2,10 +2,16 @@
 
 ## v2.0.0
 
-- uses `Buffer.alloc` instead of `new Buffer`
-- changes to make-dir
 - drop Node.js 4.x
+- changes to make-dir
+- uses `Buffer.alloc` instead of `new Buffer`
 - adds missing fd tests
+- api: removes alias
+  - `fildes.fchmod`
+  - `fildes.ftruncate`
+  - `fildes.fstat`
+  - `fildes.fsync`
+  - `fildes.futimes`
 
 ## v1.0.6
 

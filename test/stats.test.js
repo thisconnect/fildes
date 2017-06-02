@@ -31,7 +31,7 @@ test('stats', t => {
 
 test('get size of many files', t => {
   const getSizes = [filepath1, filepath2, filepath3].map(filepath => {
-    return file.fstat(filepath).then(stat => stat.size);
+    return file.stats(filepath).then(stat => stat.size);
   });
 
   Promise.all(getSizes)
@@ -50,7 +50,7 @@ test('stats non-existing file', t => {
   const path = resolve(__dirname, './data/nothing-here.txt');
 
   file
-    .fstat(path)
+    .stats(path)
     .then(() => {
       t.fail('should have no stats');
       t.end();
@@ -69,7 +69,7 @@ test('check if many files exist', t => {
 
   function isFile(filename) {
     const filepath = resolve(__dirname, 'data', filename);
-    return file.fstat(filepath).then(stat => stat.isFile()).catch(() => false);
+    return file.stats(filepath).then(stat => stat.isFile()).catch(() => false);
   }
 
   Promise.all(files.map(isFile))

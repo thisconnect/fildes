@@ -369,7 +369,7 @@ See also [fs.access](https://nodejs.org/api/fs.html#fs_fs_access_path_mode_callb
 
 ### stats (path[, options])
 
-Promise file stats. alias for `fildes.fstat`.
+Promise file stats.
 
 - `path` String | file descriptor (FD)
 - `options` Object
@@ -388,7 +388,7 @@ See also [fs.fstat](https://nodejs.org/api/fs.html#fs_fs_fstat_fd_callback) (Nod
 
 ### truncate (path[, options])
 
-Promise truncate, alias for `fildes.ftruncate`.
+Promise truncate.
 
 - `path` String | file descriptor (FD)
 - `options` Object
@@ -404,9 +404,9 @@ fildes.truncate('./path/to/file.txt', {
 See also [fs.ftruncate](https://nodejs.org/api/fs.html#fs_fs_ftruncate_fd_len_callback) (Node.js File System API)
 
 
-### utime (path[, options])
+### utimes (path[, options])
 
-Promise utime, alias for `fildes.futime`.
+Promise utimes.
 
 - `path` String | file descriptor (FD)
 - `options` Object
@@ -421,7 +421,7 @@ fildes.utimes('./path/to/file.txt', {
 });
 ```
 
-See also [fs.futime](https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime_callback) (Node.js File System API)
+See also [fs.futimes](https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime_callback) (Node.js File System API)
 
 
 ### chmod (path[, options])

@@ -2,8 +2,7 @@ const file = require('../');
 
 const test = require('tape');
 const { resolve } = require('path');
-const { readFileSync } = require('fs');
-const { writeFileSync } = require('fs');
+const { readFileSync, writeFileSync } = require('fs');
 
 const filepath1 = resolve(__dirname, './data/truncate.txt');
 

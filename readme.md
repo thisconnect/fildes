@@ -1,6 +1,8 @@
 Fildes
 ------
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/thisconnect/fildes.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://img.shields.io/travis/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://travis-ci.org/thisconnect/fildes)
 [![Build Status](https://img.shields.io/appveyor/ci/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://ci.appveyor.com/project/thisconnect/fildes)
 [![Coverage Status](https://img.shields.io/coveralls/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://coveralls.io/github/thisconnect/fildes?branch=master)

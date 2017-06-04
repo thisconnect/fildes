@@ -5,7 +5,7 @@ Promise to read a file to a buffer.
 - `path` String | file descriptor (FD)
 - `buffer` Buffer (optional)
 - `options` Object
-  - `flag` | `flags` String defaults to 'r', see also [open](#open-path-options)
+  - `flag` | `flags` String defaults to 'r', see also [open](https://github.com/thisconnect/fildes/tree/master/lib/open)
   - `offset` Number defaults to 0 (optional)
   - `length` Number
   - `position` Number (optional)

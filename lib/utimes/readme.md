@@ -4,7 +4,7 @@ Promise utimes.
 
 - `path` String | file descriptor (FD)
 - `options` Object
-  - `flag` | `flags` String defaults to 'r+', see also [open](#open-path-options)
+  - `flag` | `flags` String defaults to 'r+', see also [open](https://github.com/thisconnect/fildes/tree/master/lib/open)
   - `access` | `atime` UNIX timestamp or Date, defaults to new Date
   - `modification` | `mtime` UNIX timestamp or Date, defaults to new Date
 

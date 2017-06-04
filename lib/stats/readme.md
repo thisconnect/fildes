@@ -4,7 +4,7 @@ Promise file stats.
 
 - `path` String | file descriptor (FD)
 - `options` Object
-  - `flag` | `flags` String defaults to 'r', see also [open](#open-path-options)
+  - `flag` | `flags` String defaults to 'r', see also [open](https://github.com/thisconnect/fildes/tree/master/lib/open)
 
 
 ```javascript

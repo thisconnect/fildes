@@ -8,8 +8,8 @@ If data is type of `Object` it will be converted to JSON.
 - `path` String | file descriptor (FD)
 - `data` String | Object | Buffer
 - `options` Object
-  - `flag` or `flags` String defaults to 'w' unless position > 0 in that case it is 'r+', see also [open](#open-path-options)
-  - `mode` String, see [open](#open-path-options)
+  - `flag` or `flags` String defaults to 'w' unless position > 0 in that case it is 'r+', see also [open](https://github.com/thisconnect/fildes/tree/master/lib/open)
+  - `mode` String, see [open](https://github.com/thisconnect/fildes/tree/master/lib/open)
   - If data is of type String or Object,
     [fs.write](https://nodejs.org/api/fs.html#fs_fs_write_fd_data_position_encoding_callback) (Node.js File System API)
     - `position`

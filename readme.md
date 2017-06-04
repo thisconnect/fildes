@@ -55,6 +55,30 @@ npm i --save fildes
 `fildes` with support for Node.js 4.x can be found here https://github.com/thisconnect/fildes/tree/v1.x
 
 
+## API
+
+- [access](https://github.com/thisconnect/fildes/tree/master/lib/access)
+- [appendFile](https://github.com/thisconnect/fildes/tree/master/lib/appendFile)
+- [chmod](https://github.com/thisconnect/fildes/tree/master/lib/chmod)
+- [chown](https://github.com/thisconnect/fildes/tree/master/lib/chown)
+- [close](https://github.com/thisconnect/fildes/tree/master/lib/close)
+- [link](https://github.com/thisconnect/fildes/tree/master/lib/link)
+- [mkdir](https://github.com/thisconnect/fildes/tree/master/lib/mkdir)
+- [open](https://github.com/thisconnect/fildes/tree/master/lib/open)
+- [read](https://github.com/thisconnect/fildes/tree/master/lib/read)
+- [readdir](https://github.com/thisconnect/fildes/tree/master/lib/readdir)
+- [readFile](https://github.com/thisconnect/fildes/tree/master/lib/readFile)
+- [rename](https://github.com/thisconnect/fildes/tree/master/lib/rename)
+- [stats](https://github.com/thisconnect/fildes/tree/master/lib/stats)
+- [symlink](https://github.com/thisconnect/fildes/tree/master/lib/symlink)
+- [sync](https://github.com/thisconnect/fildes/tree/master/lib/sync)
+- [truncate](https://github.com/thisconnect/fildes/tree/master/lib/truncate)
+- [unlink](https://github.com/thisconnect/fildes/tree/master/lib/unlink)
+- [utimes](https://github.com/thisconnect/fildes/tree/master/lib/utimes)
+- [write](https://github.com/thisconnect/fildes/tree/master/lib/write)
+- [writeFile](https://github.com/thisconnect/fildes/tree/master/lib/writeFile)
+
+
 ### Examples
 
 
@@ -135,50 +159,20 @@ fildes.open(path)
 ```
 
 
-### Do you need graceful-fs?
+### Do you need `graceful-fs`?
 
-If EMFILE, too many open files Errors are expected it is possible to patch the `fs` module with `graceful-fs`,
+If EMFILE, too many open files Errors, are expected it is possible to patch the `fs` module with `graceful-fs`,
 see [node-graceful-fs#global-patching](https://github.com/isaacs/node-graceful-fs#global-patching).
 
 It also helps with older Node.js environments, but not when using multiple processes, read more
 [node-graceful-fs/issues/48](https://github.com/isaacs/node-graceful-fs/issues/48).
 
 
-## API
-
-- [write](#write-path-data-options)
-- [writeFile](#writefile-path-data-options)
-- [read](#read-path-buffer-options)
-- [readFile](#readfile-path-options)
-- [appendFile](#appendfile-path-data-options)
-- [access](#access-path-mode)
-- [stats](#stats-path-options)
-- [truncate](#truncate-path-options)
-- [utime](#utime-path-options)
-- [chmod](#chmod-path-options)
-- [chown](#chown-path-options)
-- [sync](#sync-fd)
-- [unlink](#unlink-path)
-- [link](#link-src-dest)
-- [symlink](#symlink-target-path)
-- [readdir](#readdir-path)
-- [mkdir](#mkdir-path)
-- [open](#open-path-options)
-- [close](#close-fd)
-
-
-
-
 ### Test
 
 ```bash
+git clone https://github.com/thisconnect/fildes.git
+cd fildes
 npm install
-
 npm test
-
-# debug
-DEBUG=fildes npm test
-
-# debug all
-DEBUG=fildes* npm test
 ```

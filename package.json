@@ -7,10 +7,11 @@
     "pretest": "npm run clean",
     "precoverage": "npm run clean",
     "clean": "rimraf ./test/data",
-    "test": "tape test/*.test.js | tap-difflet",
+    "test": "tape lib/**/test.js | tap-difflet",
+    "testOLD": "tape test/*.test.js | tap-difflet",
     "coverage": "nyc --reporter=lcov --reporter=text tape test/*.test.js",
     "codecov": "npm run coverage && codecov",
-    "prettier": "prettier-eslint --write \"{lib,test}/*.js\"",
+    "prettier": "prettier-eslint --write \"{lib,test}/**/*.js\"",
     "lint": "eslint .",
     "lint-check": "eslint --print-config .eslintrc | eslint-config-prettier-check"
   },

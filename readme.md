@@ -166,13 +166,3 @@ see [node-graceful-fs#global-patching](https://github.com/isaacs/node-graceful-f
 
 It also helps with older Node.js environments, but not when using multiple processes, read more
 [node-graceful-fs/issues/48](https://github.com/isaacs/node-graceful-fs/issues/48).
-
-
-### Test
-
-```bash
-git clone https://github.com/thisconnect/fildes.git
-cd fildes
-npm install
-npm test
-```

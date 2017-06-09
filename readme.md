@@ -2,7 +2,7 @@
 
 [![Build Status](https://img.shields.io/travis/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://travis-ci.org/thisconnect/fildes)
 [![Build Status](https://img.shields.io/appveyor/ci/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://ci.appveyor.com/project/thisconnect/fildes)
-[![Coverage Status](https://img.shields.io/coveralls/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://coveralls.io/github/thisconnect/fildes?branch=master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://codecov.io/gh/thisconnect/fildes)
 [![Dependencies](https://img.shields.io/david/thisconnect/fildes.svg?style=flat-square&maxAge=1800)](https://david-dm.org/thisconnect/fildes)
 [![Dev Dependencies](https://img.shields.io/david/dev/thisconnect/fildes.svg?style=flat-square&maxAge=1800)](https://david-dm.org/thisconnect/fildes?type=dev)
 [![MIT](https://img.shields.io/npm/l/fildes.svg?style=flat-square&maxAge=1800)](https://github.com/thisconnect/fildes/blob/master/license)
@@ -15,20 +15,16 @@ Provides native promises for all file system methods involving file descriptors 
 [en.wikipedia.org/wiki/File_descriptor](https://en.wikipedia.org/wiki/File_descriptor)
 
 
-### Usage
+## Usage
 
 `fildes` always return a new [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)!
 
 ```javascript
-var { write } = require('fildes');
+const { write } = require('fildes');
 
 write('./path/to/file.txt', 'The quick green fix')
-.then(() => {
-  console.log('done!');
-})
-.catch((error) => {
-  // error
-});
+  .then(() => console.log('done!'))
+  .catch(console.error);
 ```
 
 
@@ -46,7 +42,64 @@ write('./path/to/file.txt', 'The quick green fix')
 [fs.exists Stability: 0 - Deprecated](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback) (Node.js v5.1.0 File System API)
 
 
-### Install
+##### Bad (NOT RECOMMENDED)
+
+```javascript
+fs.exists('myfile', (exists) => {
+  if (exists) {
+    console.error('myfile already exists');
+  } else {
+    fs.open('myfile', 'wx', (err, fd) => {
+      if (err) throw err;
+      fs.write(fd, 'Hello', callback);
+    });
+  }
+});
+```
+
+
+##### Good (RECOMMENDED)
+
+```javascript
+fs.open('myfile', 'wx', (err, fd) => {
+  if (err) {
+    if (err.code === 'EEXIST') {
+      console.error('myfile already exists');
+      return;
+    }
+
+    throw err;
+  }
+
+  fs.write(fd, 'Hello', callback);
+});
+```
+
+
+##### Using `fildes`
+
+```javascript
+const { open, write, close } = require('fildes');
+
+open('myfile', { flag: 'wx' })
+.then(fd => {
+  return write(fd, 'Hello')
+  .then(() => close(fd));
+})
+.catch(console.error);
+```
+
+This is the same as:
+
+```javascript
+const { write } = require('fildes');
+
+write('myfile', 'Hello', { flag: 'wx' })
+.catch(console.error);
+```
+
+
+## Install
 
 ```bash
 npm i --save fildes
@@ -81,82 +134,10 @@ npm i --save fildes
 
 ### Examples
 
-
-#### Get the size of many files
-
-```javascript
-function getSize(file) {
-  return fildes.fstat(file)
-  .then((stat) => stat.size);
-}
-
-Promise.all(['a.txt', 'b.json', 'c.txt'].map(getSize))
-.then((sizes) => console.log('got filesizes', sizes));
-```
-
-
-#### Check if multiple files exist
-
-```javascript
-var files = ['buffer.txt', 'nothere.txt', 'dir']
-.map((file) => {
-  return fildes.fstat(file)
-  .then((stat) => stat.isFile())
-  .catch(() => false);
-});
-
-Promise.all(files)
-.then(result => console.log(result));
-```
-
-
-#### Read chunk of many files
-
-```javascript
-Promise.all(['file.txt', 'file2.txt'].map((path) => {
-  return fildes.read(path, {
-    'length': 262,
-    'position': 0
-  });
-}))
-.then((result) => {
-    // chunk of file 1
-    console.log(result[0]);
-    // chunk of file 2
-    console.log(result[1]);
-});
-```
-
-
-#### Keep file descriptor (FD) open and use multiple times
-
-```javascript
-fildes.open(path)
-.then((fd) => {
-  // write first time
-  return fildes.write(fd, 'Hi there!')
-  .then(() => {
-    var word = new Buffer('again');
-    // write second time on the same fd
-    return fildes.write(fd, word, {
-      'offset': 0,
-      'length': 5,
-      'position': 3
-    });
-  })
-  .then(() => {
-    return fildes.stats(fd);
-  })
-  .then((stats) => {
-    console.log(stats);
-    // manually close fd
-    return fildes.close(fd);
-  });
-})
-.catch((error) => {
-  console.error(err.stack);
-});
-```
+- [Get the size of many files](https://github.com/thisconnect/fildes/tree/master/examples/get-sizes)
+- [List files](https://github.com/thisconnect/fildes/tree/master/examples/list-files)
+- [Keep file descriptor (FD) open and use multiple times](https://github.com/thisconnect/fildes/tree/master/examples/operate-on-fd)
+- [Read chunk of many files](https://github.com/thisconnect/fildes/tree/master/examples/read-chunks)
 
 
 ### Do you need `graceful-fs`?

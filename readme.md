@@ -15,7 +15,7 @@ Provides native promises for all file system methods involving file descriptors 
 [en.wikipedia.org/wiki/File_descriptor](https://en.wikipedia.org/wiki/File_descriptor)
 
 
-### Usage
+## Usage
 
 `fildes` always return a new [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)!
 
@@ -42,7 +42,64 @@ write('./path/to/file.txt', 'The quick green fix')
 [fs.exists Stability: 0 - Deprecated](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback) (Node.js v5.1.0 File System API)
 
 
-### Install
+##### Bad (NOT RECOMMENDED)
+
+```javascript
+fs.exists('myfile', (exists) => {
+  if (exists) {
+    console.error('myfile already exists');
+  } else {
+    fs.open('myfile', 'wx', (err, fd) => {
+      if (err) throw err;
+      fs.write(fd, 'Hello', callback);
+    });
+  }
+});
+```
+
+
+##### Good (RECOMMENDED)
+
+```javascript
+fs.open('myfile', 'wx', (err, fd) => {
+  if (err) {
+    if (err.code === 'EEXIST') {
+      console.error('myfile already exists');
+      return;
+    }
+
+    throw err;
+  }
+
+  fs.write(fd, 'Hello', callback);
+});
+```
+
+
+##### Using `fildes`
+
+```javascript
+const { open, write, close } = require('fildes');
+
+open('myfile', { flag: 'wx' })
+.then(fd => {
+  return write(fd, 'Hello')
+  .then(() => close(fd));
+})
+.catch(console.error);
+```
+
+This is the same as:
+
+```javascript
+const { write } = require('fildes');
+
+write('myfile', 'Hello', { flag: 'wx' })
+.catch(console.error);
+```
+
+
+## Install
 
 ```bash
 npm i --save fildes

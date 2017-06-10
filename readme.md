@@ -122,6 +122,7 @@ npm i --save fildes
 - [readdir](https://github.com/thisconnect/fildes/tree/master/lib/readdir)
 - [readFile](https://github.com/thisconnect/fildes/tree/master/lib/readFile)
 - [rename](https://github.com/thisconnect/fildes/tree/master/lib/rename)
+- [rm](https://github.com/thisconnect/fildes/tree/master/lib/rm)
 - [stats](https://github.com/thisconnect/fildes/tree/master/lib/stats)
 - [symlink](https://github.com/thisconnect/fildes/tree/master/lib/symlink)
 - [sync](https://github.com/thisconnect/fildes/tree/master/lib/sync)

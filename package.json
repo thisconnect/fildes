@@ -48,13 +48,13 @@
   },
   "devDependencies": {
     "codecov": "^2.2.0",
-    "eslint": "^4.1.0",
-    "eslint-config-prettier": "^2.1.1",
-    "eslint-plugin-prettier": "^2.1.1",
+    "eslint": "^4.1.1",
+    "eslint-config-prettier": "^2.2.0",
+    "eslint-plugin-prettier": "^2.1.2",
     "eslint-plugin-promise": "^3.5.0",
     "nyc": "^11.0.2",
     "prettier": "^1.4.4",
-    "prettier-eslint-cli": "^4.1.0",
+    "prettier-eslint-cli": "^4.1.1",
     "rimraf": "^2.5.4",
     "tap-difflet": "^0.7.0",
     "tape": "^4.6.3"

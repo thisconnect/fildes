@@ -51,11 +51,11 @@
     "eslint-config-prettier": "^2.2.0",
     "eslint-plugin-prettier": "^2.1.2",
     "eslint-plugin-promise": "^3.5.0",
-    "nyc": "^11.0.2",
+    "nyc": "^11.0.3",
     "prettier": "^1.4.4",
     "prettier-eslint-cli": "^4.1.1",
     "rimraf": "^2.6.1",
     "tap-difflet": "^0.7.0",
-    "tape": "^4.6.3"
+    "tape": "^4.7.0"
   }
 }

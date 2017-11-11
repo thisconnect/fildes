@@ -43,16 +43,16 @@
   "homepage": "https://github.com/thisconnect/fildes#readme",
   "dependencies": {
     "del": "^3.0.0",
-    "make-dir": "^1.0.0"
+    "make-dir": "^1.1.0"
   },
   "devDependencies": {
-    "codecov": "^2.3.1",
-    "eslint": "^4.9.0",
-    "eslint-config-prettier": "^2.6.0",
+    "codecov": "^3.0.0",
+    "eslint": "^4.11.0",
+    "eslint-config-prettier": "^2.7.0",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-promise": "^3.6.0",
-    "nyc": "^11.2.1",
-    "prettier": "^1.7.4",
+    "nyc": "^11.3.0",
+    "prettier": "^1.8.2",
     "prettier-eslint-cli": "^4.4.0",
     "rimraf": "^2.6.2",
     "tap-difflet": "^0.7.0",

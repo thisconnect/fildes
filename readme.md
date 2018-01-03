@@ -3,7 +3,8 @@
 [![Build Status](https://img.shields.io/travis/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://travis-ci.org/thisconnect/fildes)
 [![Build Status](https://img.shields.io/appveyor/ci/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://ci.appveyor.com/project/thisconnect/fildes)
 [![Coverage Status](https://img.shields.io/codecov/c/github/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://codecov.io/gh/thisconnect/fildes)
-[![Dependencies](https://img.shields.io/bithound/dependencies/github/thisconnect/fildes.svg?style=flat-square&maxAge=1800)](https://www.bithound.io/github/thisconnect/fildes)
+[![Dependencies](https://img.shields.io/librariesio/github/thisconnect/fildes.svg?style=flat-square&maxAge=1800)](https://libraries.io/github/thisconnect/fildes)
+[![Code](https://img.shields.io/bithound/code/github/thisconnect/fildes.svg?style=flat-square&maxAge=1800)](https://www.bithound.io/github/thisconnect/fildes)
 [![MIT](https://img.shields.io/npm/l/fildes.svg?style=flat-square&maxAge=1800)](https://github.com/thisconnect/fildes/blob/master/license)
 [![NPM Version](https://img.shields.io/npm/v/fildes.svg?style=flat-square&maxAge=1800)](https://www.npmjs.com/package/fildes)
 

@@ -1,6 +1,6 @@
 # fildes
 
-[![Build Status](https://img.shields.io/circleci/project/git/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800&logo=circleci)](https://circleci.com/gh/thisconnect/fildes)
+[![Build Status](https://img.shields.io/circleci/project/github/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800&logo=circleci)](https://circleci.com/gh/thisconnect/fildes)
 [![Build Status](https://img.shields.io/appveyor/ci/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800&logo=appveyor)](https://ci.appveyor.com/project/thisconnect/fildes)
 [![Build Status](https://img.shields.io/travis/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800&logo=travis)](https://travis-ci.org/thisconnect/fildes)
 [![Coverage Status](https://img.shields.io/codecov/c/github/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://codecov.io/gh/thisconnect/fildes)

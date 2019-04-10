@@ -7,7 +7,7 @@
     "pretest": "npm run clean",
     "precoverage": "npm run clean",
     "clean": "rimraf ./test/data",
-    "test": "tape lib/**/test.js | tap-difflet",
+    "test": "tape lib/link/test.js | tap-difflet",
     "coverage": "nyc --reporter=lcov --reporter=text tape lib/**/test.js",
     "codecov": "npm run coverage && codecov",
     "prettier": "prettier-eslint --write \"{lib,test,examples}/**/*.js\"",

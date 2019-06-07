@@ -7,7 +7,7 @@
     "pretest": "npm run clean",
     "precoverage": "npm run clean",
     "clean": "rimraf ./test/data",
-    "test": "tape lib/**/test.js | tap-difflet",
+    "test": "tape lib/**/test.js | tap-spec",
     "coverage": "nyc --reporter=lcov --reporter=text tape lib/**/test.js",
     "codecov": "npm run coverage && codecov",
     "prettier": "prettier-eslint --write \"{lib,test,examples}/**/*.js\"",
@@ -43,7 +43,7 @@
   "homepage": "https://github.com/thisconnect/fildes#readme",
   "dependencies": {
     "del": "^4.1.1",
-    "make-dir": "^1.3.0"
+    "make-dir": "^3.0.0"
   },
   "devDependencies": {
     "codecov": "^3.5.0",
@@ -55,7 +55,7 @@
     "prettier": "^1.14.3",
     "prettier-eslint-cli": "^4.7.0",
     "rimraf": "^2.6.2",
-    "tap-difflet": "^0.7.0",
+    "tap-spec": "^5.0.0",
     "tape": "^4.8.0"
   }
 }

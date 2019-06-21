@@ -45,9 +45,8 @@ blocks:
           - npm --version
       jobs:
         # First parallel job:
-        - name: client npm install and cache
+        - name: npm install and cache
           commands:
-            - cd src/client
 
             # Restore dependencies from cache. This command will not fail in
             # case of a cache miss. In case of a cache hit, npm install will
@@ -61,13 +60,8 @@ blocks:
             - cache store client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json) node_modules
 
         # Second parallel job:
-        - name: server npm install and cache
-          commands:
-            - cd src/server
-            - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master
-            - npm install
-            - cache store server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json) node_modules
-
+        # - name: could do something else in parallel
+        
   - name: Tests
     task:
       env_vars:
@@ -84,13 +78,12 @@ blocks:
       jobs:
         - name: Client Tests
           commands:
-            - cd src/client
             - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
             - npm test
-        - name: Server Tests
-          commands:
-            - cd src/server
-            - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master
-            - npm test
+        # - name: Server Tests
+        #  commands:
+        #    - cd src/server
+        #    - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master
+        #    - npm test
 
  

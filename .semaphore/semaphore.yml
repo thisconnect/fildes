@@ -40,7 +40,7 @@ blocks:
           - checkout
 
           # Semaphore provides nvm preinstalled.
-          - nvm use v12.4.0
+          - nvm use 12
           - node --version
           - npm --version
       jobs:

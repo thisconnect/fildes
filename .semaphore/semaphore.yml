@@ -72,7 +72,7 @@ blocks:
       prologue:
         commands:
           - checkout
-          - nvm use
+          - nvm use v12
           - node --version
           - npm --version
       jobs:

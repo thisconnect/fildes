@@ -39,9 +39,8 @@ blocks:
           # Get the latest version of our source code from GitHub:
           - checkout
 
-          # Use the version of Node.js specified in .nvmrc.
           # Semaphore provides nvm preinstalled.
-          - nvm use
+          - nvm use v12.4.0
           - node --version
           - npm --version
       jobs:
@@ -79,7 +78,8 @@ blocks:
       prologue:
         commands:
           - checkout
-          - nvm use
+          - 
+          use
           - node --version
           - npm --version
       jobs:

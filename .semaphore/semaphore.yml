@@ -40,7 +40,7 @@ blocks:
           - checkout
 
           # Semaphore provides nvm preinstalled.
-          - nvm use 12
+          - nvm use v12
           - node --version
           - npm --version
       jobs:
@@ -67,35 +67,6 @@ blocks:
             - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master
             - npm install
             - cache store server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json) node_modules
-
-  - name: Lint
-    task:
-      env_vars:
-        - name: NODE_ENV
-          value: test
-        - name: CI
-          value: 'true'
-      prologue:
-        commands:
-          - checkout
-          - 
-          use
-          - node --version
-          - npm --version
-      jobs:
-        - name: Client Lint
-          commands:
-            - cd src/client
-            # At this point we can assume 100% cache hit rate of node modules:
-            - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
-
-            # Run task as defined in package.json:
-            - npm run lint
-        - name: Server Lint
-          commands:
-            - cd src/server
-            - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master
-            - npm run lint
 
   - name: Tests
     task:

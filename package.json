@@ -42,7 +42,7 @@
   },
   "homepage": "https://github.com/thisconnect/fildes#readme",
   "dependencies": {
-    "del": "^4.1.1",
+    "del": "^5.0.0",
     "make-dir": "^3.0.0"
   },
   "devDependencies": {

@@ -11,6 +11,6 @@ and [#6342](https://github.com/nodejs/node-v0.x-archive/issues/6342).
 const { symlink } = require('fildes');
 
 symlink('./from/file.txt', './to/new/path/symlink.txt')
-.then(() => console.log('created symlink to file.txt!'))
-.catch(console.error);
+  .then(() => console.log('created symlink to file.txt!'))
+  .catch(console.error);
 ```

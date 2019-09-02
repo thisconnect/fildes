@@ -1,18 +1,19 @@
 # fildes
 
-[![Build Status](https://img.shields.io/circleci/project/github/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800&logo=circleci)](https://circleci.com/gh/thisconnect/fildes)
-[![Build Status](https://img.shields.io/appveyor/ci/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800&logo=appveyor)](https://ci.appveyor.com/project/thisconnect/fildes)
-[![Build Status](https://img.shields.io/travis/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800&logo=travis)](https://travis-ci.org/thisconnect/fildes)
-[![Coverage Status](https://img.shields.io/codecov/c/github/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://codecov.io/gh/thisconnect/fildes)
-[![Dependencies](https://img.shields.io/librariesio/github/thisconnect/fildes.svg?style=flat-square&maxAge=1800)](https://libraries.io/github/thisconnect/fildes)
-[![MIT](https://img.shields.io/npm/l/fildes.svg?style=flat-square&maxAge=1800)](https://github.com/thisconnect/fildes/blob/master/license)
 [![NPM Version](https://img.shields.io/npm/v/fildes.svg?style=flat-square&maxAge=1800)](https://www.npmjs.com/package/fildes)
+[![MIT](https://img.shields.io/npm/l/fildes.svg?style=flat-square&maxAge=1800)](https://github.com/thisconnect/fildes/blob/master/license)
 
 Provides native promises for all file system methods involving file descriptors (FD), basically manages `fs.open` for you.
 
 > file descriptor (FD, less frequently *fildes*)
 
 [en.wikipedia.org/wiki/File_descriptor](https://en.wikipedia.org/wiki/File_descriptor)
+
+[![Build Status](https://img.shields.io/circleci/project/github/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800&logo=circleci)](https://circleci.com/gh/thisconnect/fildes)
+[![Build Status](https://img.shields.io/appveyor/ci/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800&logo=appveyor)](https://ci.appveyor.com/project/thisconnect/fildes)
+[![Build Status](https://img.shields.io/travis/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800&logo=travis)](https://travis-ci.org/thisconnect/fildes)
+[![Coverage Status](https://img.shields.io/codecov/c/github/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://codecov.io/gh/thisconnect/fildes)
+[![Dependencies](https://img.shields.io/librariesio/github/thisconnect/fildes.svg?style=flat-square&maxAge=1800)](https://libraries.io/github/thisconnect/fildes)
 
 
 ## Usage
@@ -82,11 +83,11 @@ fs.open('myfile', 'wx', (err, fd) => {
 const { open, write, close } = require('fildes');
 
 open('myfile', { flag: 'wx' })
-.then(fd => {
-  return write(fd, 'Hello')
-  .then(() => close(fd));
-})
-.catch(console.error);
+  .then(fd => {
+    return write(fd, 'Hello')
+    .then(() => close(fd));
+  })
+  .catch(console.error);
 ```
 
 This is the same as:
@@ -95,7 +96,7 @@ This is the same as:
 const { write } = require('fildes');
 
 write('myfile', 'Hello', { flag: 'wx' })
-.catch(console.error);
+  .catch(console.error);
 ```
 
 

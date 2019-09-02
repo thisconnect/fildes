@@ -15,7 +15,7 @@ utimes('./path/to/file.txt', {
   'access': Date.now() - (60 * 60 * 1000),
   'modification': new Date('2015-10-26')
 })
-.catch(console.error);
+  .catch(console.error);
 ```
 
 See also [fs.futimes](https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime_callback) (Node.js File System API)

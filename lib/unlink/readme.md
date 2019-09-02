@@ -6,8 +6,8 @@ Promise uses [fs.unlink](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callba
 const { unlink } = require('fildes');
 
 unlink('./path/to/file.txt')
-.then(() => console.log('file removed!'))
-.catch((error) => {
-  // unlink thorws an error if file not found
-});
+  .then(() => console.log('file removed!'))
+  .catch((error) => {
+    // unlink thorws an error if file not found
+  });
 ```

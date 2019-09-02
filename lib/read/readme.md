@@ -21,8 +21,8 @@ read('./path/to/file.txt', {
   'length': 8,
   'encoding': 'utf8'
 })
-.then(console.log)
-.catch(console.error);
+  .then(console.log)
+  .catch(console.error);
 ```
 
 
@@ -37,8 +37,8 @@ read('./path/to/file.txt', buffer, {
   'length': 8,
   'position': 0
 })
-.then(() => {
-  console.log(buffer.toString());
-})
-.catch(console.error);
+  .then(() => {
+    console.log(buffer.toString());
+  })
+  .catch(console.error);
 ```

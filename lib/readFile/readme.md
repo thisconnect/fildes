@@ -10,8 +10,8 @@ Promise uses `fs.readFile`.
 const { readFile } = require('fildes');
 
 readFile('./path/to/file.json')
-.then(buffer => console.log('got', buffer.toString()))
-.catch(console.error);
+  .then(buffer => console.log('got', buffer.toString()))
+  .catch(console.error);
 ```
 
 See also [fs.readFile](https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback) (Node.js File System API)

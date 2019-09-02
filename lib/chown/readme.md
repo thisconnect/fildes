@@ -12,10 +12,10 @@ Kind of no support for Windows.
 const { chown } = require('fildes');
 
 chown('./path/to/file.txt')
-.then(() => {
-  // mine
-})
-.catch(console.error);
+  .then(() => {
+    // mine
+  })
+  .catch(console.error);
 ```
 
 See also [fs.fchown](https://nodejs.org/api/fs.html#fs_fs_fchown_fd_uid_gid_callback) (Node.js File System API)

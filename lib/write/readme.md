@@ -28,14 +28,14 @@ const { write } = require('fildes');
 
 // write string to a file
 write('./new/dir/file.txt', 'some data\n')
-.then(() => console.log('dir created and file written!'))
-.catch(console.error);
+  .then(() => console.log('dir created and file written!'))
+  .catch(console.error);
 
 // write JSON to a file
 write('./path/to/file.json', {
   'some': 'data'
 })
-.catch(console.error);
+  .catch(console.error);
 
 // write a Buffer to a file
 const buffer = new Buffer('Hello World!');
@@ -43,5 +43,5 @@ write('./path/to/file.txt', buffer, {
   'offset': 0,
   'length': buffer.length
 })
-.catch(console.error);
+  .catch(console.error);
 ```

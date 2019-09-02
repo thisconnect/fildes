@@ -14,8 +14,8 @@ Promise uses `fs.writeFile`.
 const { writeFile } = require('fildes');
 
 writeFile('./path/to/file.json', { 'data': 1 })
-.then(() => console.log('file written'))
-.catch(console.error);
+  .then(() => console.log('file written'))
+  .catch(console.error);
 ```
 
 See also [fs.writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback) (Node.js File System API)

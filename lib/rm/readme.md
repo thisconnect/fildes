@@ -10,6 +10,6 @@ Provides [del](https://www.npmjs.com/package/del) (NPM Documentation).
 const { rm } = require('fildes');
 
 rm('./path/to/dir')
-.then(() => console.log('directory removed!'))
-.catch(console.error);
+  .then(() => console.log('directory removed!'))
+  .catch(console.error);
 ```

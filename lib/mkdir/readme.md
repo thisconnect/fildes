@@ -10,8 +10,8 @@ Provides [make-dir](https://www.npmjs.com/package/make-dir) (NPM Documentation).
 const { mkdir } = require('fildes');
 
 mkdir('./path/to/dir')
-.then(() => {
-  console.log('directory created!');
-})
-.catch(console.error);
+  .then(() => {
+    console.log('directory created!');
+  })
+  .catch(console.error);
 ```

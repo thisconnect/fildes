@@ -13,24 +13,24 @@ or a mask consisting of `fs.F_OK`, `fs.R_OK`, `fs.W_OK` or `fs.X_OK`.
 const { access } = require('fildes');
 
 access('./path/to/file.txt')
-.then(() => console.log('can read/write'))
-.catch((error) => console.log('no access!'));
+  .then(() => console.log('can read/write'))
+  .catch((error) => console.log('no access!'));
 
 access('./path/to/file.txt', 'rwx')
-.catch(console.error);
+  .catch(console.error);
 
 access('./path/to/file.txt', fs.R_OK | fs.W_OK)
-.catch(console.error);
+  .catch(console.error);
 
 access('./path/to/file.txt', {
   'mode': 'rwx'
 })
-.catch(console.error);
+  .catch(console.error);
 
 access('./path/to/file.txt', {
   'mode': fs.R_OK | fs.W_OK
 })
-.catch(console.error);
+  .catch(console.error);
 ```
 
 See also [fs.access](https://nodejs.org/api/fs.html#fs_fs_access_path_mode_callback) (Node.js File System API)

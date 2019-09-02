@@ -11,8 +11,8 @@ Promise file stats.
 const { stats } = require('fildes');
 
 stats('./path/to/file.txt')
-.then((stats) => console.log(stats))
-.catch(console.error);
+  .then((stats) => console.log(stats))
+  .catch(console.error);
 ```
 
 See also [fs.fstat](https://nodejs.org/api/fs.html#fs_fs_fstat_fd_callback) (Node.js File System API)

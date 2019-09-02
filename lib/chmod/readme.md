@@ -14,7 +14,7 @@ const { chmod } = require('fildes');
 chmod('./path/to/file.txt', {
   'mode': 0700 // nobody else
 })
-.catch(console.error);
+  .catch(console.error);
 ```
 
 See also [fs.fchmod](https://nodejs.org/api/fs.html#fs_fs_fchmod_fd_mode_callback) (Node.js File System API)

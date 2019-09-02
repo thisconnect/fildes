@@ -9,11 +9,11 @@ fildes will not close the file descriptor (FD) by itself.
 const { open, close } = require('fildes');
 
 open('./file.txt')
-.then((fd) => {
-  // do something
-  // manually close fd
-  return close(fd);
-})
-.then(() => console.log('done!'))
-.catch(console.error);
+  .then((fd) => {
+    // do something
+    // manually close fd
+    return close(fd);
+  })
+  .then(() => console.log('done!'))
+  .catch(console.error);
 ```

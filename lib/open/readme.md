@@ -17,12 +17,12 @@ const { open } = require('fildes');
 open('./no/file/here.txt', {
   'flag': 'r'
 })
-.then(fd => {
-  // file descriptor (FD)
-})
-.catch(error => {
-  // returns  { [Error: ENOENT: no such file or directory..
-});
+  .then(fd => {
+    // file descriptor (FD)
+  })
+  .catch(error => {
+    // returns  { [Error: ENOENT: no such file or directory..
+  });
 ```
 
 See also [fs.open](https://nodejs.org/api/fs.html#fs_fs_open_path_flags_mode_callback) (Node.js File System API)

@@ -8,6 +8,6 @@ If an error is caught tries to mkdir destination directory if that fails it reje
 const { link } = require('fildes');
 
 link('./from/file.txt', './to/new/path/file.txt')
-.then(() => console.log('file linked!'))
-.catch(console.error);
+  .then(() => console.log('file linked!'))
+  .catch(console.error);
 ```

@@ -10,7 +10,7 @@
     "test": "tape lib/**/test.js | tap-spec",
     "coverage": "nyc --reporter=lcov --reporter=text tape lib/**/test.js",
     "codecov": "npm run coverage && codecov",
-    "prettier": "prettier-eslint --write \"{lib,test,examples}/**/*.js\"",
+    "prettier": "prettier --single-quote --write \"{lib,test,examples}/**/*.js\"",
     "lint": "eslint .",
     "lint-check": "eslint --print-config .eslintrc | eslint-config-prettier-check"
   },
@@ -53,7 +53,6 @@
     "eslint-plugin-promise": "^4.2.1",
     "nyc": "^15.0.0",
     "prettier": "^2.0.4",
-    "prettier-eslint-cli": "^5.0.0",
     "rimraf": "^3.0.0",
     "tap-spec": "^5.0.0",
     "tape": "^5.0.0"

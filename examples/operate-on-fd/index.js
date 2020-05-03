@@ -6,7 +6,7 @@ const { resolve } = require('path');
 const filepath = resolve(__dirname, './data/dir/subdir/file.txt');
 
 open(filepath)
-  .then(fd => {
+  .then((fd) => {
     return (
       write(fd, 'Hi there!')
         // write again to the same fd
@@ -14,7 +14,7 @@ open(filepath)
           write(fd, new Buffer('again'), {
             offset: 0,
             length: 5,
-            position: 3
+            position: 3,
           })
         )
         .then(() => stats(fd))
@@ -26,7 +26,7 @@ open(filepath)
         .then(() => stats(fd))
         .then(({ size }) => console.log(`filesize ${size}`))
         .then(() => readFile(filepath, { encoding: 'utf8' }))
-        .then(data => console.log(data))
+        .then((data) => console.log(data))
         .then(() => close(fd))
     );
   })

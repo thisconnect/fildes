@@ -13,7 +13,7 @@ Provides native promises for all file system methods involving file descriptors 
 [![Build Status](https://img.shields.io/appveyor/ci/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800&logo=appveyor)](https://ci.appveyor.com/project/thisconnect/fildes)
 [![Build Status](https://img.shields.io/travis/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800&logo=travis)](https://travis-ci.org/thisconnect/fildes)
 [![Coverage Status](https://img.shields.io/codecov/c/github/thisconnect/fildes/master.svg?style=flat-square&maxAge=1800)](https://codecov.io/gh/thisconnect/fildes)
-[![Dependencies](https://img.shields.io/librariesio/github/thisconnect/fildes.svg?style=flat-square&maxAge=1800)](https://libraries.io/github/thisconnect/fildes)
+[![Dependencies](https://img.shields.io/librariesio/release/npm/fildes.svg?style=flat-square&maxAge=1800)](https://libraries.io/github/thisconnect/fildes)
 
 
 ## Usage
